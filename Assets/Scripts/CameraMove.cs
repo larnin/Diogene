@@ -26,6 +26,7 @@ public class CameraMove : MonoBehaviour {
 
 		if (touches.Length > 0) {
 			if (touches[0].phase == TouchPhase.Began) {
+				buffer = 0;
 				Ray ray = Camera.main.ScreenPointToRay (touches[0].position);
 				RaycastHit hit;
 				Debug.DrawRay (ray.origin, ray.direction, Color.blue);
@@ -44,7 +45,15 @@ public class CameraMove : MonoBehaviour {
 				currentRing = null;
 			}
 			else if (currentRing != null) {
-				currentRing.rotation *= Quaternion.Euler (0, -RingTurnSpeed * (touches[0].position.x - storedPosition) * Time.deltaTime, 0);
+				buffer += -RingTurnSpeed * (Input.mousePosition.x - storedPosition) * Time.deltaTime;
+				if (buffer >= (360 / NbCran)) {
+					buffer -= 360 / NbCran;
+					currentRing.rotation *= Quaternion.Euler (0, 360 / NbCran, 0);
+				}
+				else if (buffer <= -(360 / NbCran)) {
+					buffer += 360 / NbCran;
+					currentRing.rotation *= Quaternion.Euler (0, -(360 / NbCran), 0);
+				}
 				storedPosition = touches[0].position.x;
 			}
 		}
