@@ -157,6 +157,7 @@ GameObject:
   - 33: {fileID: 33000012643169978}
   - 23: {fileID: 23000010481591894}
   - 95: {fileID: 95000013154446562}
+  - 64: {fileID: 64000011551068886}
   m_Layer: 0
   m_Name: Staircase
   m_TagString: Untagged
@@ -641,6 +642,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011498448936}
   m_Mesh: {fileID: 4300000, guid: 189eff4a49834b145be20a5516125ebc, type: 3}
+--- !u!64 &64000011551068886
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013863100728}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_Mesh: {fileID: 4300000, guid: 1455c128f77fa0e488868af4091e9c99, type: 3}
 --- !u!95 &95000011414815048
 Animator:
   serializedVersion: 3
