@@ -10,6 +10,10 @@ public class CameraMove : MonoBehaviour {
 	public float DownVelocity = 1f;
 	public float RingTurnSpeed = 1f;
 
+	public int NbCran = 8;
+
+	float buffer;
+
 	Transform currentRing;
 	float storedPosition;
 

@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 0c9027ec8bf1e2d4180e85c47bbdfcde
-timeCreated: 1488218610
-=======
-guid: 3def0175aaf822a438113269864fa962
-timeCreated: 1488271794
->>>>>>> RingProto
+guid: 7ce0fe1e59093cb42838fb254c911e9b
+timeCreated: 1488271578
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:

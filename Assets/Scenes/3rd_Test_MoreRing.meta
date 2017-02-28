@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 7ad9e9b25e237a74db939c2992c6698c
 folderAsset: yes
 timeCreated: 1488218602
+=======
+guid: c401f79ffbf02a44198343ea493154e1
+folderAsset: yes
+timeCreated: 1488271786
+>>>>>>> RingProto
 licenseType: Pro
 DefaultImporter:
   userData: 

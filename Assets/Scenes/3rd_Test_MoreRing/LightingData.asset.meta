@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 870c233f60ea7b342b579900c318888f
 timeCreated: 1488218610
+=======
+guid: a82da32b717f0e5448898df5851701b2
+timeCreated: 1488271794
+>>>>>>> RingProto
 licenseType: Pro
 NativeFormatImporter:
   userData: 
