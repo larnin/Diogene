@@ -9,6 +9,10 @@ public class CameraMove : MonoBehaviour {
 	public float DownVelocity = 1f;
 	public float RingTurnSpeed = 1f;
 
+	public int NbCran = 8;
+
+	float buffer;
+
 	Transform currentRing;
 	float storedPosition;
 
@@ -18,6 +22,7 @@ public class CameraMove : MonoBehaviour {
 		transform.parent.transform.rotation *= Quaternion.Euler (0, RoundVelocity * Time.deltaTime, 0);
 
 		if (Input.GetMouseButtonDown(0)) {
+			buffer = 0;
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			Debug.DrawRay (ray.origin, ray.direction, Color.blue);
@@ -36,7 +41,15 @@ public class CameraMove : MonoBehaviour {
 			currentRing = null;
 		}
 		else if (Input.GetMouseButton (0) && (currentRing != null)) {
-			currentRing.rotation *= Quaternion.Euler (0, -RingTurnSpeed * (Input.mousePosition.x - storedPosition) * Time.deltaTime, 0);
+			buffer += -RingTurnSpeed * (Input.mousePosition.x - storedPosition) * Time.deltaTime;
+			if (buffer >= (360 / NbCran)) {
+				buffer -= 360 / NbCran;
+				currentRing.rotation *= Quaternion.Euler (0, 360 / NbCran, 0);
+			}
+			else if (buffer <= -(360 / NbCran)) {
+				buffer += 360 / NbCran;
+				currentRing.rotation *= Quaternion.Euler (0, -(360 / NbCran), 0);
+			}
 			storedPosition = Input.mousePosition.x;
 		}
 	}
