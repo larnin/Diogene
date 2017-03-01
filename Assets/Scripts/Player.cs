@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
 		}
 		set {
 			_direction = value;
-			GroundCheck.localPosition = new Vector3 (GroundCheck.localPosition.x * value, GroundCheck.localPosition.y, GroundCheck.localPosition.z);
+			GroundCheck.localPosition = new Vector3 (_groundCheckX * value, GroundCheck.localPosition.y, GroundCheck.localPosition.z);
 		}
 	}
 		
@@ -36,12 +36,17 @@ public class Player : MonoBehaviour {
 	float _actualGravity = 0;
 	public bool _isGrounded = false;
 	bool _jumping = false;
+    float _groundCheckX;
 
 	// Use this for initialization
 	void Start () {
 		_body = GetComponent <Rigidbody> ();
 		_distance = new Vector3 (transform.position.x, 0, transform.position.z).magnitude;
-	}
+        _groundCheckX = GroundCheck.localPosition.x;
+
+        Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
+        Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
+    }
 
 	void Update () {
 		if (!_isGrounded) {
@@ -102,10 +107,10 @@ public class Player : MonoBehaviour {
 			_jumping = true;
 		}
 
+        Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
 
-
-		//DEBUG----------------------------------------------------------------
-		if (Input.GetKeyDown (KeyCode.Escape)) {
+        //DEBUG----------------------------------------------------------------
+        if (Input.GetKeyDown (KeyCode.Escape)) {
 			SceneManager.LoadScene (0, LoadSceneMode.Single);
 		}
 	}

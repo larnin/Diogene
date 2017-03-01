@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraPlayerFollower : MonoBehaviour
 {
-    public GameObject player;
+    //public GameObject player;
     public float angleOffset;
     public float verticalOffset;
     public float distance;
@@ -11,21 +11,30 @@ public class CameraPlayerFollower : MonoBehaviour
 
     float targetAngle;
     float targetHeight;
-    Player playerScript;
+    bool targetSet = false;
+    //Player playerScript;
+
+    SubscriberList _subscriberList = new SubscriberList();
+
+    void Awake()
+    {
+        _subscriberList.Add(new Event<PlayerMovedEvent>.Subscriber(OnPlayerMove));
+        _subscriberList.Add(new Event<InstantMoveCameraEvent>.Subscriber(OnInstantMove));
+        _subscriberList.Subscribe();
+    }
 
 	void Start ()
     {
-        playerScript = player.GetComponent<Player>();
+        /*playerScript = player.GetComponent<Player>();
         targetAngle = angleFrom(player.transform.position);
         targetHeight = player.transform.position.y + verticalOffset;
-        InstantMove();
+        InstantMove();*/
     }
 
     void LateUpdate()
     {
-        targetAngle = angleFrom(player.transform.position) + (playerScript.Direction > 0 ? angleOffset : -angleOffset);
-        targetHeight = player.transform.position.y + verticalOffset;
-        SmoothMove();
+        if(targetSet)
+            SmoothMove();
     }
 
     float angleFrom(Vector3 pos)
@@ -57,5 +66,17 @@ public class CameraPlayerFollower : MonoBehaviour
     {
         transform.position = new Vector3(Mathf.Cos(targetAngle) * distance, targetHeight, Mathf.Sin(targetAngle) * distance);
         transform.LookAt(new Vector3(0, targetHeight, 0));
+    }
+
+    void OnPlayerMove(PlayerMovedEvent e)
+    {
+        targetSet = true;
+        targetAngle = angleFrom(e.pos) + (e.direction > 0 ? angleOffset : -angleOffset);
+        targetHeight = e.pos.y;
+    }
+
+    void OnInstantMove(InstantMoveCameraEvent e)
+    {
+        InstantMove();
     }
 }
