@@ -47,7 +47,6 @@ public class CameraPlayerFollower : MonoBehaviour
     {
         float currentAngle = angleFrom(transform.position);
         float offset = clampAngle(targetAngle - currentAngle);
-        Debug.Log(offset);
         currentAngle += (offset) * Time.deltaTime * moveSpeed;
         transform.position = new Vector3(Mathf.Cos(currentAngle) * distance, targetHeight, Mathf.Sin(currentAngle) * distance);
         transform.LookAt(new Vector3(0, targetHeight, 0));
