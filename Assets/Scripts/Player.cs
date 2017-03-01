@@ -16,9 +16,18 @@ public class Player : MonoBehaviour {
 	public float GroundCheckRadius = 0.1f;
 	public float JumpBuffer = 6;
 
+	int _direction = 1;
 	[HideInInspector]
-	public int Direction = 1;
-
+	public int Direction {
+		get {
+			return _direction;
+		}
+		set {
+			_direction = value;
+			GroundCheck.localPosition = new Vector3 (GroundCheck.localPosition.x * value, GroundCheck.localPosition.y, GroundCheck.localPosition.z);
+		}
+	}
+		
 	float _gravityBuffer = 0;
 	float _cubeFactor;
 	float _currentJumpBuffer = 0;
@@ -111,7 +120,7 @@ public class Player : MonoBehaviour {
 			_actualGravity = -Mathf.Abs (_cubeFactor) * _cubeFactor * AirGravityForce - _gravityBuffer;
 		}
 
-		Vector3 newPosition = Quaternion.Euler (0, RotationSpeed * Time.deltaTime * Direction, 0) * transform.position;
+		Vector3 newPosition = Quaternion.Euler (0, RotationSpeed * Time.deltaTime * _direction, 0) * transform.position;
 		newPosition = new Vector3 (newPosition.x, 0, newPosition.z);
 		newPosition = newPosition.normalized * _distance;
 		newPosition = new Vector3 (newPosition.x, transform.position.y + _actualGravity * Time.deltaTime, newPosition.z);

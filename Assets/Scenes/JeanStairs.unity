@@ -674,7 +674,6 @@ MonoBehaviour:
   GroundCheck: {fileID: 1621383979}
   GroundCheckRadius: 0.1
   JumpBuffer: 6
-  Direction: 1
   _isGrounded: 0
 --- !u!4 &1586782761
 Transform:
