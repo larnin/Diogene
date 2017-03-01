@@ -648,9 +648,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationSpeed: 40
-  Gravity: 7
+  GroundGravity: 8
+  AirGravityForce: 30
   GravitySpeed: 0.15
-  Jump: 10
+  Jump: 3
   Ground:
     serializedVersion: 2
     m_Bits: 256
@@ -658,6 +659,7 @@ MonoBehaviour:
   GroundCheckRadius: 0.1
   JumpBuffer: 6
   Direction: 1
+  _isGrounded: 0
 --- !u!4 &1586782761
 Transform:
   m_ObjectHideFlags: 0
