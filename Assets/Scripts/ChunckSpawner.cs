@@ -26,8 +26,8 @@ public class ChunckSpawner : MonoBehaviour
     {
         while (_chunks[_chunks.Count - 1].gameObject.transform.position.y - _chunks[_chunks.Count - 1].datas.height > e.pos.y - distanceToLoadChunk)
             addChunk();
-        //while (_chunks[0].gameObject.transform.position.y - _chunks[0].datas.height < e.pos.y - distanceToLoadChunk)
-        //    delChunk();
+        while (_chunks[0].gameObject.transform.position.y - _chunks[0].datas.height > e.pos.y + distanceToLoadChunk)
+            delChunk();
     }
 
     void OnInitialize(InitializeEvent e)
@@ -86,11 +86,7 @@ public class ChunckSpawner : MonoBehaviour
             rotation -= 2 * _chunkDatas[index].startRotation;
         }
 
-        if(currentChunk.fliped && currentChunk.datas.endFliped)
-        {
-            rotation -= 2 * _chunkDatas[index].endRotation;
-        }
-        if (currentChunk.fliped && !currentChunk.datas.endFliped)
+        if(currentChunk.fliped)
         {
             rotation -= 2 * _chunkDatas[index].endRotation;
         }

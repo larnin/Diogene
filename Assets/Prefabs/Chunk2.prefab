@@ -70,6 +70,7 @@ GameObject:
   - 33: {fileID: 33000011654652340}
   - 23: {fileID: 23000011656356550}
   - 95: {fileID: 95000012492203872}
+  - 64: {fileID: 64000013770708696}
   m_Layer: 0
   m_Name: Staircase
   m_TagString: Untagged
@@ -124,6 +125,7 @@ GameObject:
   - 33: {fileID: 33000010154948226}
   - 23: {fileID: 23000013490567070}
   - 95: {fileID: 95000010676872478}
+  - 64: {fileID: 64000013506219804}
   m_Layer: 0
   m_Name: Staircase (2)
   m_TagString: Untagged
@@ -142,6 +144,7 @@ GameObject:
   - 33: {fileID: 33000013658165168}
   - 23: {fileID: 23000010465634856}
   - 95: {fileID: 95000013570945996}
+  - 64: {fileID: 64000011543565776}
   m_Layer: 0
   m_Name: Staircase (3)
   m_TagString: Untagged
@@ -210,6 +213,7 @@ GameObject:
   - 33: {fileID: 33000011713336854}
   - 23: {fileID: 23000011030150930}
   - 95: {fileID: 95000010760138566}
+  - 64: {fileID: 64000012882824538}
   m_Layer: 0
   m_Name: Staircase (1)
   m_TagString: Untagged
@@ -708,6 +712,54 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012346278006}
   m_Mesh: {fileID: 4300000, guid: 189eff4a49834b145be20a5516125ebc, type: 3}
+--- !u!64 &64000011543565776
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012716994864}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_Mesh: {fileID: 4300000, guid: 1455c128f77fa0e488868af4091e9c99, type: 3}
+--- !u!64 &64000012882824538
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013456335468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_Mesh: {fileID: 4300000, guid: 1455c128f77fa0e488868af4091e9c99, type: 3}
+--- !u!64 &64000013506219804
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012404985844}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_Mesh: {fileID: 4300000, guid: 1455c128f77fa0e488868af4091e9c99, type: 3}
+--- !u!64 &64000013770708696
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012156271246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_Mesh: {fileID: 4300000, guid: 1455c128f77fa0e488868af4091e9c99, type: 3}
 --- !u!95 &95000010261316818
 Animator:
   serializedVersion: 3
