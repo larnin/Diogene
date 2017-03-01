@@ -71,8 +71,8 @@ public class CameraPlayerFollower : MonoBehaviour
     void OnPlayerMove(PlayerMovedEvent e)
     {
         targetSet = true;
-        targetAngle = angleFrom(e.pos) + (e.direction > 0 ? angleOffset : -angleOffset);
-        targetHeight = e.pos.y;
+        targetAngle = angleFrom(e.pos) + angleOffset * e.direction;
+        targetHeight = e.pos.y + verticalOffset;
     }
 
     void OnInstantMove(InstantMoveCameraEvent e)
