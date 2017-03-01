@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 	public float GravitySpeed = 1;
 	public float Jump = 20;
 	public LayerMask Ground;
+	public LayerMask Ring;
 	public Transform GroundCheck;
 	[Tooltip("Radius de la sphère qui check si le Player est au sol.")]
 	public float GroundCheckRadius = 0.1f;
@@ -25,7 +26,6 @@ public class Player : MonoBehaviour {
 	Rigidbody _body;
 	float _actualGravity = 0;
 	public bool _isGrounded = false;
-	bool _canJump = false;
 	bool _jumping = false;
 
 	// Use this for initialization
@@ -41,7 +41,6 @@ public class Player : MonoBehaviour {
 
 			if (_isGrounded) {
 				_actualGravity = -GroundGravity;
-				_canJump = true;
 			}
 		}
 		else {
@@ -50,7 +49,6 @@ public class Player : MonoBehaviour {
 				if (!_jumping) {
 					_cubeFactor = 0;
 					_gravityBuffer = GroundGravity;
-					_canJump = false;
 				}
 				else {
 					_jumping = false;
@@ -58,22 +56,49 @@ public class Player : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			if (_isGrounded) {
-				_canJump = false;
-				_cubeFactor = -(Jump / 10);
-				_gravityBuffer = 0;
-				_jumping = true;
+		var touches = Input.touches;
+
+		if (touches.Length > 0) {
+			if (touches [0].phase == TouchPhase.Began) {
+				Ray ray = Camera.main.ScreenPointToRay (touches [0].position);
+				RaycastHit hit;
+				if (!Physics.Raycast (ray, out hit, 1000, Ring)) {
+					if (_isGrounded) {
+						_cubeFactor = -(Jump / 10);
+						_gravityBuffer = 0;
+						_jumping = true;
+					}
+					else {
+						_currentJumpBuffer = JumpBuffer;
+					}
+				}
 			}
-			else {
-				_currentJumpBuffer = JumpBuffer;
+		}
+		else if (Input.GetMouseButtonDown (0)) {
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+			if (!Physics.Raycast (ray, out hit, 1000, Ring)) {
+				if (_isGrounded) {
+					_cubeFactor = -(Jump / 10);
+					_gravityBuffer = 0;
+					_jumping = true;
+				}
+				else {
+					_currentJumpBuffer = JumpBuffer;
+				}
 			}
 		}
 		else if ((_currentJumpBuffer >= 0) && _isGrounded) {
-			_canJump = false;
 			_cubeFactor = -(Jump / 10);
 			_gravityBuffer = 0;
 			_jumping = true;
+		}
+
+
+
+		//DEBUG----------------------------------------------------------------
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			SceneManager.LoadScene (0, LoadSceneMode.Single);
 		}
 	}
 
