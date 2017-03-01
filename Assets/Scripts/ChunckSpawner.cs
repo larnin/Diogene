@@ -8,10 +8,12 @@ public class ChunckSpawner : MonoBehaviour
     public List<GameObject> chunkPrefabs;
     public float distanceToDelChunk;
     public float distanceToLoadChunk;
+    public int dontRepeatCount;
 
     private SubscriberList _subscriberList = new SubscriberList();
     private List<ChunkData> _chunkDatas = new List<ChunkData>();
     private List<Chunk> _chunks = new List<Chunk>();
+    private List<int> _lastChunckSpawn = new List<int>();
 
     void Awake()
     {
@@ -75,7 +77,21 @@ public class ChunckSpawner : MonoBehaviour
 
     void addChunk()
     {
-        int index = G.Sys.random.Next(chunkPrefabs.Count);
+        int index = 0;
+        for(int i = 0; i < 10; i++)
+        {
+            index = G.Sys.random.Next(chunkPrefabs.Count);
+            bool repeated = false;
+            for(int j = Mathf.Max(0, _lastChunckSpawn.Count - dontRepeatCount); j < _lastChunckSpawn.Count; j++)
+                if(_lastChunckSpawn[j] == index)
+                {
+                    repeated = true;
+                    break;
+                }
+            if (!repeated)
+                break;
+        }
+        _lastChunckSpawn.Add(index);
         var o = Instantiate(chunkPrefabs[index]);
         var currentChunk = _chunks[_chunks.Count - 1];
         float rotation = currentChunk.blockRotation + currentChunk.datas.endRotation + _chunkDatas[index].startRotation;

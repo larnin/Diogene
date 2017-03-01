@@ -272,3 +272,4 @@ MonoBehaviour:
   - {fileID: 1000010933944410, guid: f4166733ccaf1994a9ea07a8cbc71740, type: 2}
   distanceToDelChunk: 25
   distanceToLoadChunk: 25
+  dontRepeatCount: 1
