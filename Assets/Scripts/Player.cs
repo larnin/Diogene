@@ -31,7 +31,6 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update () {
-
 		if (!_isGrounded) {
 			_isGrounded = Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, Ground);
 			_canJump = false;

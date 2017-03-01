@@ -9,7 +9,7 @@ public class ChangeDirectionWall : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.tag == "Player") {
-			collision.collider.GetComponentsInParent<Player> ()[0].Direction = (int)direction;
+			collision.collider.GetComponentInParent<Player>().Direction = (int)direction;
 		}
 	}
 }
