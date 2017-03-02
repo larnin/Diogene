@@ -38,9 +38,9 @@ public class ChunckSpawner : MonoBehaviour
 
         var chunk = Instantiate(startChunkPrefab);
         chunk.transform.position = new Vector3(0, chunk.transform.FindChild("Start").transform.position.y, 0);
-        chunk.transform.Rotate(0, data.startRotation, 0);
+        chunk.transform.Rotate(0, -data.startRotation, 0);
 
-        _chunks.Add(new Chunk(chunk, data, data.startRotation, false));
+        _chunks.Add(new Chunk(chunk, data, -data.startRotation, false));
 
         while (_chunks[_chunks.Count - 1].gameObject.transform.position.y - _chunks[_chunks.Count - 1].datas.height > e.pos.y - distanceToLoadChunk)
             addChunk();
@@ -60,7 +60,7 @@ public class ChunckSpawner : MonoBehaviour
     ChunkData GetDataFromChunk(GameObject o)
     {
         var start = o.transform.FindChild("Start");
-        var end = o.transform.Find("End");
+        var end = o.transform.FindChild("End");
         if (start == null)
             Debug.Log("Can't find the start point !");
         if (end == null)
@@ -70,9 +70,10 @@ public class ChunckSpawner : MonoBehaviour
             var endProprieties = end.GetComponent<ChunkEndProprieties>();
             Debug.Log(Mathf.Abs(end.position.y - start.position.y));
             bool endFliped = endProprieties == null ? false : endProprieties.reversed;
+            Debug.Log(end.transform.localRotation.eulerAngles);
             return new ChunkData(Mathf.Abs(end.position.y - start.position.y), endFliped
-                          , Mathf.Rad2Deg * Mathf.Atan2(start.transform.localPosition.z, start.transform.localPosition.x)
-                          , Mathf.Rad2Deg * Mathf.Atan2(end.transform.localPosition.z, end.transform.localPosition.x));
+                          , start.transform.localRotation.eulerAngles.y
+                          , end.transform.localRotation.eulerAngles.y);
         }
         return null;
     }
@@ -96,12 +97,12 @@ public class ChunckSpawner : MonoBehaviour
         _lastChunckSpawn.Add(index);
         var o = Instantiate(chunkPrefabs[index]);
         var currentChunk = _chunks[_chunks.Count - 1];
-        float rotation = currentChunk.blockRotation + currentChunk.datas.endRotation + _chunkDatas[index].startRotation;
+        float rotation = currentChunk.blockRotation + currentChunk.datas.endRotation - _chunkDatas[index].startRotation;
         bool fliped = (currentChunk.fliped != currentChunk.datas.endFliped);
         if (fliped)
         {
             o.transform.localScale = new Vector3(1, 1, -1);
-            rotation -= 2 * _chunkDatas[index].startRotation;
+            rotation += 2 * _chunkDatas[index].startRotation;
         }
 
         if(currentChunk.fliped)
