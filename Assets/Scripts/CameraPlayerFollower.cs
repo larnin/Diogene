@@ -33,8 +33,11 @@ public class CameraPlayerFollower : MonoBehaviour
 
     void LateUpdate()
     {
-        if(targetSet)
+        if (targetSet)
+        {
             SmoothMove();
+            Event<CameraMovedEvent>.Broadcast(new CameraMovedEvent(transform.position));
+        }
     }
 
     float angleFrom(Vector3 pos)
