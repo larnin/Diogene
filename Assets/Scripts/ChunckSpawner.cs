@@ -38,11 +38,11 @@ public class ChunckSpawner : MonoBehaviour
 
         var chunk = Instantiate(startChunkPrefab);
         chunk.transform.position = new Vector3(0, chunk.transform.FindChild("Start").transform.position.y, 0);
-        chunk.transform.Rotate(0, -data.startRotation, 0);
+        chunk.transform.Rotate(0, data.startRotation, 0);
 
-        _chunks.Add(new Chunk(chunk, data, -data.startRotation, false));
+        _chunks.Add(new Chunk(chunk, data, data.startRotation, false));
 
-        while (_chunks[_chunks.Count - 1].gameObject.transform.position.y + _chunks[_chunks.Count - 1].datas.height < e.pos.y + distanceToLoadChunk)
+        while (_chunks[_chunks.Count - 1].gameObject.transform.position.y - _chunks[_chunks.Count - 1].datas.height > e.pos.y - distanceToLoadChunk)
             addChunk();
 
         Debug.Log(data.startRotation);
@@ -54,6 +54,7 @@ public class ChunckSpawner : MonoBehaviour
 
         foreach (var chunk in chunkPrefabs)
             _chunkDatas.Add(GetDataFromChunk(chunk));
+        Debug.Log(_chunkDatas[_chunkDatas.Count - 1].startRotation + " " + _chunkDatas[_chunkDatas.Count - 1].endRotation);
     }
 
     ChunkData GetDataFromChunk(GameObject o)
@@ -67,10 +68,11 @@ public class ChunckSpawner : MonoBehaviour
         if (start != null && end != null)
         {
             var endProprieties = end.GetComponent<ChunkEndProprieties>();
+            Debug.Log(Mathf.Abs(end.position.y - start.position.y));
             bool endFliped = endProprieties == null ? false : endProprieties.reversed;
             return new ChunkData(Mathf.Abs(end.position.y - start.position.y), endFliped
-                          , Vector2.Angle(new Vector2(start.transform.localPosition.x, start.transform.localPosition.z), new Vector2(1, 0))
-                          , Vector2.Angle(new Vector2(end.transform.localPosition.x, end.transform.localPosition.z), new Vector2(1, 0)));
+                          , Mathf.Rad2Deg * Mathf.Atan2(start.transform.localPosition.z, start.transform.localPosition.x)
+                          , Mathf.Rad2Deg * Mathf.Atan2(end.transform.localPosition.z, end.transform.localPosition.x));
         }
         return null;
     }
@@ -114,6 +116,8 @@ public class ChunckSpawner : MonoBehaviour
 
     void delChunk()
     {
+        if (_chunks.Count == 0)
+            return;
         Destroy(_chunks[0].gameObject);
         _chunks.RemoveAt(0);
     }
