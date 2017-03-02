@@ -3,9 +3,10 @@ using System.Collections;
 
 public sealed class G
 {
-    private static volatile G instance;
+	private static volatile G instance;
     private GameManager _manager;
     private System.Random _random = new System.Random();
+	private DataMaster _dataMaster = new DataMaster();
 
     public static G Sys
     {
@@ -18,6 +19,11 @@ public sealed class G
 
 
     }
+
+	public DataMaster dataMaster
+	{
+		get {return _dataMaster;}
+	}
 
     public GameManager gameManager
     {
