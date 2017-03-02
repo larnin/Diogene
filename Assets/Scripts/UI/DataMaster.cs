@@ -60,7 +60,7 @@ public class DataMaster {
 		saveFile.Close();
 	}
 
-	int CustomLog(float entry) {
+	public int CustomLog(float entry) {
 		int bufferOut;
 		if (entry == 0) {
 			bufferOut = 0;

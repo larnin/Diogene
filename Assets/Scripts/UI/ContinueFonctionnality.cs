@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class ContinueFonctionnality : MonoBehaviour {
 
 	public GameObject GameOverScreen;
-	public int FontSize = 500;
 	public Text Chrono;
 	public float Timer = 5;
 
@@ -13,7 +12,6 @@ public class ContinueFonctionnality : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Chrono.fontSize = FontSize;
 		timer = Timer;
 	}
 
