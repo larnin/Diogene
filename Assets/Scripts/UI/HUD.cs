@@ -45,9 +45,7 @@ public class HUD : MonoBehaviour {
 			_nbSection++;
 			_nbLastSection = 3;
 		}
-
-		Debug.Log (_nbSection);
-		Debug.Log ((int)Mathf.Pow (10, 3 * (_nbSection - 1)));
+			
 		int _buffer = (Coins % (int)Mathf.Pow (10, 3 * _nbSection)) / (int)Mathf.Pow (10, 3 * (_nbSection - 1));
 		string _text = "" + _buffer;
 		for (int i = _nbSection - 1; i > 0; i--) {

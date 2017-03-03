@@ -11,7 +11,7 @@ public class GameOverScreen : MonoBehaviour {
 	HUD hudScript;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		hudScript = HUD.GetComponent <HUD>();
 	}
 
