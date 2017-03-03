@@ -50,8 +50,6 @@ public class ChunckSpawner : MonoBehaviour
 
         while (_chunks[_chunks.Count - 1].gameObject.transform.position.y - _chunks[_chunks.Count - 1].datas.height > e.pos.y - distanceToLoadChunk)
             addChunk();
-
-        Debug.Log(data.startRotation);
     }
 
 	void OnReset(ResetEvent e)
@@ -68,7 +66,6 @@ public class ChunckSpawner : MonoBehaviour
 
         foreach (var chunk in chunkPrefabs)
             _chunkDatas.Add(GetDataFromChunk(chunk));
-        Debug.Log(_chunkDatas[_chunkDatas.Count - 1].startRotation + " " + _chunkDatas[_chunkDatas.Count - 1].endRotation);
     }
 
     ChunkData GetDataFromChunk(GameObject o)
@@ -82,9 +79,7 @@ public class ChunckSpawner : MonoBehaviour
         if (start != null && end != null)
         {
             var endProprieties = end.GetComponent<ChunkEndProprieties>();
-            Debug.Log(Mathf.Abs(end.position.y - start.position.y));
             bool endFliped = endProprieties == null ? false : endProprieties.reversed;
-            Debug.Log(end.transform.localRotation.eulerAngles);
             return new ChunkData(Mathf.Abs(end.position.y - start.position.y), endFliped
                           , start.transform.localRotation.eulerAngles.y
                           , end.transform.localRotation.eulerAngles.y);

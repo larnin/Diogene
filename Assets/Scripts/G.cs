@@ -7,6 +7,7 @@ public sealed class G
     private GameManager _manager;
     private System.Random _random = new System.Random();
 	private DataMaster _dataMaster = new DataMaster();
+    private AmplitudeManager _amplitudeManager = new AmplitudeManager();
 
     public static G Sys
     {
@@ -16,8 +17,6 @@ public sealed class G
                 G.instance = new G();
             return G.instance;
         }
-
-
     }
 
 	public DataMaster dataMaster
@@ -39,5 +38,10 @@ public sealed class G
     public System.Random random
     {
         get { return _random; }
+    }
+
+    public AmplitudeManager amplitudeManager
+    {
+        get { return _amplitudeManager; }
     }
 }
