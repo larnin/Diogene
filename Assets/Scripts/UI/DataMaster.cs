@@ -41,7 +41,28 @@ public class DataMaster {
 		}
 	}
 
-	void SaveData () {
+    public int HolesCount
+    {
+        get { return _save.HolesCount; }
+        set { _save.HolesCount = value; }
+    }
+    public int RingCount
+    {
+        get { return _save.RingCount; }
+        set { _save.RingCount = value; }
+    }
+    public int TrapCount
+    {
+        get { return _save.TrapCount; }
+        set { _save.TrapCount = value; }
+    }
+    public int ArmCount
+    {
+        get { return _save.ArmCount; }
+        set { _save.ArmCount = value; }
+    }
+
+    void SaveData () {
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream saveFile = File.Create("Saves/save.diogene");
 

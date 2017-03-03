@@ -8,6 +8,7 @@ public sealed class G
     private System.Random _random = new System.Random();
 	private DataMaster _dataMaster = new DataMaster();
     private AmplitudeManager _amplitudeManager = new AmplitudeManager();
+    private ChunckSpawner _chunkSpawner;
 
     public static G Sys
     {
@@ -32,6 +33,17 @@ public sealed class G
             if (_manager != null)
                 Debug.Log("2 GameManagers Instanciated!");
             _manager = value;
+        }
+    }
+
+    public ChunckSpawner chunkSpawner
+    {
+        get { return _chunkSpawner; }
+        set
+        {
+            if (_chunkSpawner != null)
+                Debug.Log("2 ChunckSpawner Instanciated!");
+            _chunkSpawner = value;
         }
     }
 
