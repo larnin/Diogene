@@ -321,6 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6576c2fe6cc33143824f55284cc7a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Acceleration: 1
+  MaxSpeed: 100
   RotationSpeed: 40
   GroundGravity: 8
   AirGravityForce: 30

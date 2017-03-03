@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-
+    public float Acceleration = 0;
+    public float MaxSpeed = 100;
     public float RotationSpeed = 50;
     public float GroundGravity = 7;
     public float AirGravityForce = 7;
@@ -43,11 +44,13 @@ public class Player : MonoBehaviour
     float _groundCheckX;
     Vector3 oldVelocity;
 	SubscriberList _subscriberList = new SubscriberList();
+    float _currentSpeed;
 
 	void Awake()
 	{
 		_subscriberList.Add (new Event<ResetEvent>.Subscriber (OnReset));
-	}
+        _currentSpeed = RotationSpeed;
+    }
 
 	void OnEnable()
 	{
@@ -72,6 +75,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        _currentSpeed += Acceleration * Time.deltaTime;
+        if (_currentSpeed > MaxSpeed)
+            _currentSpeed = MaxSpeed;
+
         if (!_isGrounded)
         {
             _isGrounded = Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, Ground);
@@ -167,7 +174,7 @@ public class Player : MonoBehaviour
             _actualGravity = -Mathf.Abs(_cubeFactor) * _cubeFactor * AirGravityForce - _gravityBuffer;
         }
 
-        Vector3 newPosition = Quaternion.Euler(0, RotationSpeed * Time.deltaTime * _direction, 0) * transform.position;
+        Vector3 newPosition = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
         newPosition = new Vector3(newPosition.x, 0, newPosition.z);
         newPosition = newPosition.normalized * _distance;
         newPosition = new Vector3(newPosition.x, transform.position.y + _actualGravity * Time.deltaTime, newPosition.z);
