@@ -154,12 +154,6 @@ public class Player : MonoBehaviour
         }
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
-
-        //DEBUG----------------------------------------------------------------
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(0, LoadSceneMode.Single);
-        }
     }
 
     // Update is called once per frame
