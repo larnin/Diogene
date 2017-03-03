@@ -20,7 +20,7 @@ public class DataMaster {
 			string _coinText = Coins.ToString ();
 			string _text = "";
 			for (int i = 0; i < _coinText.Length; i++) {
-				if (((_coinText.Length - i) % 3) == 0) {
+				if ((i != 0) && (((_coinText.Length - i) % 3) == 0)) {
 					_text += ",";
 				}
 				_text += _coinText[i];

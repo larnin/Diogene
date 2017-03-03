@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000014001119788}
   m_Layer: 0
-  m_Name: ChunkE4
+  m_Name: ChunkE4[clipping]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
