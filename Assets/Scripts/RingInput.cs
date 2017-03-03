@@ -71,7 +71,7 @@ public class RingInput : MonoBehaviour {
 				storedPosition = Input.mousePosition.x;
 			}
 		}
-		else if (Input.GetMouseButtonDown (0)) {
+		else if (Input.GetMouseButtonUp (0)) {
 			currentRing = null;
 			currentScript = null;
 		}

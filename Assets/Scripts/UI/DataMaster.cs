@@ -8,6 +8,8 @@ public class DataMaster {
 
 	public Save _save = new Save();
 
+	public int ScreenSleepTime;
+
 	public string CoinsText = "0";
 	public int Coins {
 		get {return _save.Coins;}

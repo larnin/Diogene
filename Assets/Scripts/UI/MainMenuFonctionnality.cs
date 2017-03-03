@@ -16,6 +16,9 @@ public class MainMenuFonctionnality : MonoBehaviour {
 	}
 
 	void Start () {
+
+		G.Sys.dataMaster.ScreenSleepTime = Screen.sleepTimeout;
+
 		if (!Directory.Exists("Saves")) {
 			Directory.CreateDirectory("Saves");
 
@@ -41,6 +44,7 @@ public class MainMenuFonctionnality : MonoBehaviour {
 	}
 
 	public void StartGame () {
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		G.Sys.gameManager.StartGame ();
 		MyHUD.SetActive (true);
 		gameObject.SetActive (false);
