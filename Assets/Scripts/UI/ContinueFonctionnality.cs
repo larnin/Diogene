@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class ContinueFonctionnality : MonoBehaviour {
 
 	public GameObject GameOverScreen;
+	public HUD hudScript;
 	public Text Chrono;
+	public Text GainedCoin;
 	public float Timer = 5;
 
 	float timer;
@@ -16,6 +18,7 @@ public class ContinueFonctionnality : MonoBehaviour {
 
 	void OnEnable () {
 		timer = Timer;
+		GainedCoin.text = "+ " + hudScript.Coins;
 	}
 
 	// Update is called once per frame
