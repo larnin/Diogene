@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 
 public class ChunckSpawner : MonoBehaviour
 {
@@ -14,11 +15,13 @@ public class ChunckSpawner : MonoBehaviour
     private List<ChunkData> _chunkDatas = new List<ChunkData>();
     private List<Chunk> _chunks = new List<Chunk>();
     private List<int> _lastChunckSpawn = new List<int>();
+	private bool _initialized = false;
 
     void Awake()
     {
         _subscriberList.Add(new Event<CameraMovedEvent>.Subscriber(OnCameraMove));
         _subscriberList.Add(new Event<InitializeEvent>.Subscriber(OnInitialize));
+		_subscriberList.Add(new Event<ResetEvent>.Subscriber(OnReset));
         _subscriberList.Subscribe();
 
         CreateChunkData();
@@ -26,6 +29,9 @@ public class ChunckSpawner : MonoBehaviour
 
     void OnCameraMove(CameraMovedEvent e)
     {
+		if (!_initialized)
+			return;
+		
         while (_chunks[_chunks.Count - 1].gameObject.transform.position.y - _chunks[_chunks.Count - 1].datas.height > e.pos.y - distanceToLoadChunk)
             addChunk();
         while (_chunks[0].gameObject.transform.position.y - _chunks[0].datas.height > e.pos.y + distanceToLoadChunk)
@@ -34,6 +40,7 @@ public class ChunckSpawner : MonoBehaviour
 
     void OnInitialize(InitializeEvent e)
     {
+		_initialized = true;
         var data = GetDataFromChunk(startChunkPrefab);
 
         var chunk = Instantiate(startChunkPrefab);
@@ -47,6 +54,14 @@ public class ChunckSpawner : MonoBehaviour
 
         Debug.Log(data.startRotation);
     }
+
+	void OnReset(ResetEvent e)
+	{
+		foreach(var chunk in _chunks)
+			Destroy(chunk.gameObject);
+		_chunks.Clear ();
+		_initialized = false;
+	}
 
     void CreateChunkData()
     {

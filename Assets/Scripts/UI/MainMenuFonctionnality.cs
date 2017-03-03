@@ -8,9 +8,7 @@ using UnityEngine.UI;
 public class MainMenuFonctionnality : MonoBehaviour {
 
 	public GameObject Credits;
-
-	public Text BestScoreText;
-	public GameObject BestScoreImage;
+	public GameObject MyHUD;
 
 	public void GoToCredits () {
 		Credits.SetActive (true);
@@ -42,13 +40,9 @@ public class MainMenuFonctionnality : MonoBehaviour {
 		}
 	}
 
-	void OnEnable () {
-		if (G.Sys.dataMaster.Coins == 0) {
-			BestScoreImage.SetActive (false);
-		}
-		else {
-			BestScoreImage.SetActive (true);
-			BestScoreText.text = G.Sys.dataMaster.HighScoreText;
-		}
+	public void StartGame () {
+		G.Sys.gameManager.StartGame ();
+		MyHUD.SetActive (true);
+		gameObject.SetActive (false);
 	}
 }

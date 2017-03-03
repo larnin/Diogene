@@ -40,14 +40,14 @@ public class DataMaster {
 		}
 	}
 
-	public string HighScoreText = "0 km";
+	public string HighScoreText = "0m";
 	public float HighScore {
 		get {return _save.HighScore;}
 		set {
 			_save.HighScore = value;
 			SaveData ();
 
-			HighScoreText = (Mathf.Floor (HighScore * 10) / 10) + " km";
+			HighScoreText = (Mathf.Floor (HighScore * 10) / 10) + "m";
 		}
 	}
 

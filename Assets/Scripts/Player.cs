@@ -42,6 +42,22 @@ public class Player : MonoBehaviour
     bool _jumping = false;
     float _groundCheckX;
     Vector3 oldVelocity;
+	SubscriberList _subscriberList = new SubscriberList();
+
+	void Awake()
+	{
+		_subscriberList.Add (new Event<ResetEvent>.Subscriber (OnReset));
+	}
+
+	void OnEnable()
+	{
+		_subscriberList.Subscribe ();
+	}
+
+	void OnDisable()
+	{
+		_subscriberList.Unsubscribe();
+	}
 
     // Use this for initialization
     void Start()
@@ -50,7 +66,7 @@ public class Player : MonoBehaviour
         _distance = new Vector3(transform.position.x, 0, transform.position.z).magnitude;
         _groundCheckX = GroundCheck.localPosition.x;
 
-        Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
+        Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
     }
 
@@ -207,4 +223,9 @@ public class Player : MonoBehaviour
         GetComponentInChildren<Collider>().enabled = false;
         Destroy(gameObject, 3);
     }
+
+	void OnReset(ResetEvent e)
+	{
+		Destroy (gameObject);
+	}
 }

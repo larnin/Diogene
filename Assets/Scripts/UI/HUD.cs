@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour {
 
+	public float DistanceScale = 100;
+
 	public Text ScoreText;
 	public Text CoinText;
 
@@ -25,10 +27,10 @@ public class HUD : MonoBehaviour {
 	}
 
 	void UpdateScore (PlayerMovedEvent e) {
-		float _buffer = e.pos.y - startingY;
+		float _buffer = (e.pos.y - startingY) / DistanceScale;
 		if (Mathf.Abs (_buffer) > Score) {
 			Score = Mathf.Abs (_buffer);
-			ScoreText.text = (Mathf.Floor (Score * 10) / 10) + " km";
+			ScoreText.text = (Mathf.Floor (Score * 10) / 10) + "m";
 		}
 	}
 
@@ -57,5 +59,13 @@ public class HUD : MonoBehaviour {
 		}
 
 		CoinText.text = _text;
+	}
+
+	void OnEnable () {
+		Coins = 0;
+		Score = 0;
+
+		ScoreText.text = "0";
+		CoinText.text = "0";
 	}
 }

@@ -17,9 +17,12 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
-        if (!_instanciated)
-            _instanciated = true;
-        else Destroy(this);
+		if (!_instanciated)
+			_instanciated = true;
+		else {
+			Destroy (gameObject);
+			return;
+		}
 
         G.Sys.gameManager = this;
 
@@ -43,27 +46,35 @@ public class GameManager : MonoBehaviour
         mainMenu.SetActive(true);
         hud.SetActive(false);
         Event<InitializeEvent>.Broadcast(new InitializeEvent(new Vector3(0, 0, 0)));
+		Event<PlayerMovedEvent>.Broadcast (new PlayerMovedEvent (playerStartLocation, 0));
+		Event<InstantMoveCameraEvent>.Broadcast (new InstantMoveCameraEvent ());
         //InstanciatePlayer();
     }
 
     public void GoToStartMenu()
     {
-        SceneManager.LoadScene(0);
+		Event<ResetEvent>.Broadcast (new ResetEvent ());
         mainMenu.SetActive(true);
         hud.SetActive(false);
+		Event<InitializeEvent>.Broadcast(new InitializeEvent(new Vector3(0, 0, 0)));
+		Event<PlayerMovedEvent>.Broadcast (new PlayerMovedEvent (playerStartLocation, 0));
+		Event<InstantMoveCameraEvent>.Broadcast (new InstantMoveCameraEvent ());
     }
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(0);
+		Event<ResetEvent>.Broadcast (new ResetEvent ());
         mainMenu.SetActive(false);
         hud.SetActive(true);
+		Event<InitializeEvent>.Broadcast(new InitializeEvent(new Vector3(0, 0, 0)));
+		InstanciatePlayer ();
     }
 
     public void StartGame()
     {
         mainMenu.SetActive(false);
         hud.SetActive(true);
+		InstanciatePlayer ();
     }
 
     public void InstanciatePlayer()
