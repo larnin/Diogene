@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public float timeToEndGame = 2;
     public GameObject mainMenu;
     public GameObject hud;
+	public GameObject Continue;
     public GameObject playerPrefab;
     public Vector3 playerStartLocation;
 
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToEndGame);
         Event<EndGameEvent>.Broadcast(new EndGameEvent());
+		Continue.SetActive (true);
     }
 
 	void Start()

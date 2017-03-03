@@ -43,10 +43,12 @@ public class GameOverScreen : MonoBehaviour {
 
 	public void GoToMainMenu () {
 		G.Sys.gameManager.GoToStartMenu ();
+		gameObject.SetActive (false);
 	}
 
 	public void ReStart () {
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		G.Sys.gameManager.RestartGame ();
+		gameObject.SetActive (false);
 	}
 }

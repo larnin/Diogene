@@ -18,7 +18,7 @@ public class DataMaster {
 			SaveData ();
 
 			int _nbChiffre = CustomLog (_save.Coins);
-			int _nbSection = _nbChiffre / 3;
+			int _nbSection = (_nbChiffre / 3) + 1;
 			int _nbLastSection = _nbChiffre % 3;
 
 			if (_nbLastSection == 0) {

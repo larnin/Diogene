@@ -10,7 +10,6 @@ public class ContinueFonctionnality : MonoBehaviour {
 
 	float timer;
 
-	// Use this for initialization
 	void Start () {
 		timer = Timer;
 	}

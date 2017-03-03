@@ -38,7 +38,7 @@ public class HUD : MonoBehaviour {
 		Coins += e.Value;
 
 		int _nbChiffre = G.Sys.dataMaster.CustomLog (Coins);
-		int _nbSection = _nbChiffre / 3;
+		int _nbSection = (_nbChiffre / 3) + 1;
 		int _nbLastSection = _nbChiffre % 3;
 
 		if (_nbLastSection == 0) {
@@ -46,6 +46,8 @@ public class HUD : MonoBehaviour {
 			_nbLastSection = 3;
 		}
 
+		Debug.Log (_nbSection);
+		Debug.Log ((int)Mathf.Pow (10, 3 * (_nbSection - 1)));
 		int _buffer = (Coins % (int)Mathf.Pow (10, 3 * _nbSection)) / (int)Mathf.Pow (10, 3 * (_nbSection - 1));
 		string _text = "" + _buffer;
 		for (int i = _nbSection - 1; i > 0; i--) {
