@@ -4,6 +4,14 @@ using System.Collections.Generic;
 
 public class ChunckSpawner : MonoBehaviour
 {
+    public class ChunkInfo
+    {
+        public int holesCount = 0;
+        public int ringCount = 0;
+        public int trapCount = 0;
+        public int armCount = 0;
+    }
+
     public GameObject startChunkPrefab;
     public List<GameObject> chunkPrefabs;
     public float distanceToDelChunk;
@@ -15,6 +23,7 @@ public class ChunckSpawner : MonoBehaviour
     private List<Chunk> _chunks = new List<Chunk>();
     private List<int> _lastChunckSpawn = new List<int>();
 	private bool _initialized = false;
+    private float _currentHeight;
 
     void Awake()
     {
@@ -30,6 +39,8 @@ public class ChunckSpawner : MonoBehaviour
     {
 		if (!_initialized)
 			return;
+
+        _currentHeight = e.pos.y;
 		
         while (_chunks[_chunks.Count - 1].gameObject.transform.position.y - _chunks[_chunks.Count - 1].datas.height > e.pos.y - distanceToLoadChunk)
             addChunk();
@@ -170,5 +181,42 @@ public class ChunckSpawner : MonoBehaviour
         public ChunkData datas;
         public float blockRotation;
         public bool fliped;
+    }
+
+    public int chunkCount()
+    {
+        int count = 0;
+        float currentHeight = 0;
+        foreach (var value in _lastChunckSpawn)
+        {
+            currentHeight += _chunkDatas[value].height;
+            count++;
+            if (currentHeight >= _currentHeight)
+                return count;
+        }
+        return _lastChunckSpawn.Count - 1;
+    }
+
+    public int currentChunkID()
+    {
+        return _lastChunckSpawn[chunkCount()];
+    }
+
+    public ChunkInfo allDatas()
+    {
+        ChunkInfo datas = new ChunkInfo();
+
+        for(int i = 0; i < chunkCount(); i++)
+        {
+            var infos = chunkPrefabs[_lastChunckSpawn[i]].GetComponent<ChunkInfos>();
+            if(infos != null)
+            {
+                datas.armCount += infos.armCount;
+                datas.holesCount += infos.holesCount;
+                datas.ringCount += infos.ringCount;
+                datas.trapCount += infos.trapCount;
+            }
+        }
+        return datas;
     }
 }

@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
     {
         if(collider.gameObject.tag == "KillGrid")
         {
-            Event<PlayerKillEvent>.Broadcast(new PlayerKillEvent());
+            Event<PlayerKillEvent>.Broadcast(new PlayerKillEvent(_currentSpeed));
             Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
             var rigidBody = GetComponent<Rigidbody>();
             rigidBody.useGravity = true;
@@ -211,18 +211,20 @@ public class Player : MonoBehaviour
             StartCoroutine(TrapKillCoroutine());
         }
 
-        if(collider.gameObject.tag == "Collectable")
+        if (collider.gameObject.tag == "Collectable")
         {
             var collectable = collider.GetComponent<Collectable>();
             Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent(collectable != null ? collectable.value : 1));
-            Destroy(collider.gameObject);
+            collider.gameObject.tag = "Untagged";
+            collider.gameObject.GetComponentInChildren<Animator>().SetTrigger("Collect");
+            Destroy(collider.gameObject, 0.5f);
         }
     }
 
     IEnumerator TrapKillCoroutine()
     {
         yield return new WaitForSeconds(TrapWaitBeforeAnimation);
-        Event<PlayerKillEvent>.Broadcast(new PlayerKillEvent());
+        Event<PlayerKillEvent>.Broadcast(new PlayerKillEvent(_currentSpeed));
         var rigidBody = GetComponent<Rigidbody>();
         rigidBody.useGravity = true;
         var dir = (Vector3.Cross(new Vector3(transform.position.x, 0, transform.position.z), Vector3.up).normalized + Vector3.up.normalized).normalized;
