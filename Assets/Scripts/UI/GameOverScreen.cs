@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameOverScreen : MonoBehaviour {
 
+	public Text Score;
 	public Text CoinsGained;
 	public GameObject NewRecord;
 	public GameObject HUD;
@@ -19,6 +20,7 @@ public class GameOverScreen : MonoBehaviour {
 
 		Screen.sleepTimeout = G.Sys.dataMaster.ScreenSleepTime;
 
+		Score.text = hudScript.ScoreText.text;
 		if (hudScript.Score > G.Sys.dataMaster.HighScore) {
 			G.Sys.dataMaster.HighScore = hudScript.Score;
 			NewRecord.SetActive (false);
@@ -29,7 +31,7 @@ public class GameOverScreen : MonoBehaviour {
 
 		G.Sys.dataMaster.Coins += hudScript.Coins;
 
-		CoinsGained.text = hudScript.CoinText.text;
+		CoinsGained.text = "+ " + hudScript.CoinText.text;
 
 		HUD.SetActive (false);
 	}
@@ -49,6 +51,13 @@ public class GameOverScreen : MonoBehaviour {
 	public void ReStart () {
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		G.Sys.gameManager.RestartGame ();
+
+		hudScript.Coins = 0;
+		hudScript.Score = 0;
+
+		hudScript.ScoreText.text = "0";
+		hudScript.CoinText.text = "0";
+
 		gameObject.SetActive (false);
 	}
 }

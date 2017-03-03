@@ -95,7 +95,7 @@ NavMeshSettings:
 GameObject:
   m_PrefabParentObject: {fileID: 1000011771721766, guid: f90881f4ee5422a47afe79c0ea80f021,
     type: 2}
-  m_PrefabInternal: {fileID: 1574155552}
+  m_PrefabInternal: {fileID: 1649676024}
 --- !u!1 &177806478
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 1000011891481122, guid: f90881f4ee5422a47afe79c0ea80f021,
     type: 2}
-  m_PrefabInternal: {fileID: 1574155552}
+  m_PrefabInternal: {fileID: 1649676024}
 --- !u!1 &709972562
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +307,7 @@ GameObject:
   - 124: {fileID: 709972564}
   - 81: {fileID: 709972563}
   - 114: {fileID: 709972568}
+  - 114: {fileID: 709972569}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -399,6 +400,23 @@ MonoBehaviour:
   verticalOffset: -5
   distance: 20
   moveSpeed: 1.5
+--- !u!114 &709972569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 709972562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d51100a9bc7924b98f1725f3f1c220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RingTurnForce: 10
+  RingRotationSpeed: 0.25
+  NbCran: 16
+  RingLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1001 &743024671
 Prefab:
   m_ObjectHideFlags: 0
@@ -679,7 +697,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 709972567}
   m_RootOrder: 1
---- !u!1001 &1574155552
+--- !u!1 &1574155553 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000014180459184, guid: f90881f4ee5422a47afe79c0ea80f021,
+    type: 2}
+  m_PrefabInternal: {fileID: 1649676024}
+--- !u!1001 &1649676024
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -776,20 +799,18 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011771721766, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
+    - target: {fileID: 1000010211679112, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114000013110006116, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
-    - {fileID: 114000011999577212, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
+    - target: {fileID: 114000010800000312, guid: f90881f4ee5422a47afe79c0ea80f021,
+        type: 2}
+      propertyPath: Timer
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1574155553 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000014180459184, guid: f90881f4ee5422a47afe79c0ea80f021,
-    type: 2}
-  m_PrefabInternal: {fileID: 1574155552}
 --- !u!1001 &1677599023
 Prefab:
   m_ObjectHideFlags: 0

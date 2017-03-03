@@ -8,10 +8,16 @@ using UnityEngine.UI;
 public class MainMenuFonctionnality : MonoBehaviour {
 
 	public GameObject Credits;
+	public GameObject Options;
 	public GameObject MyHUD;
 
 	public void GoToCredits () {
 		Credits.SetActive (true);
+		gameObject.SetActive (false);
+	}
+
+	public void GoToOptions () {
+		Options.SetActive (true);
 		gameObject.SetActive (false);
 	}
 

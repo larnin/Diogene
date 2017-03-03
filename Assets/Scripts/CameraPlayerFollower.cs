@@ -16,10 +16,13 @@ public class CameraPlayerFollower : MonoBehaviour
 
     SubscriberList _subscriberList = new SubscriberList();
 
+	bool _pause = false;
+
     void Awake()
     {
         _subscriberList.Add(new Event<PlayerMovedEvent>.Subscriber(OnPlayerMove));
         _subscriberList.Add(new Event<InstantMoveCameraEvent>.Subscriber(OnInstantMove));
+		_subscriberList.Add (new Event<PauseRingEvent>.Subscriber (Pause));
         _subscriberList.Subscribe();
     }
 
@@ -31,9 +34,13 @@ public class CameraPlayerFollower : MonoBehaviour
         InstantMove();*/
     }
 
+	void Pause (PauseRingEvent e) {
+		_pause = e.State;
+	}
+
     void LateUpdate()
     {
-        if (targetSet)
+		if (targetSet && !_pause)
         {
             SmoothMove();
             Event<CameraMovedEvent>.Broadcast(new CameraMovedEvent(transform.position));
