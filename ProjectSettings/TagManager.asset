@@ -7,6 +7,8 @@ TagManager:
   - KillGrid
   - Trap
   - Collectable
+  - UI
+  - Pause
   layers:
   - Default
   - TransparentFX

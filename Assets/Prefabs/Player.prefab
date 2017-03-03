@@ -335,6 +335,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   GroundCheck: {fileID: 4000012042950288}
+  _animator: {fileID: 95000011193638520}
   GroundCheckRadius: 0.1
   JumpBuffer: 6
   TimeBeforeDestroy: 2

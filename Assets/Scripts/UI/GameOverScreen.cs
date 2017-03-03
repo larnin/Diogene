@@ -34,6 +34,8 @@ public class GameOverScreen : MonoBehaviour {
 		CoinsGained.text = "+ " + hudScript.CoinText.text;
 
 		HUD.SetActive (false);
+
+		Event<GameOverEvent>.Broadcast(new GameOverEvent(hudScript.Score, hudScript.Coins));
 	}
 
 	void Update () {
@@ -57,6 +59,8 @@ public class GameOverScreen : MonoBehaviour {
 
 		hudScript.ScoreText.text = "0";
 		hudScript.CoinText.text = "0";
+
+		hudScript.CanPause = true;
 
 		gameObject.SetActive (false);
 	}

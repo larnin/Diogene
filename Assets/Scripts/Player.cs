@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public LayerMask Ground;
     public LayerMask Ring;
     public Transform GroundCheck;
+	public Animator _animator;
     [Tooltip("Radius de la sphère qui check si le Player est au sol.")]
     public float GroundCheckRadius = 0.1f;
     public float JumpBuffer = 6;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
         {
             _direction = value;
             GroundCheck.localPosition = new Vector3(_groundCheckX * value, GroundCheck.localPosition.y, GroundCheck.localPosition.z);
+			_animator.SetFloat ("Direction", value);
         }
     }
 
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour
 	{
 		_subscriberList.Add (new Event<ResetEvent>.Subscriber (OnReset));
 		_subscriberList.Add (new Event<PausePlayerEvent>.Subscriber (Pause));
+		_subscriberList.Add (new Event<PlayerJumpEvent>.Subscriber (JumpMe));
         _currentSpeed = RotationSpeed;
     }
 
@@ -77,6 +80,12 @@ public class Player : MonoBehaviour
 
 	void Pause (PausePlayerEvent e) {
 		_pause = e.State;
+		if (_pause) {
+			_animator.SetFloat ("Direction", 0);
+		}
+		else {
+			_animator.SetFloat ("Direction", Direction);
+		}
 	}
 
     void Update()
@@ -112,49 +121,8 @@ public class Player : MonoBehaviour
 					}
 				}
 			}
-			
-			var touches = Input.touches;
-			
-			if (touches.Length > 0)
-			{
-				if (touches[0].phase == TouchPhase.Began)
-				{
-					Ray ray = Camera.main.ScreenPointToRay(touches[0].position);
-					RaycastHit hit;
-					if (!Physics.Raycast(ray, out hit, 1000, Ring))
-					{
-						if (_isGrounded)
-						{
-							_cubeFactor = -(Jump / 10);
-							_gravityBuffer = 0;
-							_jumping = true;
-						}
-						else
-						{
-							_currentJumpBuffer = JumpBuffer;
-						}
-					}
-				}
-			}
-			else if (Input.GetMouseButtonDown(0))
-			{
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit;
-				if (!Physics.Raycast(ray, out hit, 1000, Ring))
-				{
-					if (_isGrounded)
-					{
-						_cubeFactor = -(Jump / 10);
-						_gravityBuffer = 0;
-						_jumping = true;
-					}
-					else
-					{
-						_currentJumpBuffer = JumpBuffer;
-					}
-				}
-			}
-			else if ((_currentJumpBuffer >= 0) && _isGrounded)
+
+			if ((_currentJumpBuffer >= 0) && _isGrounded)
 			{
 				_cubeFactor = -(Jump / 10);
 				_gravityBuffer = 0;
@@ -164,6 +132,19 @@ public class Player : MonoBehaviour
 			Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
 		}
     }
+
+	void JumpMe (PlayerJumpEvent e) {
+		if (_isGrounded)
+		{
+			_cubeFactor = -(Jump / 10);
+			_gravityBuffer = 0;
+			_jumping = true;
+		}
+		else
+		{
+			_currentJumpBuffer = JumpBuffer;
+		}
+	}
 
     // Update is called once per frame
     void FixedUpdate()
