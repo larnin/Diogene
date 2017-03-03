@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
-        Event<InitializeEvent>.Broadcast(new InitializeEvent(transform.position));
     }
 
     void Update()
