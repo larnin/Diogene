@@ -51,12 +51,13 @@ public class GameOverScreen : MonoBehaviour {
 	public void ReStart () {
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		G.Sys.gameManager.RestartGame ();
-		gameObject.SetActive (false);
 
 		hudScript.Coins = 0;
 		hudScript.Score = 0;
 
 		hudScript.ScoreText.text = "0";
 		hudScript.CoinText.text = "0";
+
+		gameObject.SetActive (false);
 	}
 }

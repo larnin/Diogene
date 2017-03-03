@@ -6,6 +6,7 @@ public class HUD : MonoBehaviour {
 
 	public float DistanceScale = 100;
 
+	public GameObject Pause;
 	public Text ScoreText;
 	public Text CoinText;
 
@@ -24,6 +25,13 @@ public class HUD : MonoBehaviour {
 
 		ScoreText.text = "0";
 		CoinText.text = "0";
+	}
+
+	void Update () {
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			PauseGame ();
+		}
 	}
 
 	void UpdateScore (PlayerMovedEvent e) {
@@ -55,5 +63,11 @@ public class HUD : MonoBehaviour {
 
 		ScoreText.text = "0";
 		CoinText.text = "0";
+	}
+
+	public void PauseGame () {
+		Event<PauseRingEvent>.Broadcast(new PauseRingEvent(true));
+		Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(true));
+		Pause.SetActive (true);
 	}
 }

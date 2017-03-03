@@ -45,10 +45,12 @@ public class Player : MonoBehaviour
     Vector3 oldVelocity;
 	SubscriberList _subscriberList = new SubscriberList();
     float _currentSpeed;
+	bool _pause = false;
 
 	void Awake()
 	{
 		_subscriberList.Add (new Event<ResetEvent>.Subscriber (OnReset));
+		_subscriberList.Add (new Event<PausePlayerEvent>.Subscriber (Pause));
         _currentSpeed = RotationSpeed;
     }
 
@@ -73,109 +75,119 @@ public class Player : MonoBehaviour
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
     }
 
+	void Pause (PausePlayerEvent e) {
+		_pause = e.State;
+	}
+
     void Update()
     {
-        _currentSpeed += Acceleration * Time.deltaTime;
-        if (_currentSpeed > MaxSpeed)
-            _currentSpeed = MaxSpeed;
-
-        if (!_isGrounded)
-        {
-            _isGrounded = Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, Ground);
-
-            if (_isGrounded)
-            {
-                _actualGravity = -GroundGravity;
-            }
-        }
-        else
-        {
-            _isGrounded = Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, Ground);
-            if (!_isGrounded)
-            {
-                if (!_jumping)
-                {
-                    _cubeFactor = 0;
-                    _gravityBuffer = GroundGravity;
-                }
-                else
-                {
-                    _jumping = false;
-                }
-            }
-        }
-
-        var touches = Input.touches;
-
-        if (touches.Length > 0)
-        {
-            if (touches[0].phase == TouchPhase.Began)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(touches[0].position);
-                RaycastHit hit;
-                if (!Physics.Raycast(ray, out hit, 1000, Ring))
-                {
-                    if (_isGrounded)
-                    {
-                        _cubeFactor = -(Jump / 10);
-                        _gravityBuffer = 0;
-                        _jumping = true;
-                    }
-                    else
-                    {
-                        _currentJumpBuffer = JumpBuffer;
-                    }
-                }
-            }
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (!Physics.Raycast(ray, out hit, 1000, Ring))
-            {
-                if (_isGrounded)
-                {
-                    _cubeFactor = -(Jump / 10);
-                    _gravityBuffer = 0;
-                    _jumping = true;
-                }
-                else
-                {
-                    _currentJumpBuffer = JumpBuffer;
-                }
-            }
-        }
-        else if ((_currentJumpBuffer >= 0) && _isGrounded)
-        {
-            _cubeFactor = -(Jump / 10);
-            _gravityBuffer = 0;
-            _jumping = true;
-        }
-
-        Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
+		if (!_pause) {
+			
+			_currentSpeed += Acceleration * Time.deltaTime;
+			if (_currentSpeed > MaxSpeed)
+				_currentSpeed = MaxSpeed;
+			
+			if (!_isGrounded)
+			{
+				_isGrounded = Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, Ground);
+				
+				if (_isGrounded)
+				{
+					_actualGravity = -GroundGravity;
+				}
+			}
+			else
+			{
+				_isGrounded = Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, Ground);
+				if (!_isGrounded)
+				{
+					if (!_jumping)
+					{
+						_cubeFactor = 0;
+						_gravityBuffer = GroundGravity;
+					}
+					else
+					{
+						_jumping = false;
+					}
+				}
+			}
+			
+			var touches = Input.touches;
+			
+			if (touches.Length > 0)
+			{
+				if (touches[0].phase == TouchPhase.Began)
+				{
+					Ray ray = Camera.main.ScreenPointToRay(touches[0].position);
+					RaycastHit hit;
+					if (!Physics.Raycast(ray, out hit, 1000, Ring))
+					{
+						if (_isGrounded)
+						{
+							_cubeFactor = -(Jump / 10);
+							_gravityBuffer = 0;
+							_jumping = true;
+						}
+						else
+						{
+							_currentJumpBuffer = JumpBuffer;
+						}
+					}
+				}
+			}
+			else if (Input.GetMouseButtonDown(0))
+			{
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (!Physics.Raycast(ray, out hit, 1000, Ring))
+				{
+					if (_isGrounded)
+					{
+						_cubeFactor = -(Jump / 10);
+						_gravityBuffer = 0;
+						_jumping = true;
+					}
+					else
+					{
+						_currentJumpBuffer = JumpBuffer;
+					}
+				}
+			}
+			else if ((_currentJumpBuffer >= 0) && _isGrounded)
+			{
+				_cubeFactor = -(Jump / 10);
+				_gravityBuffer = 0;
+				_jumping = true;
+			}
+			
+			Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
+		}
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+		if (!_pause) {
 
-        _currentJumpBuffer--;
+			_currentJumpBuffer--;
+			
+			if (!_isGrounded || _jumping)
+			{
+				_cubeFactor += Time.deltaTime;
+				_actualGravity = -Mathf.Abs(_cubeFactor) * _cubeFactor * AirGravityForce - _gravityBuffer;
+			}
+			
+			Vector3 newPosition = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
+			newPosition = new Vector3(newPosition.x, 0, newPosition.z);
+			newPosition = newPosition.normalized * _distance;
+			newPosition = new Vector3(newPosition.x, transform.position.y + _actualGravity * Time.deltaTime, newPosition.z);
+			oldVelocity = (newPosition - transform.position) / Time.deltaTime;
+			_body.MovePosition(newPosition);
+			
+			transform.LookAt(new Vector3(0, transform.position.y, 0), Vector3.up);
+		}
 
-        if (!_isGrounded || _jumping)
-        {
-            _cubeFactor += Time.deltaTime;
-            _actualGravity = -Mathf.Abs(_cubeFactor) * _cubeFactor * AirGravityForce - _gravityBuffer;
-        }
-
-        Vector3 newPosition = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
-        newPosition = new Vector3(newPosition.x, 0, newPosition.z);
-        newPosition = newPosition.normalized * _distance;
-        newPosition = new Vector3(newPosition.x, transform.position.y + _actualGravity * Time.deltaTime, newPosition.z);
-        oldVelocity = (newPosition - transform.position) / Time.deltaTime;
-        _body.MovePosition(newPosition);
-
-        transform.LookAt(new Vector3(0, transform.position.y, 0), Vector3.up);
     }
 
     void OnTriggerEnter(Collider collider)
