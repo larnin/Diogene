@@ -6,6 +6,7 @@ TagManager:
   tags:
   - KillGrid
   - Trap
+  - Collectable
   layers:
   - Default
   - TransparentFX

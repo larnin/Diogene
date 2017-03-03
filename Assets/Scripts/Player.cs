@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
-        Event<InitializeEvent>.Broadcast(new InitializeEvent(transform.position));
     }
 
     void Update()
@@ -181,7 +180,13 @@ public class Player : MonoBehaviour
             Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
             enabled = false;
             StartCoroutine(TrapKillCoroutine());
+        }
 
+        if(collider.gameObject.tag == "Collectable")
+        {
+            var collectable = collider.GetComponent<Collectable>();
+            Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent(collectable != null ? collectable.value : 1));
+            Destroy(collider.gameObject);
         }
     }
 
