@@ -37,25 +37,13 @@ public class HUD : MonoBehaviour {
 	void UpdateCoin (CoinCollectedEvent e) {
 		Coins += e.Value;
 
-		int _nbChiffre = G.Sys.dataMaster.CustomLog (Coins);
-		int _nbSection = (_nbChiffre / 3) + 1;
-		int _nbLastSection = _nbChiffre % 3;
-
-		if (_nbLastSection == 0) {
-			_nbSection++;
-			_nbLastSection = 3;
-		}
-			
-		int _buffer = (Coins % (int)Mathf.Pow (10, 3 * _nbSection)) / (int)Mathf.Pow (10, 3 * (_nbSection - 1));
-		string _text = "" + _buffer;
-		for (int i = _nbSection - 1; i > 0; i--) {
-			_buffer = (Coins % (int)Mathf.Pow (10, 3 * i)) / (int)Mathf.Pow (10, 3 * (i - 1));
-			if (_buffer == 0) {
-				_text += ",000";
+		string _coinText = Coins.ToString ();
+		string _text = "";
+		for (int i = 0; i < _coinText.Length; i++) {
+			if ((i != 0) && (((_coinText.Length - i) % 3) == 0)) {
+				_text += ",";
 			}
-			else {
-				_text += "," + _buffer;
-			}
+			_text += _coinText[i];
 		}
 
 		CoinText.text = _text;

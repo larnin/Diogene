@@ -17,25 +17,13 @@ public class DataMaster {
 			_save.Coins = value;
 			SaveData ();
 
-			int _nbChiffre = CustomLog (_save.Coins);
-			int _nbSection = (_nbChiffre / 3) + 1;
-			int _nbLastSection = _nbChiffre % 3;
-
-			if (_nbLastSection == 0) {
-				_nbSection++;
-				_nbLastSection = 3;
-			}
-
-			int _buffer = (_save.Coins % (int)Mathf.Pow (10, 3 * _nbSection)) / (int)Mathf.Pow (10, 3 * (_nbSection - 1));
-			string _text = "" + _buffer;
-			for (int i = _nbSection - 1; i > 0; i--) {
-				_buffer = (_save.Coins % (int)Mathf.Pow (10, 3 * i)) / (int)Mathf.Pow (10, 3 * (i - 1));
-				if (_buffer == 0) {
-					_text += ",000";
+			string _coinText = Coins.ToString ();
+			string _text = "";
+			for (int i = 0; i < _coinText.Length; i++) {
+				if (((_coinText.Length - i) % 3) == 0) {
+					_text += ",";
 				}
-				else {
-					_text += "," + _buffer;
-				}
+				_text += _coinText[i];
 			}
 
 			CoinsText = _text;
@@ -60,21 +48,6 @@ public class DataMaster {
 		formatter.Serialize(saveFile, _save);
 
 		saveFile.Close();
-	}
-
-	public int CustomLog(float entry) {
-		int bufferOut;
-		if (entry == 0) {
-			bufferOut = 0;
-		}
-		else if (entry > 0) {
-			bufferOut = Mathf.FloorToInt(Mathf.Log10(entry));
-		}
-		else {
-			bufferOut = Mathf.FloorToInt (Mathf.Log10 (entry * (-1)));
-		}
-
-		return bufferOut;
 	}
 
 	public void SetEverything () {
