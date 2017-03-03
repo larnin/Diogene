@@ -14,12 +14,14 @@ public class PauseFunctionnality : MonoBehaviour {
 	float _timer;
 	bool _countdown = false;
 
+	SubscriberList _subscriberList = new SubscriberList();
+
 	void Awake () {
 		_hudScript = HUD.GetComponent <HUD> ();
 		_chrono = Chrono.GetComponent <Text> ();
 		_timer = Timer;
 	}
-
+		
 	void OnEnable () {
 		_countdown = false;
 		Main.SetActive (true);

@@ -18,9 +18,13 @@ public class HUD : MonoBehaviour {
 	float startingY = 0;
 	SubscriberList _subscriberList = new SubscriberList();
 
+	[HideInInspector]
+	public bool CanPause = true;
+
 	void Start () {
 		_subscriberList.Add(new Event<PlayerMovedEvent>.Subscriber(UpdateScore));
 		_subscriberList.Add(new Event<CoinCollectedEvent>.Subscriber(UpdateCoin));
+		_subscriberList.Add(new Event<PlayerKillEvent>.Subscriber(CannotPause));
 		_subscriberList.Subscribe ();
 
 		ScoreText.text = "0";
@@ -63,11 +67,19 @@ public class HUD : MonoBehaviour {
 
 		ScoreText.text = "0";
 		CoinText.text = "0";
+
+		CanPause = true;
 	}
 
 	public void PauseGame () {
-		Event<PauseRingEvent>.Broadcast(new PauseRingEvent(true));
-		Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(true));
-		Pause.SetActive (true);
+		if (CanPause) {
+			Event<PauseRingEvent>.Broadcast(new PauseRingEvent(true));
+			Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(true));
+			Pause.SetActive (true);
+		}
+	}
+
+	void CannotPause (PlayerKillEvent e) {
+		CanPause = false;
 	}
 }
