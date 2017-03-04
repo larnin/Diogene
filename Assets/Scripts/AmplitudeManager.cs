@@ -17,6 +17,7 @@ public class AmplitudeManager
     {
         _subscriberList.Add(new Event<GameOverEvent>.Subscriber(OnGameOver));
         _subscriberList.Add(new Event<InitializeEvent>.Subscriber(OnStartRun));
+        _subscriberList.Add(new Event<PlayerHaveJumped>.Subscriber(OnJump));
 
         _subscriberList.Subscribe();
 
@@ -68,7 +69,7 @@ public class AmplitudeManager
         _amplitude.logEvent("EndRun", UserProperties);
     }
     
-    void OnJump(PlayerJumpEvent e)
+    void OnJump(PlayerHaveJumped e)
     {
         _jumpCount++;
     }
