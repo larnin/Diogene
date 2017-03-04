@@ -92,6 +92,16 @@ public class DataMaster {
         SaveData();
     }
 
+    public bool PlayTuto
+    {
+        get { return !_save.PlayTuto; }
+        set
+        {
+            _save.PlayTuto = !value;
+            SaveData();
+        }
+    }
+
     void SaveData () {
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");

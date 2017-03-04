@@ -9,6 +9,7 @@ public class ContinueFonctionnality : MonoBehaviour {
 	public Text Chrono;
 	public Text GainedCoin;
 	public float Timer = 5;
+	public float MiniTimer = 0.5f;
 
 	float timer;
 
@@ -26,7 +27,7 @@ public class ContinueFonctionnality : MonoBehaviour {
 		timer -= Time.deltaTime;
 		Chrono.text = Mathf.RoundToInt (timer).ToString ();
 
-		if (timer <= -0.5f) {
+		if (timer <= -MiniTimer) {
 			GameOverScreen.SetActive (true);
 			gameObject.SetActive (false);
 		}

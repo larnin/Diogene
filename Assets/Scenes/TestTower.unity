@@ -95,7 +95,7 @@ NavMeshSettings:
 GameObject:
   m_PrefabParentObject: {fileID: 1000011771721766, guid: f90881f4ee5422a47afe79c0ea80f021,
     type: 2}
-  m_PrefabInternal: {fileID: 1649676024}
+  m_PrefabInternal: {fileID: 221256891}
 --- !u!1 &177806478
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startChunkPrefab: {fileID: 1000012204247940, guid: aa4b179ca98ebb94c8e45f6962e99a93,
+    type: 2}
+  startTutoPrefab: {fileID: 1000010994430414, guid: 637259d622900974591bae00def554c6,
     type: 2}
   chunkPrefabs:
   - {fileID: 1000013907928416, guid: f7666b470eb62de4d86b33e4591dd7e2, type: 2}
@@ -182,6 +184,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 1000013911013902, guid: 8de5e03b9984fc64eb637b7d419b9282,
     type: 2}
   playerStartLocation: {x: 4.7, y: 1, z: -0.5}
+  textTuto: {fileID: 1434125888}
+  SupportTextTuto: {fileID: 2058070542}
 --- !u!4 &220371676
 Transform:
   m_ObjectHideFlags: 0
@@ -365,7 +369,7 @@ MonoBehaviour:
 GameObject:
   m_PrefabParentObject: {fileID: 1000011891481122, guid: f90881f4ee5422a47afe79c0ea80f021,
     type: 2}
-  m_PrefabInternal: {fileID: 1649676024}
+  m_PrefabInternal: {fileID: 221256891}
 --- !u!1 &709972562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,3 +1169,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1791309002}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2058070542 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000012761082212, guid: f90881f4ee5422a47afe79c0ea80f021,
+    type: 2}
+  m_PrefabInternal: {fileID: 221256891}

@@ -69,6 +69,9 @@ public class PauseFunctionnality : MonoBehaviour {
 		_hudScript.ScoreText.text = "0";
 		_hudScript.CoinText.text = "0";
 
+		Event<PauseRingEvent>.Broadcast(new PauseRingEvent(false));
+		Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(false));
+
 		gameObject.SetActive (false);
 	}
 }
