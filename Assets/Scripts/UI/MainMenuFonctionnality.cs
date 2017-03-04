@@ -25,11 +25,10 @@ public class MainMenuFonctionnality : MonoBehaviour {
 
 		G.Sys.dataMaster.ScreenSleepTime = Screen.sleepTimeout;
 
-		if (!Directory.Exists("Saves")) {
-			Directory.CreateDirectory("Saves");
+		if (!File.Exists(Application.persistentDataPath + "/save.diogene")) {
 
 			BinaryFormatter formatter = new BinaryFormatter();
-			FileStream saveFile = File.Create("Saves/save.diogene");
+			FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
 
 			G.Sys.dataMaster._save = new Save ();
 
@@ -39,7 +38,7 @@ public class MainMenuFonctionnality : MonoBehaviour {
 		}
 		else {
 			BinaryFormatter formatter = new BinaryFormatter();
-			FileStream saveFile = File.Open("Saves/save.diogene", FileMode.Open);
+			FileStream saveFile = File.Open(Application.persistentDataPath + "/save.diogene", FileMode.Open);
 
 			G.Sys.dataMaster._save = (Save)formatter.Deserialize(saveFile);
 

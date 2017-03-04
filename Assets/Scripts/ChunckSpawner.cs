@@ -193,7 +193,7 @@ public class ChunckSpawner : MonoBehaviour
             currentHeight += _chunkDatas[value].height;
             count++;
             if (currentHeight >= _currentHeight)
-                return count;
+                return count - 1;
         }
         return _lastChunckSpawn.Count - 1;
     }

@@ -94,7 +94,7 @@ public class DataMaster {
 
     void SaveData () {
 		BinaryFormatter formatter = new BinaryFormatter();
-		FileStream saveFile = File.Create("Saves/save.diogene");
+		FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
 
 		formatter.Serialize(saveFile, _save);
 
