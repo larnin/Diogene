@@ -54,6 +54,7 @@ public class MainMenuFonctionnality : MonoBehaviour {
 	}
 
 	public void StartGame () {
+		Debug.Log (G.Sys.dataMaster.PlayTuto);
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		G.Sys.gameManager.StartGame ();
 		MyHUD.SetActive (true);
