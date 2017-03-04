@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -100,50 +101,6 @@ public class Player : MonoBehaviour
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
 
-
-        /*if (!_pause) {
-			
-			_currentSpeed += Acceleration * Time.deltaTime;
-			if (_currentSpeed > MaxSpeed)
-				_currentSpeed = MaxSpeed;
-			
-			if (!_isGrounded)
-			{
-				_isGrounded = Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, Ground);
-				
-				if (_isGrounded)
-				{
-					_actualGravity = -GroundGravity;
-				}
-			}
-			else
-			{
-				_isGrounded = Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, Ground);
-				if (!_isGrounded)
-				{
-					if (!_jumping)
-					{
-						_cubeFactor = 0;
-						_gravityBuffer = GroundGravity;
-					}
-					else
-					{
-						_jumping = false;
-					}
-				}
-			}
-
-			if ((_currentJumpBuffer >= 0) && _isGrounded)
-			{
-				_cubeFactor = -(Jump / 10);
-				_gravityBuffer = 0;
-				_jumping = true;
-                Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
-            }
-			
-			Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
-		}*/
-
         _currentJumpBuffer--;
         if(_isGrounded && _currentJumpBuffer > 0)
         {
@@ -152,28 +109,16 @@ public class Player : MonoBehaviour
         }
     }
 
-	void JumpMe (PlayerJumpEvent e) {
+	void JumpMe (PlayerJumpEvent e)
+    {
         if (_isGrounded)
         {
             _cubeFactor = -(Jump / 10);
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
         }
         else _currentJumpBuffer = JumpBuffer;
-		/*if (_isGrounded)
-		{
-			_cubeFactor = -(Jump / 10);
-			_gravityBuffer = 0;
-			_jumping = true;
-
-            Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
-		}
-		else
-		{
-			_currentJumpBuffer = JumpBuffer;
-		}*/
 	}
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (_pause)
@@ -185,7 +130,6 @@ public class Player : MonoBehaviour
         Vector3 newPos = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
         transform.position = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
         newPos = transform.position + new Vector3(0, _actualGravity * Time.deltaTime, 0);
-        //newPos.y += _actualGravity * Time.deltaTime;
         
         var hits = Physics.SphereCastAll(new Ray(transform.position, newPos - transform.position), Radius, (newPos - transform.position).magnitude);
         bool haveHit = false;
@@ -214,27 +158,6 @@ public class Player : MonoBehaviour
         }
 
         transform.LookAt(new Vector3(0, transform.position.y, 0), Vector3.up);
-
-        /*if (!_pause) {
-
-			_currentJumpBuffer--;
-			
-			if (!_isGrounded || _jumping)
-			{
-				_cubeFactor += Time.deltaTime;
-				_actualGravity = -Mathf.Abs(_cubeFactor) * _cubeFactor * AirGravityForce - _gravityBuffer;
-			}
-			
-			Vector3 newPosition = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
-			newPosition = new Vector3(newPosition.x, 0, newPosition.z);
-			newPosition = newPosition.normalized * _distance;
-			newPosition = new Vector3(newPosition.x, transform.position.y + _actualGravity * Time.deltaTime, newPosition.z);
-			oldVelocity = (newPosition - transform.position) / Time.deltaTime;
-			_body.MovePosition(newPosition);
-			
-			transform.LookAt(new Vector3(0, transform.position.y, 0), Vector3.up);
-		}*/
-
     }
 
     void OnTriggerEnter(Collider collider)
@@ -265,6 +188,13 @@ public class Player : MonoBehaviour
             collider.gameObject.tag = "Untagged";
             collider.gameObject.GetComponentInChildren<Animator>().SetTrigger("Collect");
             Destroy(collider.gameObject, 0.5f);
+        }
+
+        if(collider.gameObject.tag == "TextTrigger")
+        {
+            var text = collider.GetComponent<TextTrigger>();
+            if (text != null)
+                Event<TextTriggerEvent>.Broadcast(new TextTriggerEvent(text.text, text.fadeOutTime));
         }
     }
 
