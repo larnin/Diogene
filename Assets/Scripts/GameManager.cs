@@ -93,7 +93,8 @@ public class GameManager : MonoBehaviour
     {
         SupportTextTuto.SetActive(true);
         textTuto.text = e.text;
-        StopCoroutine(_textTutoCoroutine);
+        if(_textTutoCoroutine != null)
+            StopCoroutine(_textTutoCoroutine);
         _textTutoCoroutine = StartCoroutine(TextRemoveCoroutine(e.time));
     }
 

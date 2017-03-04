@@ -9,6 +9,8 @@ TagManager:
   - Collectable
   - UI
   - Pause
+  - Ring
+  - TextTrigger
   layers:
   - Default
   - TransparentFX
