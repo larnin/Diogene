@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MainMenuFonctionnality : MonoBehaviour {
 
+	public Text Score;
 	public GameObject Credits;
 	public GameObject Options;
 	public GameObject MyHUD;
@@ -21,7 +22,7 @@ public class MainMenuFonctionnality : MonoBehaviour {
 		gameObject.SetActive (false);
 	}
 
-	void Start () {
+	void Awake () {
 
 		G.Sys.dataMaster.ScreenSleepTime = Screen.sleepTimeout;
 
@@ -46,6 +47,10 @@ public class MainMenuFonctionnality : MonoBehaviour {
 
 			G.Sys.dataMaster.SetEverything ();
 		}
+	}
+
+	public void OnEnable() {
+		Score.text = G.Sys.dataMaster.HighScoreText;
 	}
 
 	public void StartGame () {
