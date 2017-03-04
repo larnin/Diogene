@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
 
 	void Start()
     {
-        mainMenu.SetActive(true);
         hud.SetActive(false);
         Event<InitializeEvent>.Broadcast(new InitializeEvent(new Vector3(0, 0, 0)));
 		Event<PlayerMovedEvent>.Broadcast (new PlayerMovedEvent (playerStartLocation, 0));
