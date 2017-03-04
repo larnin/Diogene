@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
         if (!haveHit)
         {
             transform.position = newPos;
-            _isGrounded = false;
+            _isGrounded = CheckGrounded();
         }
         else
         {
@@ -220,4 +220,15 @@ public class Player : MonoBehaviour
 	{
 		Destroy (gameObject);
 	}
+
+    bool CheckGrounded()
+    {
+        var hits = Physics.SphereCastAll(new Ray(transform.position, new Vector3(0, -1, 0)), Radius, 0.15f);
+        foreach(var hit in hits)
+        {
+            if (hit.collider.gameObject.layer == _groundLayer)
+                return true;
+        }
+        return false;
+    }
 }
