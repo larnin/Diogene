@@ -14,7 +14,7 @@ public class DataMaster {
 
     public DataMaster()
     {
-        _subscriberList.Add(new Event<PlayerJumpEvent>.Subscriber(OnJump));
+        _subscriberList.Add(new Event<PlayerHaveJumped>.Subscriber(OnJump));
         _subscriberList.Subscribe();
     }
 
@@ -86,7 +86,7 @@ public class DataMaster {
         }
     }
     public int JumpCount { get { return _save.JumpCount; } }
-    void OnJump(PlayerJumpEvent e)
+    void OnJump(PlayerHaveJumped e)
     {
         _save.JumpCount++;
         SaveData();

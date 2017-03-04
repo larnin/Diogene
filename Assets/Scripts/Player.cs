@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     public float TimeBeforeDestroy = 2;
     public float TrapKillVelocity = 5;
     public float TrapWaitBeforeAnimation = 0.5f;
+    public float Radius = 0.5f;
+    public float GravityForce = 1.0f;
 
     int _direction = 1;
     [HideInInspector]
@@ -36,7 +38,7 @@ public class Player : MonoBehaviour
     }
 
     float _gravityBuffer = 0;
-    float _cubeFactor;
+    float _cubeFactor = 0;
     float _currentJumpBuffer = 0;
     float _distance;
     Rigidbody _body;
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
 	SubscriberList _subscriberList = new SubscriberList();
     float _currentSpeed;
 	bool _pause = false;
+    int _groundLayer;
 
 	void Awake()
 	{
@@ -73,6 +76,7 @@ public class Player : MonoBehaviour
         _body = GetComponent<Rigidbody>();
         _distance = new Vector3(transform.position.x, 0, transform.position.z).magnitude;
         _groundCheckX = GroundCheck.localPosition.x;
+        _groundLayer = LayerMask.NameToLayer("Ground");
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
@@ -90,7 +94,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-		if (!_pause) {
+        if (_pause)
+            return;
+        _currentSpeed += Acceleration * Time.deltaTime;
+
+        Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
+
+
+        /*if (!_pause) {
 			
 			_currentSpeed += Acceleration * Time.deltaTime;
 			if (_currentSpeed > MaxSpeed)
@@ -127,30 +138,84 @@ public class Player : MonoBehaviour
 				_cubeFactor = -(Jump / 10);
 				_gravityBuffer = 0;
 				_jumping = true;
-                Event<PlayerJumpEvent>.Broadcast(new PlayerJumpEvent());
-			}
+                Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
+            }
 			
 			Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
-		}
+		}*/
+
+        _currentJumpBuffer--;
+        if(_isGrounded && _currentJumpBuffer > 0)
+        {
+            _cubeFactor = -(Jump / 10);
+            Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
+        }
     }
 
 	void JumpMe (PlayerJumpEvent e) {
-		if (_isGrounded)
+        if (_isGrounded)
+        {
+            _cubeFactor = -(Jump / 10);
+            Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
+        }
+        else _currentJumpBuffer = JumpBuffer;
+		/*if (_isGrounded)
 		{
 			_cubeFactor = -(Jump / 10);
 			_gravityBuffer = 0;
 			_jumping = true;
+
+            Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
 		}
 		else
 		{
 			_currentJumpBuffer = JumpBuffer;
-		}
+		}*/
 	}
 
     // Update is called once per frame
     void FixedUpdate()
     {
-		if (!_pause) {
+        if (_pause)
+            return;
+
+        _cubeFactor += Time.deltaTime;
+        _actualGravity = -Mathf.Abs(_cubeFactor) * _cubeFactor * GravityForce;
+
+        Vector3 newPos = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
+        transform.position = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
+        newPos = transform.position + new Vector3(0, _actualGravity * Time.deltaTime, 0);
+        //newPos.y += _actualGravity * Time.deltaTime;
+        
+        var hits = Physics.SphereCastAll(new Ray(transform.position, newPos - transform.position), Radius, (newPos - transform.position).magnitude);
+        bool haveHit = false;
+        var hit = new RaycastHit();
+        float distance = 10000000.0f;
+        foreach(var h in hits)
+        {
+            if(h.collider.gameObject.layer == _groundLayer && distance > h.distance)
+            {
+                haveHit = true;
+                hit = h;
+                distance = h.distance;
+            }
+        }
+        if (!haveHit)
+        {
+            transform.position = newPos;
+            _isGrounded = false;
+        }
+        else
+        {
+            float d = hit.distance > 0.01f ? hit.distance - 0.01f : 0;
+            transform.position = transform.position + (newPos - transform.position).normalized * d;
+            _cubeFactor = GroundGravity;
+            _isGrounded = true;
+        }
+
+        transform.LookAt(new Vector3(0, transform.position.y, 0), Vector3.up);
+
+        /*if (!_pause) {
 
 			_currentJumpBuffer--;
 			
@@ -168,7 +233,7 @@ public class Player : MonoBehaviour
 			_body.MovePosition(newPosition);
 			
 			transform.LookAt(new Vector3(0, transform.position.y, 0), Vector3.up);
-		}
+		}*/
 
     }
 
