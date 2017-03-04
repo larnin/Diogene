@@ -123,13 +123,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab85848e59f9184ca84f10a11911d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startChunkPrefab: {fileID: 1000013710028626, guid: c4336c599a1c0d54892e37b3586fad8b,
+  startChunkPrefab: {fileID: 1000013022550532, guid: 15dccb3b6c1491e4f91b08923bc452d2,
     type: 2}
   chunkPrefabs:
-  - {fileID: 1000013710028626, guid: c4336c599a1c0d54892e37b3586fad8b, type: 2}
-  - {fileID: 1000012257095740, guid: de0ab8716b03ad049bf22b177294a937, type: 2}
-  - {fileID: 1000011816212944, guid: 8b4ed2473dcf40d4a81d4649bd47f5a7, type: 2}
-  - {fileID: 1000010404699880, guid: 7ce1e15fb9205f94184d26b02e25acf1, type: 2}
+  - {fileID: 1000013022550532, guid: 15dccb3b6c1491e4f91b08923bc452d2, type: 2}
+  - {fileID: 1000010954453318, guid: c66d6b6497c62e445bffdbc11e539678, type: 2}
+  - {fileID: 1000012424551068, guid: cc1a9912db591764e818c3432393151b, type: 2}
+  - {fileID: 1000011669040642, guid: 3e0dbb8daa736a145915b9c1efbb04a6, type: 2}
   distanceToDelChunk: 20
   distanceToLoadChunk: 20
   dontRepeatCount: 1
@@ -669,6 +669,52 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8de5e03b9984fc64eb637b7d419b9282, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &796430108
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000013402505772, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013402505772, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013402505772, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013402505772, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013402505772, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013402505772, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013402505772, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013402505772, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010840467876, guid: d7336737823715745b43af59f4d3549c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d7336737823715745b43af59f4d3549c, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &898503596
 Prefab:
   m_ObjectHideFlags: 0
@@ -1008,7 +1054,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 7
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.8392157, g: 0.953428, b: 1, a: 1}
   m_Intensity: 1.29
   m_Range: 10
   m_SpotAngle: 30
