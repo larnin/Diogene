@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     void OnPlayerKill(PlayerKillEvent e)
     {
         StartCoroutine(WaitAndEndGameCoroutine());
+        if(G.Sys.chunkSpawner.chunkCount() > 1)
+            G.Sys.dataMaster.PlayTuto = false;
     }
 
     IEnumerator WaitAndEndGameCoroutine()
@@ -93,7 +95,8 @@ public class GameManager : MonoBehaviour
     {
         SupportTextTuto.SetActive(true);
         textTuto.text = e.text;
-        StopCoroutine(_textTutoCoroutine);
+        if(_textTutoCoroutine != null)
+            StopCoroutine(_textTutoCoroutine);
         _textTutoCoroutine = StartCoroutine(TextRemoveCoroutine(e.time));
     }
 

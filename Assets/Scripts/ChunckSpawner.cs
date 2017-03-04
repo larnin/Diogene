@@ -13,6 +13,7 @@ public class ChunckSpawner : MonoBehaviour
     }
 
     public GameObject startChunkPrefab;
+    public GameObject startTutoPrefab;
     public List<GameObject> chunkPrefabs;
     public float distanceToDelChunk;
     public float distanceToLoadChunk;
@@ -41,7 +42,7 @@ public class ChunckSpawner : MonoBehaviour
 		if (!_initialized)
 			return;
 
-        _currentHeight = e.pos.y;
+        _currentHeight = -e.pos.y;
 		
         while (_chunks[_chunks.Count - 1].gameObject.transform.position.y - _chunks[_chunks.Count - 1].datas.height > e.pos.y - distanceToLoadChunk)
             addChunk();
@@ -52,9 +53,12 @@ public class ChunckSpawner : MonoBehaviour
     void OnInitialize(InitializeEvent e)
     {
 		_initialized = true;
-        var data = GetDataFromChunk(startChunkPrefab);
 
-        var chunk = Instantiate(startChunkPrefab);
+        var prefab = G.Sys.dataMaster.PlayTuto ? startTutoPrefab : startChunkPrefab;
+
+        var data = GetDataFromChunk(prefab);
+
+        var chunk = Instantiate(prefab);
         chunk.transform.position = new Vector3(0, chunk.transform.FindChild("Start").transform.position.y, 0);
         chunk.transform.Rotate(0, -data.startRotation, 0);
 
