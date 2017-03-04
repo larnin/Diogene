@@ -180,6 +180,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 1000013911013902, guid: 8de5e03b9984fc64eb637b7d419b9282,
     type: 2}
   playerStartLocation: {x: 4.7, y: 1, z: -0.5}
+  textTuto: {fileID: 0}
+  SupportTextTuto: {fileID: 0}
 --- !u!4 &220371676
 Transform:
   m_ObjectHideFlags: 0
@@ -326,6 +328,14 @@ Prefab:
     - target: {fileID: 1000014180459184, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012761082212, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010047136034, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
