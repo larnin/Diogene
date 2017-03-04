@@ -54,6 +54,8 @@ public class PauseFunctionnality : MonoBehaviour {
 	}
 
 	public void GoToMainMenu () {
+		Event<PauseRingEvent>.Broadcast(new PauseRingEvent(false));
+		Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(false));
 		G.Sys.gameManager.GoToStartMenu ();
 		HUD.SetActive (false);
 		gameObject.SetActive (false);

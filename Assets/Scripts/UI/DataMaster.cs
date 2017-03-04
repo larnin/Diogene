@@ -97,7 +97,7 @@ public class DataMaster {
         get { return !_save.PlayTuto; }
         set
         {
-            _save.PlayTuto = !value;
+			_save.PlayTuto = !value;
             SaveData();
         }
     }

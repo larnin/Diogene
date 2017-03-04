@@ -82,6 +82,8 @@ public class GameManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         hud.SetActive(true);
+		Event<ResetEvent>.Broadcast (new ResetEvent ());
+		Event<InitializeEvent>.Broadcast(new InitializeEvent(new Vector3(0, 0, 0)));
 		InstanciatePlayer ();
     }
 

@@ -182,7 +182,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 1000013911013902, guid: 8de5e03b9984fc64eb637b7d419b9282,
     type: 2}
   playerStartLocation: {x: 4.7, y: 1, z: -0.5}
-  textTuto: {fileID: 1434125888}
+  textTuto: {fileID: 0}
   SupportTextTuto: {fileID: 2058070542}
 --- !u!4 &220371676
 Transform:
@@ -293,51 +293,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010661691256, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
-      propertyPath: m_Name
-      value: Secondary Banner
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000011666501242, guid: f90881f4ee5422a47afe79c0ea80f021,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000011533670098, guid: f90881f4ee5422a47afe79c0ea80f021,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -65
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000011666501242, guid: f90881f4ee5422a47afe79c0ea80f021,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 227
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000011666501242, guid: f90881f4ee5422a47afe79c0ea80f021,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 304
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000011778722508, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000011507254642, guid: f90881f4ee5422a47afe79c0ea80f021,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 192.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000014180459184, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000012761082212, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010047136034, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
@@ -1080,12 +1035,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bd8d441d21bf804d9e84eb78287604f, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1434125888 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000011157159868, guid: f90881f4ee5422a47afe79c0ea80f021,
-    type: 2}
-  m_PrefabInternal: {fileID: 221256891}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1522238076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,7 +1080,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 09500520395bfc940ab87ed9f4afbbdd, type: 2}
+  - {fileID: 2100000, guid: 858a64771ef09b44abf79358ba80ca6e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1183,7 +1132,7 @@ MonoBehaviour:
   FadeOutDuration: 1
   MinWaitBetweenRays: 1
   MaxWaitBetweenRays: 5
-  _material: {fileID: 2100000, guid: 09500520395bfc940ab87ed9f4afbbdd, type: 2}
+  _material: {fileID: 2100000, guid: 858a64771ef09b44abf79358ba80ca6e, type: 2}
 --- !u!1 &1548343288
 GameObject:
   m_ObjectHideFlags: 0

@@ -175,7 +175,7 @@ PlayerSettings:
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: C:/Users/n.laurent/Desktop/Diogene/Diogene/Assets/Plugins/Android/app.keystore
   AndroidKeyaliasName: 
-  AndroidTVCompatibility: 1
+  AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 0
   m_AndroidBanners:
