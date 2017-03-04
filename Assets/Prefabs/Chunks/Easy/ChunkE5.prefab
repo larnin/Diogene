@@ -947,6 +947,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014129220470}
+  - 114: {fileID: 114000011283338546}
   m_Layer: 0
   m_Name: ChunkE5
   m_TagString: Untagged
@@ -3706,6 +3707,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 5
+--- !u!114 &114000011283338546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013975544778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93c288f5a3246c499876bde989a78d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holesCount: 0
+  ringCount: 1
+  trapCount: 0
+  armCount: 0
 --- !u!114 &114000011303701728
 MonoBehaviour:
   m_ObjectHideFlags: 1

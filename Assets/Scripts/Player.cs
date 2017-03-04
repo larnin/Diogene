@@ -127,6 +127,7 @@ public class Player : MonoBehaviour
 				_cubeFactor = -(Jump / 10);
 				_gravityBuffer = 0;
 				_jumping = true;
+                Event<PlayerJumpEvent>.Broadcast(new PlayerJumpEvent());
 			}
 			
 			Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));

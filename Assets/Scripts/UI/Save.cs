@@ -11,5 +11,5 @@ public class Save {
     public int RingCount = 0;
     public int TrapCount = 0;
     public int ArmCount = 0;
-
+    public int JumpCount = 0;
 }

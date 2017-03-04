@@ -10,6 +10,14 @@ public class DataMaster {
 
 	public int ScreenSleepTime;
 
+    SubscriberList _subscriberList = new SubscriberList();
+
+    public DataMaster()
+    {
+        _subscriberList.Add(new Event<PlayerJumpEvent>.Subscriber(OnJump));
+        _subscriberList.Subscribe();
+    }
+
 	public string CoinsText = "0";
 	public int Coins {
 		get {return _save.Coins;}
@@ -44,22 +52,44 @@ public class DataMaster {
     public int HolesCount
     {
         get { return _save.HolesCount; }
-        set { _save.HolesCount = value; }
+        set
+        {
+            _save.HolesCount = value;
+            SaveData();
+        }
     }
     public int RingCount
     {
         get { return _save.RingCount; }
-        set { _save.RingCount = value; }
+        set
+        {
+            _save.RingCount = value;
+            SaveData();
+        }
     }
     public int TrapCount
     {
         get { return _save.TrapCount; }
-        set { _save.TrapCount = value; }
+        set
+        {
+            _save.TrapCount = value;
+            SaveData();
+        }
     }
     public int ArmCount
     {
         get { return _save.ArmCount; }
-        set { _save.ArmCount = value; }
+        set
+        {
+            _save.ArmCount = value;
+            SaveData();
+        }
+    }
+    public int JumpCount { get { return _save.JumpCount; } }
+    void OnJump(PlayerJumpEvent e)
+    {
+        _save.JumpCount++;
+        SaveData();
     }
 
     void SaveData () {

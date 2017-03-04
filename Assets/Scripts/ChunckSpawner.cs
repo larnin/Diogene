@@ -27,6 +27,7 @@ public class ChunckSpawner : MonoBehaviour
 
     void Awake()
     {
+        G.Sys.chunkSpawner = this;
         _subscriberList.Add(new Event<CameraMovedEvent>.Subscriber(OnCameraMove));
         _subscriberList.Add(new Event<InitializeEvent>.Subscriber(OnInitialize));
 		_subscriberList.Add(new Event<ResetEvent>.Subscriber(OnReset));
