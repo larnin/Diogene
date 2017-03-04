@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     void OnPlayerKill(PlayerKillEvent e)
     {
         StartCoroutine(WaitAndEndGameCoroutine());
+        if(G.Sys.chunkSpawner.chunkCount() > 1)
+            G.Sys.dataMaster.PlayTuto = false;
     }
 
     IEnumerator WaitAndEndGameCoroutine()

@@ -125,6 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startChunkPrefab: {fileID: 1000013022550532, guid: 15dccb3b6c1491e4f91b08923bc452d2,
     type: 2}
+  startTutoPrefab: {fileID: 1000010994430414, guid: 637259d622900974591bae00def554c6,
+    type: 2}
   chunkPrefabs:
   - {fileID: 1000013022550532, guid: 15dccb3b6c1491e4f91b08923bc452d2, type: 2}
   - {fileID: 1000010954453318, guid: c66d6b6497c62e445bffdbc11e539678, type: 2}
