@@ -9,17 +9,10 @@ public class Player : MonoBehaviour
     public float MaxSpeed = 100;
     public float RotationSpeed = 50;
     public float GroundGravity = 7;
-    public float AirGravityForce = 7;
-    public float GravitySpeed = 1;
     public float Jump = 20;
     public LayerMask Ground;
-    public LayerMask Ring;
-    public Transform GroundCheck;
 	public Animator _animator;
-    [Tooltip("Radius de la sphère qui check si le Player est au sol.")]
-    public float GroundCheckRadius = 0.1f;
     public float JumpBuffer = 6;
-    public float TimeBeforeDestroy = 2;
     public float TrapKillVelocity = 5;
     public float TrapWaitBeforeAnimation = 0.5f;
     public float Radius = 0.5f;
@@ -33,25 +26,21 @@ public class Player : MonoBehaviour
         set
         {
             _direction = value;
-            GroundCheck.localPosition = new Vector3(_groundCheckX * value, GroundCheck.localPosition.y, GroundCheck.localPosition.z);
 			_animator.SetFloat ("Direction", value);
         }
     }
-
-    float _gravityBuffer = 0;
+    
     float _cubeFactor = 0;
     float _currentJumpBuffer = 0;
     float _distance;
-    Rigidbody _body;
     float _actualGravity = 0;
     public bool _isGrounded = false;
-    bool _jumping = false;
-    float _groundCheckX;
     Vector3 oldVelocity;
 	SubscriberList _subscriberList = new SubscriberList();
     float _currentSpeed;
 	bool _pause = false;
-    int _groundLayer;
+    float _gravityAcceleration;
+    float _gravitySpeed = 1;
 
 	void Awake()
 	{
@@ -59,6 +48,7 @@ public class Player : MonoBehaviour
 		_subscriberList.Add (new Event<PausePlayerEvent>.Subscriber (Pause));
 		_subscriberList.Add (new Event<PlayerJumpEvent>.Subscriber (JumpMe));
         _currentSpeed = RotationSpeed;
+        _gravityAcceleration = Acceleration / RotationSpeed;
     }
 
 	void OnEnable()
@@ -74,10 +64,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _body = GetComponent<Rigidbody>();
         _distance = new Vector3(transform.position.x, 0, transform.position.z).magnitude;
-        _groundCheckX = GroundCheck.localPosition.x;
-        _groundLayer = LayerMask.NameToLayer("Ground");
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
@@ -98,6 +85,9 @@ public class Player : MonoBehaviour
         if (_pause)
             return;
         _currentSpeed += Acceleration * Time.deltaTime;
+        _gravitySpeed += _gravityAcceleration * Time.deltaTime;
+        if (_currentSpeed > MaxSpeed)
+            _currentSpeed = MaxSpeed;
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, _direction));
 
@@ -124,27 +114,22 @@ public class Player : MonoBehaviour
         if (_pause)
             return;
 
-        _cubeFactor += Time.deltaTime;
+        _cubeFactor += Time.deltaTime * _gravitySpeed;
         _actualGravity = -Mathf.Abs(_cubeFactor) * _cubeFactor * GravityForce;
 
         Vector3 newPos = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
         transform.position = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
         newPos = transform.position + new Vector3(0, _actualGravity * Time.deltaTime, 0);
         
-        var hits = Physics.SphereCastAll(new Ray(transform.position, newPos - transform.position), Radius, (newPos - transform.position).magnitude);
-        bool haveHit = false;
+        var hits = Physics.SphereCastAll(new Ray(transform.position, newPos - transform.position), Radius, (newPos - transform.position).magnitude, Ground);
         var hit = new RaycastHit();
         float distance = 10000000.0f;
         foreach(var h in hits)
         {
-            if(h.collider.gameObject.layer == _groundLayer && distance > h.distance)
-            {
-                haveHit = true;
-                hit = h;
-                distance = h.distance;
-            }
+            hit = h;
+            distance = h.distance;
         }
-        if (!haveHit)
+        if (hits.Length == 0)
         {
             transform.position = newPos;
             _isGrounded = CheckGrounded();
@@ -153,7 +138,7 @@ public class Player : MonoBehaviour
         {
             float d = hit.distance > 0.01f ? hit.distance - 0.01f : 0;
             transform.position = transform.position + (newPos - transform.position).normalized * d;
-            _cubeFactor = GroundGravity;
+            _cubeFactor = GroundGravity * _gravitySpeed;
             _isGrounded = true;
         }
 
@@ -223,12 +208,7 @@ public class Player : MonoBehaviour
 
     bool CheckGrounded()
     {
-        var hits = Physics.SphereCastAll(new Ray(transform.position, new Vector3(0, -1, 0)), Radius, 0.15f);
-        foreach(var hit in hits)
-        {
-            if (hit.collider.gameObject.layer == _groundLayer)
-                return true;
-        }
-        return false;
+        var hits = Physics.SphereCastAll(new Ray(transform.position, new Vector3(0, -1, 0)), Radius, 0.2f, Ground);
+        return hits.Length > 0;
     }
 }

@@ -60,21 +60,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000012397239474
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000012042950288}
-  m_Layer: 0
-  m_Name: GroundCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000013869138124
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,19 +119,6 @@ Transform:
   m_Children:
   - {fileID: 4000014020408652}
   m_Father: {fileID: 4000013237595750}
-  m_RootOrder: 2
---- !u!4 &4000012042950288
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012397239474}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.188, y: -0.106, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000013237595750}
   m_RootOrder: 1
 --- !u!4 &4000012252741412
 Transform:
@@ -173,7 +145,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
   - {fileID: 4000011348505616}
-  - {fileID: 4000012042950288}
   - {fileID: 4000011989413492}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -321,24 +292,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6576c2fe6cc33143824f55284cc7a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acceleration: 0
+  Acceleration: 5
   MaxSpeed: 100
   RotationSpeed: 40
   GroundGravity: 0.3
-  AirGravityForce: 30
-  GravitySpeed: 0.15
   Jump: 3
   Ground:
     serializedVersion: 2
     m_Bits: 256
-  Ring:
-    serializedVersion: 2
-    m_Bits: 512
-  GroundCheck: {fileID: 4000012042950288}
   _animator: {fileID: 95000011193638520}
-  GroundCheckRadius: 0.1
   JumpBuffer: 6
-  TimeBeforeDestroy: 2
   TrapKillVelocity: 5
   TrapWaitBeforeAnimation: 0
   Radius: 0.5

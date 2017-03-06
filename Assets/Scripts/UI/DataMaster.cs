@@ -94,10 +94,10 @@ public class DataMaster {
 
     public bool PlayTuto
     {
-        get { return !_save.PlayTuto; }
+        get { return _save.PlayTuto; }
         set
         {
-			_save.PlayTuto = !value;
+			_save.PlayTuto = value;
             SaveData();
         }
     }
