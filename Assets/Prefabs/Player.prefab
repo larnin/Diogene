@@ -292,11 +292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6576c2fe6cc33143824f55284cc7a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acceleration: 5
+  Acceleration: 100
   MaxSpeed: 100
   RotationSpeed: 40
-  GroundGravity: 0.3
-  Jump: 3
+  Jump: 20
   Ground:
     serializedVersion: 2
     m_Bits: 256
@@ -305,8 +304,8 @@ MonoBehaviour:
   TrapKillVelocity: 5
   TrapWaitBeforeAnimation: 0
   Radius: 0.5
-  GravityForce: 30
-  MaxGravityForce: 1.5
+  Gravity: 100
+  VerticalSpeedOnGround: 5
   _isGrounded: 0
 --- !u!136 &136000012181467766
 CapsuleCollider:
