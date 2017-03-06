@@ -306,6 +306,7 @@ MonoBehaviour:
   TrapWaitBeforeAnimation: 0
   Radius: 0.5
   GravityForce: 30
+  MaxGravityForce: 1.5
   _isGrounded: 0
 --- !u!136 &136000012181467766
 CapsuleCollider:

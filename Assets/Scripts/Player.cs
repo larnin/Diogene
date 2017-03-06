@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     public float Acceleration = 0;
     public float MaxSpeed = 100;
     public float RotationSpeed = 50;
-    public float GroundGravity = 7;
     public float Jump = 20;
     public LayerMask Ground;
 	public Animator _animator;
@@ -16,7 +15,8 @@ public class Player : MonoBehaviour
     public float TrapKillVelocity = 5;
     public float TrapWaitBeforeAnimation = 0.5f;
     public float Radius = 0.5f;
-    public float GravityForce = 1.0f;
+    public float Gravity = 1;
+    public float VerticalSpeedOnGround = 2;
 
     int _direction = 1;
     [HideInInspector]
@@ -29,18 +29,16 @@ public class Player : MonoBehaviour
 			_animator.SetFloat ("Direction", value);
         }
     }
-    
-    float _cubeFactor = 0;
+
     float _currentJumpBuffer = 0;
     float _distance;
-    float _actualGravity = 0;
     public bool _isGrounded = false;
     Vector3 oldVelocity;
 	SubscriberList _subscriberList = new SubscriberList();
     float _currentSpeed;
 	bool _pause = false;
-    float _gravityAcceleration;
-    float _gravitySpeed = 1;
+    float _verticalSpeed = 0;
+    float _gravityMultiplier = 1;
 
 	void Awake()
 	{
@@ -48,7 +46,6 @@ public class Player : MonoBehaviour
 		_subscriberList.Add (new Event<PausePlayerEvent>.Subscriber (Pause));
 		_subscriberList.Add (new Event<PlayerJumpEvent>.Subscriber (JumpMe));
         _currentSpeed = RotationSpeed;
-        _gravityAcceleration = Acceleration / RotationSpeed;
     }
 
 	void OnEnable()
@@ -85,7 +82,6 @@ public class Player : MonoBehaviour
         if (_pause)
             return;
         _currentSpeed += Acceleration * Time.deltaTime;
-        _gravitySpeed += _gravityAcceleration * Time.deltaTime;
         if (_currentSpeed > MaxSpeed)
             _currentSpeed = MaxSpeed;
 
@@ -94,7 +90,7 @@ public class Player : MonoBehaviour
         _currentJumpBuffer--;
         if(_isGrounded && _currentJumpBuffer > 0)
         {
-            _cubeFactor = -(Jump / 10);
+            _verticalSpeed = Jump;
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
         }
     }
@@ -103,7 +99,7 @@ public class Player : MonoBehaviour
     {
         if (_isGrounded)
         {
-            _cubeFactor = -(Jump / 10);
+            _verticalSpeed = Jump;
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
         }
         else _currentJumpBuffer = JumpBuffer;
@@ -114,12 +110,11 @@ public class Player : MonoBehaviour
         if (_pause)
             return;
 
-        _cubeFactor += Time.deltaTime * _gravitySpeed;
-        _actualGravity = -Mathf.Abs(_cubeFactor) * _cubeFactor * GravityForce;
-
-        Vector3 newPos = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
+        _gravityMultiplier = _currentSpeed / RotationSpeed;
+        _verticalSpeed -= Gravity * Time.deltaTime * _gravityMultiplier;
+        
         transform.position = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
-        newPos = transform.position + new Vector3(0, _actualGravity * Time.deltaTime, 0);
+        Vector3 newPos = transform.position + new Vector3(0, _verticalSpeed * Time.deltaTime, 0);
         
         var hits = Physics.SphereCastAll(new Ray(transform.position, newPos - transform.position), Radius, (newPos - transform.position).magnitude, Ground);
         var hit = new RaycastHit();
@@ -134,13 +129,13 @@ public class Player : MonoBehaviour
             transform.position = newPos;
             _isGrounded = CheckGrounded();
             if(_isGrounded)
-                _cubeFactor = GroundGravity * _gravitySpeed;
+                _verticalSpeed = -VerticalSpeedOnGround * _gravityMultiplier;
         }
         else
         {
             float d = hit.distance > 0.01f ? hit.distance - 0.01f : 0;
             transform.position = transform.position + (newPos - transform.position).normalized * d;
-            _cubeFactor = GroundGravity * _gravitySpeed;
+            _verticalSpeed = -VerticalSpeedOnGround * _gravityMultiplier;
             _isGrounded = true;
         }
 
@@ -210,6 +205,8 @@ public class Player : MonoBehaviour
 
     bool CheckGrounded()
     {
+        if (_verticalSpeed > 0)
+            return false;
         var hits = Physics.SphereCastAll(new Ray(transform.position, new Vector3(0, -1, 0)), Radius, 0.2f, Ground);
         return hits.Length > 0;
     }
