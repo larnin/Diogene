@@ -27,7 +27,6 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	void PlaySound (PlaySoundEvent e) {
-		Debug.Log("youhou");
 		MasterAudio.PlaySoundAndForget (e.Sound, _sounds [e.Sound]);
 	}
 

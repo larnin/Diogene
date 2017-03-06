@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 {
 	[SoundGroupAttribute] public string CoinSound;
 	[SoundGroupAttribute] public string JumpSound;
+	[SoundGroupAttribute] public string DeathSound;
+	[SoundGroupAttribute] public string TrapSound;
 
 	public float Acceleration = 0;
     public float MaxSpeed = 100;
@@ -166,7 +168,8 @@ public class Player : MonoBehaviour
 
         if(collider.gameObject.tag == "Trap")
         {
-            Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(TrapSound));
+			Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
             enabled = false;
             StartCoroutine(TrapKillCoroutine());
         }
