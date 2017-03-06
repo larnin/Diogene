@@ -133,6 +133,8 @@ public class Player : MonoBehaviour
         {
             transform.position = newPos;
             _isGrounded = CheckGrounded();
+            if(_isGrounded)
+                _cubeFactor = GroundGravity * _gravitySpeed;
         }
         else
         {

@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
             G.Sys.dataMaster.PlayTuto = false;
     }
 
+    void OnApplicationQuit()
+    {
+        Event<QuitEvent>.Broadcast(new QuitEvent());
+    }
+
     IEnumerator WaitAndEndGameCoroutine()
     {
         yield return new WaitForSeconds(timeToEndGame);
@@ -106,5 +111,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         SupportTextTuto.SetActive(false);
+    }
+
+    void OnApplicationFocus(bool value)
+    {
+        if (!value)
+            Event<QuitEvent>.Broadcast(new QuitEvent());
     }
 }
