@@ -13,12 +13,20 @@ public class AmplitudeManager
     public float _startTime = 0;
     public float _jumpCount = 0;
 
+    public float _distanceMax = 0;
+    public MenuState _lastMenu = MenuState.TITLE;
+    public float _lastChangeMenuTime = 0;
+    public float _sumRunTime = 0;
+    public float _sumCoin = 0;
+    public float _runCount = 0;
+
     public AmplitudeManager()
     {
         _subscriberList.Add(new Event<GameOverEvent>.Subscriber(OnGameOver));
         _subscriberList.Add(new Event<InitializeEvent>.Subscriber(OnStartRun));
         _subscriberList.Add(new Event<PlayerHaveJumped>.Subscriber(OnJump));
-
+        _subscriberList.Add(new Event<QuitEvent>.Subscriber(OnQuit));
+        _subscriberList.Add(new Event<ChangeMenuEvent>.Subscriber(OnMenuChange));
         _subscriberList.Subscribe();
 
         _amplitude = Amplitude.Instance;
@@ -56,6 +64,12 @@ public class AmplitudeManager
         float time = Time.time - _startTime;
         var chunkDatas = G.Sys.chunkSpawner.allDatas();
 
+        _sumCoin += e.RunCoin;
+        _runCount++;
+        _sumRunTime += time;
+        if (e.RunScore > _distanceMax)
+            _distanceMax = e.RunScore;
+
         Dictionary<string, object> UserProperties = new Dictionary<string, object>();
         UserProperties.Add("RJump", _jumpCount);
         UserProperties.Add("Rhole", chunkDatas.holesCount);
@@ -67,6 +81,40 @@ public class AmplitudeManager
         UserProperties.Add("RTRun", time);
         UserProperties.Add("RArms", chunkDatas.armCount);
         _amplitude.logEvent("EndRun", UserProperties);
+    }
+
+    void OnQuit(QuitEvent e)
+    {
+        Dictionary<string, object> UserProperties = new Dictionary<string, object>();
+        UserProperties.Add("SDistanceMax", _distanceMax);
+        UserProperties.Add("SLastWindow", _lastMenu);
+        UserProperties.Add("SCoins", _sumCoin);
+        UserProperties.Add("STSession", Time.time);
+        UserProperties.Add("SRun", _runCount);
+        UserProperties.Add("STMenus", Time.time - _sumRunTime);
+        UserProperties.Add("STRuns", _sumRunTime);
+        _amplitude.logEvent("EndSession", UserProperties);
+
+        _distanceMax = 0;
+        _sumRunTime = 0;
+        _sumCoin = 0;
+        _runCount = 0;
+    }
+
+    void OnMenuChange(ChangeMenuEvent e)
+    {
+        float currentTime = Time.time - _lastChangeMenuTime;
+        _lastChangeMenuTime = Time.time;
+
+        if (_lastMenu != MenuState.PLAY)
+        {
+            Dictionary<string, object> UserProperties = new Dictionary<string, object>();
+            UserProperties.Add("MOpened", _lastMenu.ToString());
+            UserProperties.Add("MTMain", currentTime);
+            _amplitude.logEvent("Menu", UserProperties);
+        }
+
+        _lastMenu = e.state;
     }
     
     void OnJump(PlayerHaveJumped e)

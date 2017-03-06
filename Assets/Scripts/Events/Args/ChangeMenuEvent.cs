@@ -21,7 +21,6 @@ public class ChangeMenuEvent : EventArgs
     public ChangeMenuEvent(MenuState _state)
     {
         state = _state;
-		UnityEngine.Debug.Log (_state.ToString ());
     }
 
 	public MenuState state;

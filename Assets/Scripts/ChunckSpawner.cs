@@ -25,6 +25,7 @@ public class ChunckSpawner : MonoBehaviour
     private List<int> _lastChunckSpawn = new List<int>();
 	private bool _initialized = false;
     private float _currentHeight;
+    private bool _haveLaunchedTuto;
 
     void Awake()
     {
@@ -54,6 +55,7 @@ public class ChunckSpawner : MonoBehaviour
     {
 		_initialized = true;
 
+        _haveLaunchedTuto = G.Sys.dataMaster.PlayTuto;
         var prefab = G.Sys.dataMaster.PlayTuto ? startTutoPrefab : startChunkPrefab;
 
         var data = GetDataFromChunk(prefab);
@@ -190,8 +192,14 @@ public class ChunckSpawner : MonoBehaviour
 
     public int chunkCount()
     {
+        var prefab = _haveLaunchedTuto ? startTutoPrefab : startChunkPrefab;
+        var data = GetDataFromChunk(prefab);
+
+        if (_currentHeight < data.height)
+            return -1;
+
         int count = 0;
-        float currentHeight = 0;
+        float currentHeight =  data.height;
         foreach (var value in _lastChunckSpawn)
         {
             currentHeight += _chunkDatas[value].height;
@@ -204,12 +212,22 @@ public class ChunckSpawner : MonoBehaviour
 
     public int currentChunkID()
     {
-        return _lastChunckSpawn[chunkCount()];
+        var count = chunkCount();
+        if (count < 0)
+            return -1;
+        return _lastChunckSpawn[count];
     }
 
     public ChunkInfo allDatas()
     {
+        var prefab = _haveLaunchedTuto ? startTutoPrefab : startChunkPrefab;
+        var infosPrefab = prefab.GetComponent<ChunkInfos>();
+
         ChunkInfo datas = new ChunkInfo();
+        datas.armCount = infosPrefab.armCount;
+        datas.holesCount = infosPrefab.holesCount;
+        datas.ringCount = infosPrefab.ringCount;
+        datas.trapCount = infosPrefab.trapCount;
 
         for(int i = 0; i < chunkCount(); i++)
         {
