@@ -1188,7 +1188,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1199,7 +1199,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1210,7 +1210,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &82000012561293356
 AudioSource:
   m_ObjectHideFlags: 1
@@ -1273,7 +1273,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1700,21 +1700,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sounds:
-  - Sound: Game
-    Volume: 1
-  - Sound: Menu
-    Volume: 1
-  - Sound: Highscore
-    Volume: 1
-  - Sound: Jump
+  - Sound: BarrelRoll
     Volume: 1
   - Sound: Coin
     Volume: 1
   - Sound: Death
     Volume: 1
-  - Sound: BarrelRoll
+  - Sound: Game
+    Volume: 1
+  - Sound: Highscore
+    Volume: 1
+  - Sound: Jump
     Volume: 1
   - Sound: Landing
+    Volume: 1
+  - Sound: Menu
     Volume: 1
   - Sound: Ring
     Volume: 1

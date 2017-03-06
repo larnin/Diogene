@@ -105,7 +105,8 @@ public class Player : MonoBehaviour
     {
         if (_isGrounded)
         {
-            _cubeFactor = -(Jump / 10);
+            _verticalSpeed = Jump;
+            Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(JumpSound));
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
         }
         else _currentJumpBuffer = JumpBuffer;
@@ -219,6 +220,3 @@ public class Player : MonoBehaviour
         return hits.Length > 0;
     }
 }
-
-            _verticalSpeed = Jump;
-			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(JumpSound));

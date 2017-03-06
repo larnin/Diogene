@@ -294,6 +294,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoinSound: Coin
   JumpSound: Jump
+  DeathSound: Death
+  TrapSound: Trap
   Acceleration: 5
   MaxSpeed: 100
   RotationSpeed: 40

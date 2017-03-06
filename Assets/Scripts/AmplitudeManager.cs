@@ -20,6 +20,8 @@ public class AmplitudeManager
     public float _sumCoin = 0;
     public float _runCount = 0;
 
+    public float _lastEndSessionTime = 0;
+
     public AmplitudeManager()
     {
         _subscriberList.Add(new Event<GameOverEvent>.Subscriber(OnGameOver));
@@ -89,9 +91,9 @@ public class AmplitudeManager
         UserProperties.Add("SDistanceMax", _distanceMax);
         UserProperties.Add("SLastWindow", _lastMenu);
         UserProperties.Add("SCoins", _sumCoin);
-        UserProperties.Add("STSession", Time.time);
+        UserProperties.Add("STSession", Time.time - _lastEndSessionTime);
         UserProperties.Add("SRun", _runCount);
-        UserProperties.Add("STMenus", Time.time - _sumRunTime);
+        UserProperties.Add("STMenus", Time.time - _lastEndSessionTime - _sumRunTime);
         UserProperties.Add("STRuns", _sumRunTime);
         _amplitude.logEvent("EndSession", UserProperties);
 
@@ -99,6 +101,8 @@ public class AmplitudeManager
         _sumRunTime = 0;
         _sumCoin = 0;
         _runCount = 0;
+
+        _lastEndSessionTime = Time.time;
     }
 
     void OnMenuChange(ChangeMenuEvent e)
