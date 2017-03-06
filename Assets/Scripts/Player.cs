@@ -2,10 +2,14 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DarkTonic.MasterAudio;
 
 public class Player : MonoBehaviour
 {
-    public float Acceleration = 0;
+	[SoundGroupAttribute] public string CoinSound;
+	[SoundGroupAttribute] public string JumpSound;
+
+	public float Acceleration = 0;
     public float MaxSpeed = 100;
     public float RotationSpeed = 50;
     public float GroundGravity = 7;
@@ -103,7 +107,8 @@ public class Player : MonoBehaviour
     {
         if (_isGrounded)
         {
-            _cubeFactor = -(Jump / 10);
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(JumpSound));
+			_cubeFactor = -(Jump / 10);
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
         }
         else _currentJumpBuffer = JumpBuffer;
@@ -168,7 +173,8 @@ public class Player : MonoBehaviour
 
         if (collider.gameObject.tag == "Collectable")
         {
-            var collectable = collider.GetComponent<Collectable>();
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(CoinSound));
+			var collectable = collider.GetComponent<Collectable>();
             Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent(collectable != null ? collectable.value : 1));
             collider.gameObject.tag = "Untagged";
             collider.gameObject.GetComponentInChildren<Animator>().SetTrigger("Collect");

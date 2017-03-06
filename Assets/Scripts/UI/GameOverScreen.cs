@@ -2,8 +2,13 @@
 using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DarkTonic.MasterAudio;
 
 public class GameOverScreen : MonoBehaviour {
+
+	[SoundGroupAttribute] public string MenuMusic;
+	[SoundGroupAttribute] public string GameMusic;
+	[SoundGroupAttribute] public string NewRecordSound;
 
 	public Text Score;
 	public Text CoinsGained;
@@ -23,10 +28,11 @@ public class GameOverScreen : MonoBehaviour {
 		Score.text = hudScript.ScoreText.text;
 		if (hudScript.Score > G.Sys.dataMaster.HighScore) {
 			G.Sys.dataMaster.HighScore = hudScript.Score;
-			NewRecord.SetActive (false);
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(NewRecordSound));
+			NewRecord.SetActive (true);
 		}
 		else {
-			NewRecord.SetActive (true);
+			NewRecord.SetActive (false);
 		}
 
 		G.Sys.dataMaster.Coins += hudScript.Coins;
@@ -47,6 +53,10 @@ public class GameOverScreen : MonoBehaviour {
 	}
 
 	public void GoToMainMenu () {
+
+		Event<StopSoundEvent>.Broadcast(new StopSoundEvent(GameMusic));
+		Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(MenuMusic));
+
 		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.MAIN));
 		G.Sys.gameManager.GoToStartMenu ();
 		gameObject.SetActive (false);

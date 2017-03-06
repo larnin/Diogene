@@ -1,30 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DarkTonic.MasterAudio;
+using System;
+using System.IO;
 
 public class SoundManager : MonoBehaviour {
-	/*
-	[SoundGroupAttribute] public string HackingSound;
-	public float HackingSoundVolume = 1f;
-	[SoundGroupAttribute] public string EnterSound;
-	public float EnterSoundVolume = 1f;
-	[SoundGroupAttribute] public string JumpSound;
-	public float JumpSoundVolume = 1f;
-	[SoundGroupAttribute] public string LandingSound;
-	public float LandingSoundVolume = 1f;
-	[SoundGroupAttribute] public string WalkSound;
-	public float WalkSoundVolume = 1f;
-	[SoundGroupAttribute] public string RunSound;
-	public float RunSoundVolume = 1f;
-	*/
-	void Start () {
+	
+	[Serializable]
+	public struct SoundAndVolume {
+		[SoundGroupAttribute] public string Sound;
+		public float Volume;
+	}
+	public SoundAndVolume[] Sounds;
+	Dictionary<string, float> _sounds =  new Dictionary<string, float>();
+
+	SubscriberList _subscriberList = new SubscriberList();
+
+	void Awake () {
+		for (int i = 0; i < Sounds.Length; i++) {
+			_sounds.Add (Sounds[i].Sound, Sounds[i].Volume);
+		}
+		_subscriberList.Add (new Event<PlaySoundEvent>.Subscriber (PlaySound));
+		_subscriberList.Add (new Event<StopSoundEvent>.Subscriber (StopSound));
+		_subscriberList.Subscribe ();
 	}
 
-	public void PlayHackSound () {
-		//MasterAudio.PlaySound3DFollowTransformAndForget (HackingSound, transform, HackingSoundVolume);
+	void PlaySound (PlaySoundEvent e) {
+		Debug.Log("youhou");
+		MasterAudio.PlaySoundAndForget (e.Sound, _sounds [e.Sound]);
 	}
 
-	public void StopHackSound () {
-		//MasterAudio.StopAllOfSound(HackingSound);
+	void StopSound (StopSoundEvent e) {
+		MasterAudio.StopAllOfSound (e.Sound);
 	}
 }

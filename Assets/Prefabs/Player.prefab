@@ -292,6 +292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6576c2fe6cc33143824f55284cc7a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CoinSound: Coin
+  JumpSound: Jump
   Acceleration: 5
   MaxSpeed: 100
   RotationSpeed: 40

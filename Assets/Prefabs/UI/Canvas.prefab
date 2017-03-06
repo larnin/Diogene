@@ -850,6 +850,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 224000012356386606}
   - 114: {fileID: 114000010298083510}
+  - 114: {fileID: 114000010063390738}
   m_Layer: 5
   m_Name: Title Screen
   m_TagString: Untagged
@@ -2707,6 +2708,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000010063390738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011523554128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96db4c9deb216ac48bea84a9ba72487d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuMusic: Menu
 --- !u!114 &114000010123308060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3865,6 +3878,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe2dac4e7bb86a4bb0cf2cb8eadc709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuMusic: Menu
+  GameMusic: Game
+  NewRecordSound: Highscore
   Score: {fileID: 114000010123308060}
   CoinsGained: {fileID: 114000012755356760}
   NewRecord: {fileID: 1000013234860132}
@@ -4486,6 +4502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b95cd8ad98f2f43b8ad15f9e750e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuMusic: Menu
+  GameMusic: Game
   Score: {fileID: 114000013849749966}
   Credits: {fileID: 1000011968259278}
   Options: {fileID: 1000012329482538}
