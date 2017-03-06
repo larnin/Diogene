@@ -299,7 +299,7 @@ MonoBehaviour:
   Acceleration: 5
   MaxSpeed: 100
   RotationSpeed: 40
-  Jump: 20
+  Jump: 7
   Ground:
     serializedVersion: 2
     m_Bits: 256
@@ -308,7 +308,7 @@ MonoBehaviour:
   TrapKillVelocity: 5
   TrapWaitBeforeAnimation: 0
   Radius: 0.5
-  Gravity: 100
+  Gravity: 20
   VerticalSpeedOnGround: 5
   _isGrounded: 0
 --- !u!136 &136000012181467766
