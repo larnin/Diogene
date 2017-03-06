@@ -2,10 +2,16 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DarkTonic.MasterAudio;
 
 public class Player : MonoBehaviour
 {
-    public float Acceleration = 0;
+	[SoundGroupAttribute] public string CoinSound;
+	[SoundGroupAttribute] public string JumpSound;
+	[SoundGroupAttribute] public string DeathSound;
+	[SoundGroupAttribute] public string TrapSound;
+
+	public float Acceleration = 0;
     public float MaxSpeed = 100;
     public float RotationSpeed = 50;
     public float Jump = 20;
@@ -99,7 +105,7 @@ public class Player : MonoBehaviour
     {
         if (_isGrounded)
         {
-            _verticalSpeed = Jump;
+            _cubeFactor = -(Jump / 10);
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
         }
         else _currentJumpBuffer = JumpBuffer;
@@ -158,14 +164,16 @@ public class Player : MonoBehaviour
 
         if(collider.gameObject.tag == "Trap")
         {
-            Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(TrapSound));
+			Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
             enabled = false;
             StartCoroutine(TrapKillCoroutine());
         }
 
         if (collider.gameObject.tag == "Collectable")
         {
-            var collectable = collider.GetComponent<Collectable>();
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(CoinSound));
+			var collectable = collider.GetComponent<Collectable>();
             Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent(collectable != null ? collectable.value : 1));
             collider.gameObject.tag = "Untagged";
             collider.gameObject.GetComponentInChildren<Animator>().SetTrigger("Collect");
@@ -211,3 +219,6 @@ public class Player : MonoBehaviour
         return hits.Length > 0;
     }
 }
+
+            _verticalSpeed = Jump;
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(JumpSound));

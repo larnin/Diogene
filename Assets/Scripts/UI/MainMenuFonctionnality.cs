@@ -4,8 +4,12 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine.UI;
+using DarkTonic.MasterAudio;
 
 public class MainMenuFonctionnality : MonoBehaviour {
+
+	[SoundGroupAttribute] public string MenuMusic;
+	[SoundGroupAttribute] public string GameMusic;
 
 	public Text Score;
 	public GameObject Credits;
@@ -56,6 +60,9 @@ public class MainMenuFonctionnality : MonoBehaviour {
 	}
 
 	public void StartGame () {
+		Event<StopSoundEvent>.Broadcast(new StopSoundEvent(MenuMusic));
+		Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(GameMusic));
+
 		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.PLAY));
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		G.Sys.gameManager.StartGame ();
