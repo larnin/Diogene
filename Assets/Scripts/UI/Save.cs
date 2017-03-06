@@ -12,5 +12,5 @@ public class Save {
     public int TrapCount = 0;
     public int ArmCount = 0;
     public int JumpCount = 0;
-    public bool PlayTuto = false;
+    public bool PlayTuto = true;
 }
