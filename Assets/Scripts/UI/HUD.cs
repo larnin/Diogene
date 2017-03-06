@@ -75,6 +75,7 @@ public class HUD : MonoBehaviour {
 		if (CanPause) {
 			Event<PauseRingEvent>.Broadcast(new PauseRingEvent(true));
 			Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(true));
+			Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.PAUSE));
 			Pause.SetActive (true);
 		}
 	}

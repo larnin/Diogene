@@ -13,11 +13,13 @@ public class MainMenuFonctionnality : MonoBehaviour {
 	public GameObject MyHUD;
 
 	public void GoToCredits () {
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.CREDITS));
 		Credits.SetActive (true);
 		gameObject.SetActive (false);
 	}
 
 	public void GoToOptions () {
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.OPTIONS));
 		Options.SetActive (true);
 		gameObject.SetActive (false);
 	}
@@ -54,7 +56,7 @@ public class MainMenuFonctionnality : MonoBehaviour {
 	}
 
 	public void StartGame () {
-		Debug.Log (G.Sys.dataMaster.PlayTuto);
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.PLAY));
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		G.Sys.gameManager.StartGame ();
 		MyHUD.SetActive (true);

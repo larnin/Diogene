@@ -34,6 +34,7 @@ public class GameOverScreen : MonoBehaviour {
 		CoinsGained.text = "+ " + hudScript.CoinText.text;
 
 		Event<GameOverEvent>.Broadcast(new GameOverEvent(hudScript.Score, hudScript.Coins));
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.GAMEOVER));
 
 		HUD.SetActive (false);
 	}
@@ -46,6 +47,7 @@ public class GameOverScreen : MonoBehaviour {
 	}
 
 	public void GoToMainMenu () {
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.MAIN));
 		G.Sys.gameManager.GoToStartMenu ();
 		gameObject.SetActive (false);
 	}
@@ -61,6 +63,8 @@ public class GameOverScreen : MonoBehaviour {
 		hudScript.CoinText.text = "0";
 
 		hudScript.CanPause = true;
+
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.PLAY));
 
 		gameObject.SetActive (false);
 	}

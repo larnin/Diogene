@@ -37,6 +37,7 @@ public class PauseFunctionnality : MonoBehaviour {
 			if (_timer <= -0.25f) {
 				Event<PauseRingEvent>.Broadcast(new PauseRingEvent(false));
 				Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(false));
+				Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.PLAY));
 				gameObject.SetActive (false);
 			}
 		}
@@ -56,6 +57,7 @@ public class PauseFunctionnality : MonoBehaviour {
 	public void GoToMainMenu () {
 		Event<PauseRingEvent>.Broadcast(new PauseRingEvent(false));
 		Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(false));
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.MAIN));
 		G.Sys.gameManager.GoToStartMenu ();
 		HUD.SetActive (false);
 		gameObject.SetActive (false);
@@ -73,6 +75,7 @@ public class PauseFunctionnality : MonoBehaviour {
 
 		Event<PauseRingEvent>.Broadcast(new PauseRingEvent(false));
 		Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(false));
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.PLAY));
 
 		gameObject.SetActive (false);
 	}

@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
+using UnityEngine;
 
 public enum MenuState
 {
-    Main,
-    Game,
-    End
+    TITLE,
+	MAIN,
+    PLAY,
+    GAMEOVER,
+	PAUSE,
+	OPTIONS,
+	CREDITS
 }
 
 public class ChangeMenuEvent : EventArgs
@@ -15,7 +21,8 @@ public class ChangeMenuEvent : EventArgs
     public ChangeMenuEvent(MenuState _state)
     {
         state = _state;
+		UnityEngine.Debug.Log (_state.ToString ());
     }
 
-    public MenuState state;
+	public MenuState state;
 }

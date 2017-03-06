@@ -11,6 +11,7 @@ public class OptionsFunctionnality : MonoBehaviour {
 	}
 
 	public void GoToCredits () {
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.CREDITS));
 		Credits.SetActive (true);
 		gameObject.SetActive (false);
 	}
