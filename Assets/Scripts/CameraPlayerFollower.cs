@@ -23,6 +23,7 @@ public class CameraPlayerFollower : MonoBehaviour
         _subscriberList.Add(new Event<PlayerMovedEvent>.Subscriber(OnPlayerMove));
         _subscriberList.Add(new Event<InstantMoveCameraEvent>.Subscriber(OnInstantMove));
 		_subscriberList.Add (new Event<PauseRingEvent>.Subscriber (Pause));
+        _subscriberList.Add(new Event<InitializeEvent>.Subscriber(OnInit));
         _subscriberList.Subscribe();
     }
 
@@ -82,11 +83,17 @@ public class CameraPlayerFollower : MonoBehaviour
     {
         targetSet = true;
         targetAngle = angleFrom(e.pos) + angleOffset * e.direction;
-        targetHeight = e.pos.y + verticalOffset;
+        if(targetHeight > e.pos.y + verticalOffset)
+            targetHeight = e.pos.y + verticalOffset;
     }
 
     void OnInstantMove(InstantMoveCameraEvent e)
     {
         InstantMove();
+    }
+
+    void OnInit(InitializeEvent e)
+    {
+        targetHeight = e.pos.y;
     }
 }

@@ -118,4 +118,9 @@ public class GameManager : MonoBehaviour
         if (!value)
             Event<QuitEvent>.Broadcast(new QuitEvent());
     }
+
+    void Update()
+    {
+        Event<FrameEvent>.Broadcast(new FrameEvent());
+    }
 }

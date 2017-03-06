@@ -19,6 +19,7 @@ public class AmplitudeManager
     public float _sumRunTime = 0;
     public float _sumCoin = 0;
     public float _runCount = 0;
+    public int _frames = 0;
 
     public float _lastEndSessionTime = 0;
 
@@ -29,6 +30,7 @@ public class AmplitudeManager
         _subscriberList.Add(new Event<PlayerHaveJumped>.Subscriber(OnJump));
         _subscriberList.Add(new Event<QuitEvent>.Subscriber(OnQuit));
         _subscriberList.Add(new Event<ChangeMenuEvent>.Subscriber(OnMenuChange));
+        _subscriberList.Add(new Event<FrameEvent>.Subscriber(OnFrame));
         _subscriberList.Subscribe();
 
         _amplitude = Amplitude.Instance;
@@ -54,6 +56,7 @@ public class AmplitudeManager
         _maxSpeed = 0;
         _startTime = Time.time;
         _jumpCount = 0;
+        _frames = 0;
     }
 
     void OnKillEvent(PlayerKillEvent e)
@@ -82,6 +85,7 @@ public class AmplitudeManager
         UserProperties.Add("RRing", chunkDatas.ringCount);
         UserProperties.Add("RTRun", time);
         UserProperties.Add("RArms", chunkDatas.armCount);
+        UserProperties.Add("RFps", _frames / time);
         _amplitude.logEvent("EndRun", UserProperties);
     }
 
@@ -124,5 +128,10 @@ public class AmplitudeManager
     void OnJump(PlayerHaveJumped e)
     {
         _jumpCount++;
+    }
+
+    void OnFrame(FrameEvent e)
+    {
+        _frames++;
     }
 }
