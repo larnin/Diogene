@@ -299,8 +299,8 @@ MonoBehaviour:
   LandingSound: Landing
   BarrelSound: BarrelRoll
   Acceleration: 0.33
-  MaxSpeed: 85
-  RotationSpeed: 40
+  MaxSpeed: 80
+  RotationSpeed: 50
   Jump: 12
   Ground:
     serializedVersion: 2
