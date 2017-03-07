@@ -124,21 +124,35 @@ public class ChunckSpawner : MonoBehaviour
         _lastChunckSpawn.Add(index);
         var o = Instantiate(chunkPrefabs[index]);
         var currentChunk = _chunks[_chunks.Count - 1];
-        float rotation = currentChunk.blockRotation + currentChunk.datas.endRotation - _chunkDatas[index].startRotation;
+        float rotation = 0;
         bool fliped = (currentChunk.fliped != currentChunk.datas.endFliped);
         if (fliped)
         {
             o.transform.localScale = new Vector3(1, 1, -1);
-            rotation += 2 * _chunkDatas[index].startRotation;
 
             var scripts = o.GetComponentsInChildren<ChangeDirectionWall>();
             foreach (var s in scripts)
                 s.direction = (DirectionToGo)(-(int)s.direction);
         }
 
-        if(currentChunk.fliped)
+        if(!currentChunk.fliped && !fliped)
         {
-            rotation -= 2 * _chunkDatas[index].endRotation;
+            rotation = currentChunk.blockRotation + currentChunk.datas.endRotation - _chunkDatas[index].startRotation;
+        }
+
+        if(!currentChunk.fliped && fliped)
+        {
+            rotation = currentChunk.blockRotation + currentChunk.datas.endRotation + _chunkDatas[index].startRotation;
+        }
+
+        if(currentChunk.fliped && !fliped)
+        {
+            rotation = currentChunk.blockRotation - currentChunk.datas.endRotation - _chunkDatas[index].startRotation;
+        }
+
+        if(currentChunk.fliped && fliped)
+        {
+            rotation = currentChunk.blockRotation - currentChunk.datas.endRotation + _chunkDatas[index].startRotation;
         }
 
         o.transform.position = new Vector3(0, currentChunk.gameObject.transform.position.y - currentChunk.datas.height, 0);
