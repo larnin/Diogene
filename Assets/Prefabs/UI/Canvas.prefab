@@ -3379,6 +3379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55bd083d09353bf45984b43db2f31e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuMusic: Menu
   Chrono: {fileID: 1000011872607928}
   Main: {fileID: 1000011900875592}
   HUD: {fileID: 1000011891481122}
@@ -3496,7 +3497,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "A GAME BY\n\nC\xC9CILE AUER\nJEAN AUQUIER\nALICE BOUDRY\nGEOFFREY BOULIER\nTH\xC9O
     CASELLI\nNICOLAS LAURENT\nROMAIN TR\xC9SARRIEU\n\n\n\n\nDEVELOPPED IN\nPARTNERSHIP
-    WITH\nSUPINFOGAME RUBIKA\nAND OH!BIBI."
+    WITH\nSUPINFOGAME RUBIKA\nAND OH!BIBI, USING\nTHE MUSIC OF KEVIN\nMACLEOD."
 --- !u!114 &114000010871411352
 MonoBehaviour:
   m_ObjectHideFlags: 1

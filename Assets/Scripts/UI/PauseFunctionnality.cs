@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PauseFunctionnality : MonoBehaviour {
 
+	public string MenuMusic;
 	public GameObject Chrono;
 	Text _chrono;
 	public GameObject Main;
@@ -55,6 +56,8 @@ public class PauseFunctionnality : MonoBehaviour {
 	}
 
 	public void GoToMainMenu () {
+		Event<ChangeMusicEvent>.Broadcast(new ChangeMusicEvent(MenuMusic));
+
 		Event<PauseRingEvent>.Broadcast(new PauseRingEvent(false));
 		Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(false));
 		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.MAIN));
