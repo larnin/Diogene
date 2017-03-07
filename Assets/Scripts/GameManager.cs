@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour
     public GameObject hud;
 	public GameObject Continue;
     public GameObject playerPrefab;
+    public GameObject rate;
+    public int RunBetween2Rates = 10;
     public Vector3 playerStartLocation;
     public Text textTuto;
     public GameObject SupportTextTuto;
+    public string StoreLink;
 
     private static bool _instanciated = false;
     SubscriberList _subscriberList = new SubscriberList();
@@ -20,8 +23,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(this);
-
 		if (!_instanciated)
 			_instanciated = true;
 		else {
@@ -90,6 +91,16 @@ public class GameManager : MonoBehaviour
 		Event<ResetEvent>.Broadcast (new ResetEvent ());
 		Event<InitializeEvent>.Broadcast(new InitializeEvent(new Vector3(0, 0, 0)));
 		InstanciatePlayer ();
+    }
+
+    public void ShowRate()
+    {
+        rate.SetActive(true);
+    }
+
+    public void OpenStoreLink()
+    {
+        Application.OpenURL(StoreLink);
     }
 
     public void InstanciatePlayer()

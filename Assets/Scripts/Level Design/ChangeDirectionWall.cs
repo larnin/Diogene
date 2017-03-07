@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum DirectionToGo {GoLeft = 1, GoRight = -1};
+public enum DirectionToGo { GoLeft = 1, GoRight = -1 };
 
-public class ChangeDirectionWall : MonoBehaviour {
+public class ChangeDirectionWall : MonoBehaviour
+{
+    public DirectionToGo direction;
 
-	public DirectionToGo direction;
-
-	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.tag == "Player") {
-			collision.collider.GetComponentInParent<Player>().Direction = (int)direction;
-		}
-	}
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponentInParent<Player>().Direction = (int)direction;
+        }
+    }
 }

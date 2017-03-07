@@ -130,6 +130,10 @@ public class ChunckSpawner : MonoBehaviour
         {
             o.transform.localScale = new Vector3(1, 1, -1);
             rotation += 2 * _chunkDatas[index].startRotation;
+
+            var scripts = o.GetComponentsInChildren<ChangeDirectionWall>();
+            foreach (var s in scripts)
+                s.direction = (DirectionToGo)(-(int)s.direction);
         }
 
         if(currentChunk.fliped)
