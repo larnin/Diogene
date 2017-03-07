@@ -9,6 +9,11 @@ public class HUD : MonoBehaviour {
 	public GameObject Pause;
 	public Text ScoreText;
 	public Text CoinText;
+    public Sprite RingArrowHiden;
+    public Sprite RingArrowClicked;
+    public float ShowArrowTime;
+    public Image LeftArrowImage;
+    public Image RightArrowImage;
 
 	[HideInInspector]
 	public int Coins = 0;
@@ -21,10 +26,13 @@ public class HUD : MonoBehaviour {
 	[HideInInspector]
 	public bool CanPause = true;
 
+    Coroutine _ringCoroutine;
+
 	void Start () {
 		_subscriberList.Add(new Event<PlayerMovedEvent>.Subscriber(UpdateScore));
 		_subscriberList.Add(new Event<CoinCollectedEvent>.Subscriber(UpdateCoin));
 		_subscriberList.Add(new Event<PlayerKillEvent>.Subscriber(CannotPause));
+        _subscriberList.Add(new Event<MoveRingEvent>.Subscriber(OnRingClick));
 		_subscriberList.Subscribe ();
 
 		ScoreText.text = "0";
@@ -60,6 +68,30 @@ public class HUD : MonoBehaviour {
 
 		CoinText.text = _text;
 	}
+
+    void OnRingClick(MoveRingEvent e)
+    {
+        if(e.direction > 0)
+        {
+            LeftArrowImage.sprite = RingArrowClicked;
+            RightArrowImage.sprite = RingArrowHiden;
+        }
+        else
+        {
+            RightArrowImage.sprite = RingArrowClicked;
+            LeftArrowImage.sprite = RingArrowHiden;
+        }
+        if (_ringCoroutine != null)
+            StopCoroutine(_ringCoroutine);
+        StartCoroutine(OffRingCoroutine());
+    }
+
+    IEnumerator OffRingCoroutine()
+    {
+        yield return new WaitForSeconds(ShowArrowTime);
+        LeftArrowImage.sprite = RingArrowHiden;
+        RightArrowImage.sprite = RingArrowHiden;
+    }
 
 	void OnEnable () {
 		Coins = 0;

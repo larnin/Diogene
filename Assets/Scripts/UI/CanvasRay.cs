@@ -38,9 +38,9 @@ public class CanvasRay : MonoBehaviour {
                     if (r.gameObject.tag == "Pause")
                         return;
                 if (Input.mousePosition.x < ringInputWidth)
-                    Event<MoveRingEvent>.Broadcast(new MoveRingEvent(-1));
-                else if (Input.mousePosition.x > Screen.width - ringInputWidth)
                     Event<MoveRingEvent>.Broadcast(new MoveRingEvent(1));
+                else if (Input.mousePosition.x > Screen.width - ringInputWidth)
+                    Event<MoveRingEvent>.Broadcast(new MoveRingEvent(-1));
                 else Event<PlayerJumpEvent>.Broadcast(new PlayerJumpEvent());
 
                 /*

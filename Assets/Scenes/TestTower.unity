@@ -286,15 +286,9 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012284618950, guid: f90881f4ee5422a47afe79c0ea80f021,
-        type: 2}
-      propertyPath: Ring.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012284618950, guid: f90881f4ee5422a47afe79c0ea80f021,
-        type: 2}
-      propertyPath: ringInputWidth
-      value: 50
+    - target: {fileID: 1000011891481122, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
