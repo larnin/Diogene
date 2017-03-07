@@ -13,4 +13,6 @@ public class Save {
     public int ArmCount = 0;
     public int JumpCount = 0;
     public bool PlayTuto = true;
+	public float MusicVolume = 1;
+	public float SoundVolume = 1;
 }

@@ -6,7 +6,9 @@ using System;
 using System.IO;
 
 public class SoundManager : MonoBehaviour {
-	
+
+	public PlaylistController MyPlaylist;
+
 	[Serializable]
 	public struct SoundAndVolume {
 		[SoundGroupAttribute] public string Sound;
@@ -22,15 +24,25 @@ public class SoundManager : MonoBehaviour {
 			_sounds.Add (Sounds[i].Sound, Sounds[i].Volume);
 		}
 		_subscriberList.Add (new Event<PlaySoundEvent>.Subscriber (PlaySound));
-		_subscriberList.Add (new Event<StopSoundEvent>.Subscriber (StopSound));
+		_subscriberList.Add (new Event<ChangeMusicEvent>.Subscriber (PlayMusic));
+		_subscriberList.Add (new Event<ChangeVolumeEvent>.Subscriber (ChangeVolume));
 		_subscriberList.Subscribe ();
+	}
+
+	void Start () {
+		ChangeVolume (new ChangeVolumeEvent());
 	}
 
 	void PlaySound (PlaySoundEvent e) {
 		MasterAudio.PlaySoundAndForget (e.Sound, _sounds [e.Sound]);
 	}
 
-	void StopSound (StopSoundEvent e) {
-		MasterAudio.StopAllOfSound (e.Sound);
+	void PlayMusic (ChangeMusicEvent e) {
+		MyPlaylist.ChangePlaylist (e.Sound, true);
+	}
+
+	void ChangeVolume (ChangeVolumeEvent e) {
+		MasterAudio.MasterVolumeLevel = G.Sys.dataMaster.SoundVolume;
+		MasterAudio.PlaylistMasterVolume = G.Sys.dataMaster.MusicVolume;
 	}
 }
