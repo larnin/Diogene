@@ -113,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011481202204}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_Children:
@@ -127,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012212992674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.486, y: -0.411, z: -0}
+  m_LocalPosition: {x: 0.042, y: -1.369, z: -0.141}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -198,7 +198,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011930814986}
-  m_Mesh: {fileID: 4300000, guid: 4fdb6176dbfad814fa88a6d0c3d0d7ed, type: 3}
+  m_Mesh: {fileID: 4300004, guid: 4fdb6176dbfad814fa88a6d0c3d0d7ed, type: 3}
 --- !u!54 &54000013836430610
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -261,7 +261,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: 0.3
-  m_StartWidth: 1
+  m_StartWidth: 0.8
   m_EndWidth: 1
   m_Colors:
     m_Color[0]:
@@ -298,10 +298,10 @@ MonoBehaviour:
   TrapSound: Trap
   LandingSound: Landing
   BarrelSound: BarrelRoll
-  Acceleration: 15
+  Acceleration: 0.33
   MaxSpeed: 85
   RotationSpeed: 40
-  Jump: 7
+  Jump: 12
   Ground:
     serializedVersion: 2
     m_Bits: 256
@@ -310,7 +310,7 @@ MonoBehaviour:
   TrapKillVelocity: 5
   TrapWaitBeforeAnimation: 0
   Radius: 0.5
-  Gravity: 20
+  Gravity: 40
   VerticalSpeedOnGround: 5
   _isGrounded: 0
 --- !u!136 &136000012181467766

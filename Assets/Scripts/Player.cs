@@ -176,20 +176,18 @@ public class Player : MonoBehaviour
 
         if(collider.gameObject.tag == "Trap")
         {
-			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(TrapSound));
-			Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
+            Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
             enabled = false;
             StartCoroutine(TrapKillCoroutine());
         }
 
         if (collider.gameObject.tag == "Collectable")
         {
-			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(CoinSound));
-			var collectable = collider.GetComponent<Collectable>();
+            var collectable = collider.GetComponent<Collectable>();
             Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent(collectable != null ? collectable.value : 1));
             collider.gameObject.tag = "Untagged";
             collider.gameObject.GetComponentInChildren<Animator>().SetTrigger("Collect");
-            Destroy(collider.gameObject, 0.5f);
+            Destroy(collider.gameObject, 0.25f);
         }
 
         if(collider.gameObject.tag == "TextTrigger")
