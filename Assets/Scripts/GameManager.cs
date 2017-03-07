@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 		Event<PlayerMovedEvent>.Broadcast (new PlayerMovedEvent (playerStartLocation, 0));
 		Event<InstantMoveCameraEvent>.Broadcast (new InstantMoveCameraEvent ());
         //InstanciatePlayer();
-        StartGame();
+        //StartGame();
     }
 
     public void GoToStartMenu()
