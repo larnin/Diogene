@@ -43343,7 +43343,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 83f5f3cb8b0a6034a9c58f92c8a2b212, type: 2}
+  - {fileID: 2100000, guid: b106c3762ca9c944283b83346b21d5e7, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -48940,7 +48940,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 83f5f3cb8b0a6034a9c58f92c8a2b212, type: 2}
+  - {fileID: 2100000, guid: b106c3762ca9c944283b83346b21d5e7, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -62786,7 +62786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba60ec76acdad64294edc3399938766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: SPIN THE RINGS!
+  text: TAP THE SIDES TO SPIN!
   fadeOutTime: 5
 --- !u!114 &114000011751182172
 MonoBehaviour:
