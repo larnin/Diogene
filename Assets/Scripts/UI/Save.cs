@@ -15,4 +15,7 @@ public class Save {
     public bool PlayTuto = true;
 	public float MusicVolume = 1;
 	public float SoundVolume = 1;
+	public int BigCoins = 0;
+	public float Distance = 0;
+	public int Death = 0;
 }

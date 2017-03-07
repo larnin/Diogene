@@ -122,6 +122,36 @@ public class DataMaster {
 		}
 	}
 
+	public int BigCoins
+	{
+		get { return _save.BigCoins; }
+		set
+		{
+			_save.BigCoins = value;
+			SaveData();
+		}
+	}
+
+	public float Distance
+	{
+		get { return _save.Distance; }
+		set
+		{
+			_save.Distance = value;
+			SaveData();
+		}
+	}
+
+	public int Death
+	{
+		get { return _save.Death; }
+		set
+		{
+			_save.Death = value;
+			SaveData();
+		}
+	}
+
     void SaveData () {
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
