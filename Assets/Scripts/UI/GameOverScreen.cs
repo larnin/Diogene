@@ -6,8 +6,7 @@ using DarkTonic.MasterAudio;
 
 public class GameOverScreen : MonoBehaviour {
 
-	[SoundGroupAttribute] public string MenuMusic;
-	[SoundGroupAttribute] public string GameMusic;
+	public string MenuMusic;
 	[SoundGroupAttribute] public string NewRecordSound;
 
 	public Text Score;
@@ -54,8 +53,7 @@ public class GameOverScreen : MonoBehaviour {
 
 	public void GoToMainMenu () {
 
-		Event<StopSoundEvent>.Broadcast(new StopSoundEvent(GameMusic));
-		Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(MenuMusic));
+		Event<ChangeMusicEvent>.Broadcast(new ChangeMusicEvent(MenuMusic));
 
 		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.MAIN));
 		G.Sys.gameManager.GoToStartMenu ();

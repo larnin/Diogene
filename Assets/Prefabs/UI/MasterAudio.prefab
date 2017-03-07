@@ -704,7 +704,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: de3ae961109dfe34081570a61f62312f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.022
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -778,7 +778,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 411286cd0f4ebea4c817a5e103ad111d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.005
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -852,7 +852,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5aec32dc7161ad54ebf3b158502a83f1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1000,7 +1000,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7a000655c89faee4fb551c2cf45c58d9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.017
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1074,7 +1074,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b0d441fd517b4de4b8d6ae7e7c446ed9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1148,7 +1148,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a478662c43f36d14c8dc27840f2892b8, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1296,7 +1296,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b281aaf0743c02345ab1e864c91c040d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1370,7 +1370,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d0e7ba52d73cf5940a316015d4483c2b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1444,7 +1444,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e073b40b27545004580d527cae671a76, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.017
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1559,7 +1559,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 0
+  frames: 3956
 --- !u!114 &114000010167081496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 870
+  frames: 940
 --- !u!114 &114000010250981600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1665,7 +1665,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 148
+  frames: 386
 --- !u!114 &114000010457467888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1699,6 +1699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db107d652d548664e92dbdcb47ec6b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyPlaylist: {fileID: 0}
   Sounds:
   - Sound: BarrelRoll
     Volume: 1
@@ -1706,7 +1707,7 @@ MonoBehaviour:
     Volume: 1
   - Sound: Death
     Volume: 1
-  - Sound: Game
+  - Sound: Trap
     Volume: 1
   - Sound: Highscore
     Volume: 1
@@ -1714,11 +1715,7 @@ MonoBehaviour:
     Volume: 1
   - Sound: Landing
     Volume: 1
-  - Sound: Menu
-    Volume: 1
   - Sound: Ring
-    Volume: 1
-  - Sound: Trap
     Volume: 1
 --- !u!114 &114000011131795410
 MonoBehaviour:
@@ -1772,7 +1769,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 240
+  frames: 1252
 --- !u!114 &114000011367097770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1956,7 +1953,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 1818
+  frames: 2592
 --- !u!114 &114000011736069336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2009,7 +2006,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 166
+  frames: 514
 --- !u!114 &114000011870961356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2062,7 +2059,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 234
+  frames: 1046
 --- !u!114 &114000011930318190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2227,7 +2224,7 @@ MonoBehaviour:
   playlistControllerPrefab: {fileID: 400000, guid: 8d628ddcfa7a21e49a762de30fc7e9dd,
     type: 2}
   persistBetweenScenes: 0
-  areGroupsExpanded: 1
+  areGroupsExpanded: 0
   soundGroupTemplate: {fileID: 400008, guid: 877a3a4bf0a4abf43aba41125e1d3101, type: 2}
   soundGroupVariationTemplate: {fileID: 400000, guid: 08eea2d8c4572c7479da53cfbc14bde6,
     type: 2}
@@ -2244,7 +2241,59 @@ MonoBehaviour:
   mixerSpatialBlend: 1
   newGroupSpatialType: 1
   newGroupSpatialBlend: 1
-  musicPlaylists: []
+  musicPlaylists:
+  - isExpanded: 1
+    playlistName: Menu
+    songTransitionType: 1
+    MusicSettings:
+    - alias: 
+      audLocation: 0
+      clip: {fileID: 8300000, guid: 668c2fab972933a40b4dc47cd1afd2c9, type: 3}
+      songName: Menu
+      resourceFileName: 
+      volume: 0.15
+      pitch: 1
+      isExpanded: 1
+      isLoop: 0
+      customStartTime: 0
+      lastKnownTimePoint: 0
+      songIndex: 0
+      songStartedEventExpanded: 0
+      songStartedCustomEvent: 
+      songChangedEventExpanded: 0
+      songChangedCustomEvent: 
+    bulkLocationMode: 0
+    crossfadeMode: 0
+    crossFadeTime: 1
+    fadeInFirstSong: 0
+    fadeOutLastSong: 0
+    resourceClipsAllLoadAsync: 1
+  - isExpanded: 1
+    playlistName: Game
+    songTransitionType: 1
+    MusicSettings:
+    - alias: 
+      audLocation: 0
+      clip: {fileID: 8300000, guid: 7dd3d72ba43aed340969ebd7071af88c, type: 3}
+      songName: Game
+      resourceFileName: 
+      volume: 0.15
+      pitch: 1
+      isExpanded: 1
+      isLoop: 0
+      customStartTime: 0
+      lastKnownTimePoint: 0
+      songIndex: 0
+      songStartedEventExpanded: 0
+      songStartedCustomEvent: 
+      songChangedEventExpanded: 0
+      songChangedCustomEvent: 
+    bulkLocationMode: 0
+    crossfadeMode: 0
+    crossFadeTime: 1
+    fadeInFirstSong: 0
+    fadeOutLastSong: 0
+    resourceClipsAllLoadAsync: 1
   _masterAudioVolume: 1
   ignoreTimeScale: 0
   followAudioListener: 1
@@ -2483,7 +2532,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 66
+  frames: 854
 --- !u!114 &114000012913863602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2741,7 +2790,7 @@ MonoBehaviour:
   isMuted: 0
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
-  frames: 0
+  frames: 2282
 --- !u!114 &114000014199553954
 MonoBehaviour:
   m_ObjectHideFlags: 1

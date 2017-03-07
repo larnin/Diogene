@@ -102,6 +102,26 @@ public class DataMaster {
         }
     }
 
+	public float MusicVolume
+	{
+		get {return _save.MusicVolume;}
+		set {
+			_save.MusicVolume = value;
+			SaveData ();
+			Event<ChangeVolumeEvent>.Broadcast(new ChangeVolumeEvent());
+		}
+	}
+
+	public float SoundVolume
+	{
+		get {return _save.SoundVolume;}
+		set {
+			_save.SoundVolume = value;
+			SaveData ();
+			Event<ChangeVolumeEvent>.Broadcast(new ChangeVolumeEvent());
+		}
+	}
+
     void SaveData () {
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
