@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 	[SoundGroupAttribute] public string JumpSound;
 	[SoundGroupAttribute] public string DeathSound;
 	[SoundGroupAttribute] public string TrapSound;
+	[SoundGroupAttribute] public string LandingSound;
+	[SoundGroupAttribute] public string BarrelSound;
 
 	public float Acceleration = 0;
     public float MaxSpeed = 100;
@@ -126,6 +128,7 @@ public class Player : MonoBehaviour
         var hits = Physics.SphereCastAll(new Ray(transform.position, newPos - transform.position), Radius, (newPos - transform.position).magnitude, Ground);
         var hit = new RaycastHit();
         float distance = 10000000.0f;
+		bool oldGrounded = _isGrounded;
         foreach(var h in hits)
         {
             hit = h;
@@ -137,7 +140,7 @@ public class Player : MonoBehaviour
             _isGrounded = CheckGrounded();
             if(_isGrounded)
                 _verticalSpeed = -VerticalSpeedOnGround * _gravityMultiplier;
-        }
+		}
         else
         {
             float d = hit.distance > 0.01f ? hit.distance - 0.01f : 0;
@@ -145,6 +148,13 @@ public class Player : MonoBehaviour
             _verticalSpeed = -VerticalSpeedOnGround * _gravityMultiplier;
             _isGrounded = true;
         }
+
+		if(!oldGrounded && _isGrounded) {
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(LandingSound));
+		}
+		else if (_isGrounded) {
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(BarrelSound));
+		}
 
         transform.LookAt(new Vector3(0, transform.position.y, 0), Vector3.up);
     }
@@ -154,6 +164,7 @@ public class Player : MonoBehaviour
         if(collider.gameObject.tag == "KillGrid")
         {
             Event<PlayerKillEvent>.Broadcast(new PlayerKillEvent(_currentSpeed));
+			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(DeathSound));
             Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
             var rigidBody = GetComponent<Rigidbody>();
             rigidBody.useGravity = true;
@@ -193,6 +204,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(TrapWaitBeforeAnimation);
         Event<PlayerKillEvent>.Broadcast(new PlayerKillEvent(_currentSpeed));
+		Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(DeathSound));
         var rigidBody = GetComponent<Rigidbody>();
         rigidBody.useGravity = true;
         var dir = (Vector3.Cross(new Vector3(transform.position.x, 0, transform.position.z), Vector3.up).normalized + Vector3.up.normalized).normalized;

@@ -296,6 +296,8 @@ MonoBehaviour:
   JumpSound: Jump
   DeathSound: Death
   TrapSound: Trap
+  LandingSound: Landing
+  BarrelSound: BarrelRoll
   Acceleration: 5
   MaxSpeed: 100
   RotationSpeed: 40
