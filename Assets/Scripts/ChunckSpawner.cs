@@ -204,6 +204,8 @@ public class ChunckSpawner : MonoBehaviour
             }
             if (powerupindex == -1)
                 continue;
+            if(G.Sys.dataMaster.PowerupLevel((PowerupType)powerupindex) <= 0)
+                continue;
 
             var p = Instantiate(Powerups[powerupindex]);
             p.transform.parent = child;
