@@ -182,6 +182,17 @@ public class DataMaster {
 		}
 	}
 
+    public int PowerupLevel(PowerupType type)
+    {
+        return _save.PowerupLevel[(int)type];
+    }
+
+    public void SetPowerupLevel(int value, PowerupType type)
+    {
+        _save.PowerupLevel[(int)type] = value;
+        SaveData();
+    }
+
     void SaveData () {
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
