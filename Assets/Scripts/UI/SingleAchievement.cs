@@ -10,8 +10,8 @@ public class SingleAchievement : MonoBehaviour {
 	public string Title;
 	public int CoinValue;
 
-	public float _currentValue;
-	public bool _done;
+	float _currentValue;
+	bool _done;
 
 	[Header("Don't Touch This")]
 	public Text TitleZone;
@@ -19,6 +19,7 @@ public class SingleAchievement : MonoBehaviour {
 	public Text RewardZone;
 	public GameObject Locked;
 	public GameObject Unlocked;
+	public GameObject GlobalZone;
 
 	SubscriberList _subscriberList = new SubscriberList();
 
@@ -37,6 +38,7 @@ public class SingleAchievement : MonoBehaviour {
 						_done = true;
 						if (!e.Start) {
 							Event<AchievementSucessEvent>.Broadcast(new AchievementSucessEvent(Title));
+							G.Sys.dataMaster.Coins += CoinValue;
 						}
 					}
 				}
@@ -48,8 +50,10 @@ public class SingleAchievement : MonoBehaviour {
 
 		if (e.State) {
 
+			GlobalZone.SetActive (true);
+
 			if (_done) {
-				Locked.SetActive (true);
+				Locked.SetActive (false);
 				Unlocked.SetActive (true);
 			}
 			else {
@@ -64,55 +68,57 @@ public class SingleAchievement : MonoBehaviour {
 			
 			if (MyType == AchievementBigType.OneRun) {
 				if (MyAchievement == AchievementSpecificType.RollDistance) {
-					_textBuffer = "Roll " + Value.ToString () + " meters in one run !";
+					_textBuffer = "ROLL " + Value.ToString () + " METERS IN ONE RUN !";
 				}
 				else if (MyAchievement == AchievementSpecificType.CoinCollected) {
-					_textBuffer = "Collect " + Value.ToString () + " coins in one run !";
+					_textBuffer = "COLLECT " + Value.ToString () + " COINS IN ONE RUN !";
 				}
 				else if (MyAchievement == AchievementSpecificType.BigCoinCollected) {
-					_textBuffer = "Collect " + Value.ToString () + " big coins in one run !";
+					_textBuffer = "COLLECT " + Value.ToString () + " BIG COINS IN ONE RUN !";
 				}
 				else if (MyAchievement == AchievementSpecificType.JumpCount) {
-					_textBuffer = "Jump " + Value.ToString () + " times in one run !";
+					_textBuffer = "JUMP " + Value.ToString () + " TIMES IN ONE RUN !";
 				}
 			}
 			else {
 				if (MyAchievement == AchievementSpecificType.RollDistance) {
-					_textBuffer = "Roll " + Value.ToString () + " meters.";
+					_textBuffer = "ROLL " + Value.ToString () + " METERS.";
 					if (!_done) {
-						_textBuffer += "(Current: " + _currentValue.ToString () + ")";
+						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 				else if (MyAchievement == AchievementSpecificType.CoinCollected) {
-					_textBuffer = "Collect " + Value.ToString () + " coins.";
+					_textBuffer = "COLLECT " + Value.ToString () + " COINS.";
 					if (!_done) {
-						_textBuffer += "(Current: " + _currentValue.ToString () + ")";
+						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 				else if (MyAchievement == AchievementSpecificType.BigCoinCollected) {
-					_textBuffer = "Collect " + Value.ToString () + " big coins.";
+					_textBuffer = "COLLECT " + Value.ToString () + " BIG COINS.";
 					if (!_done) {
-						_textBuffer += "(Current: " + _currentValue.ToString () + ")";
+						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 				else if (MyAchievement == AchievementSpecificType.JumpCount) {
-					_textBuffer = "Jump " + Value.ToString () + " times.";
+					_textBuffer = "JUMP " + Value.ToString () + " TIMES.";
 					if (!_done) {
-						_textBuffer += "(Current: " + _currentValue.ToString () + ")";
+						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 				else if (MyAchievement == AchievementSpecificType.DeathCount) {
-					_textBuffer = "Die " + Value.ToString () + " times.";
+					_textBuffer = "DIE " + Value.ToString () + " TIMES.";
 					if (!_done) {
-						_textBuffer += "(Current: " + _currentValue.ToString () + ")";
+						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 			}
 			
-			RewardZone.text = _textBuffer;
+			DescriptionZone.text = _textBuffer;
 		}
 		else {
 			Locked.SetActive (false);
+			Unlocked.SetActive (false);
+			GlobalZone.SetActive (false);
 		}
 
 	}

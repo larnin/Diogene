@@ -13,7 +13,8 @@ public enum MenuState
     GAMEOVER,
 	PAUSE,
 	OPTIONS,
-	CREDITS
+	CREDITS,
+	ACHIEVEMENTS
 }
 
 public class ChangeMenuEvent : EventArgs

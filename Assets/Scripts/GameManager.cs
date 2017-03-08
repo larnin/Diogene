@@ -17,18 +17,11 @@ public class GameManager : MonoBehaviour
     public GameObject SupportTextTuto;
     public string StoreLink;
 
-    private static bool _instanciated = false;
     SubscriberList _subscriberList = new SubscriberList();
     Coroutine _textTutoCoroutine;
 
     void Awake()
     {
-		if (!_instanciated)
-			_instanciated = true;
-		else {
-			Destroy (gameObject);
-			return;
-		}
 
         G.Sys.gameManager = this;
 
@@ -59,6 +52,7 @@ public class GameManager : MonoBehaviour
 	void Start()
     {
         hud.SetActive(false);
+		Event<ResetEvent>.Broadcast (new ResetEvent ());
         Event<InitializeEvent>.Broadcast(new InitializeEvent(new Vector3(0, 0, 0)));
 		Event<PlayerMovedEvent>.Broadcast (new PlayerMovedEvent (playerStartLocation, 0));
 		Event<InstantMoveCameraEvent>.Broadcast (new InstantMoveCameraEvent ());

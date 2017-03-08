@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
 
 public class AchievementMaster : MonoBehaviour {
 
@@ -12,10 +11,19 @@ public class AchievementMaster : MonoBehaviour {
 	float _runScore = 0;
 	int _runJump = 0;
 
+	public MenuState WhereGoing;
+	public GameObject WhereUI;
+	public GameObject CloseButton;
 	public float WindowDuration;
 	public GameObject Window;
 	public Text TitleZone;
 	public GameObject AchievementZone;
+	public GameObject AchievementTitle;
+	public ScrollRect MyScrollRect;
+	public Image MyImage;
+	public Mask MyMask;
+
+	bool _active = false;
 
 	float _windowTimer = 0;
 
@@ -50,6 +58,13 @@ public class AchievementMaster : MonoBehaviour {
 			_windowTimer -= Time.deltaTime;
 			if (_windowTimer <= 0) {
 				Window.SetActive (false);
+			}
+		}
+
+		if (_active) {
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				ShowAchievement (false);
 			}
 		}
 	}
@@ -111,7 +126,22 @@ public class AchievementMaster : MonoBehaviour {
 	}
 
 	public void ShowAchievement (bool state) {
-		AchievementZone.SetActive (state);
+		_active = state;
 		Event<UpdateAchievementUIEvent>.Broadcast(new UpdateAchievementUIEvent(state));
+		if (state) {
+			Event<ResetEvent>.Broadcast(new ResetEvent());
+			Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.ACHIEVEMENTS));
+		}
+		else {
+			Event<InitializeEvent>.Broadcast(new InitializeEvent(G.Sys.gameManager.playerStartLocation));
+			Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(WhereGoing));
+		}
+		CloseButton.SetActive (state);
+		AchievementZone.SetActive (state);
+		AchievementTitle.SetActive (state);
+		WhereUI.SetActive (!state);
+		MyScrollRect.enabled = state;
+		MyImage.enabled = state;
+		MyMask.enabled = state;
 	}
 }
