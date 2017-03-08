@@ -243,6 +243,17 @@ public class DataMaster {
         SaveData();
     }
 
+	public int CosmeticsLevel(CosmeticsType type)
+	{
+		return _save.CosmeticsLevel[(int)type];
+	}
+
+	public void SetCosmeticsLevel(int value, CosmeticsType type)
+	{
+		_save.CosmeticsLevel[(int)type] = value;
+		SaveData();
+	}
+
     void SaveData () {
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");

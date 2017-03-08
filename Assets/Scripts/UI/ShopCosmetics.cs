@@ -2,6 +2,13 @@
 using System.Collections;
 using UnityEngine.UI;
 
+public enum CosmeticsType
+{
+	BLUE = 0,
+	COSMETICS_MAX = BLUE
+}
+
+
 public class ShopCosmetics : MonoBehaviour {
 
 	public string Title;

@@ -22,5 +22,6 @@ public class Save {
 	public int RunCoins = 0;
 	public int RunBigCoins = 0;
 	public int RunJump = 0;
-    public int[] PowerupLevel = new int[(int)PowerupType.POWERUP_MAX+1];
+    public int[] PowerupLevel = new int[(int)PowerupType.POWERUP_MAX + 1];
+	public int[] CosmeticsLevel = new int[(int)CosmeticsType.COSMETICS_MAX + 1];
 }
