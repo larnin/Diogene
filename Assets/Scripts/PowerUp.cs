@@ -14,4 +14,9 @@ public enum PowerupType
 public class PowerUp : MonoBehaviour
 {
     public PowerupType Type;
+
+    void Update()
+    {
+        transform.rotation = Camera.main.transform.rotation;
+    }
 }

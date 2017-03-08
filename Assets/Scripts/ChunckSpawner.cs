@@ -135,6 +135,7 @@ public class ChunckSpawner : MonoBehaviour
         }
         _lastChunckSpawn.Add(index);
         var o = Instantiate(chunkPrefabs[index]);
+        AddPowerupOnChunk(o);
         var currentChunk = _chunks[_chunks.Count - 1];
         float rotation = 0;
         bool fliped = (currentChunk.fliped != currentChunk.datas.endFliped);

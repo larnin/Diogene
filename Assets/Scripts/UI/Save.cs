@@ -5,6 +5,7 @@ using System;
 [Serializable]
 public class Save {
 
+    public int Version = 0;
 	public int Coins = 0;
 	public float HighScore = 0;
     public int HolesCount = 0;

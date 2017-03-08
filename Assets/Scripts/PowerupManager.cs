@@ -17,7 +17,7 @@ public class PowerupManager : MonoBehaviour
     public float MagnetPower;
     public float MaxFallSpeed;
 
-    List<float> _times = new List<float>{0, 0, 0, 0, 200};
+    List<float> _times = new List<float>{0, 0, 0, 0, 0};
     SubscriberList _subscriberList = new SubscriberList();
 
     void Awake()

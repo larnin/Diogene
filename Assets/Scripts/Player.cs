@@ -47,13 +47,17 @@ public class Player : MonoBehaviour
 	bool _pause = false;
     float _verticalSpeed = 0;
     float _gravityMultiplier = 1;
-    bool haveDoubleJumped = false;
+    bool _haveDoubleJumped = false;
+    Animator _powerupEffects;
 
 	void Awake()
 	{
 		_subscriberList.Add (new Event<ResetEvent>.Subscriber (OnReset));
 		_subscriberList.Add (new Event<PausePlayerEvent>.Subscriber (Pause));
 		_subscriberList.Add (new Event<PlayerJumpEvent>.Subscriber (JumpMe));
+        _subscriberList.Add(new Event<PowerupCollectedEvent>.Subscriber(OnPowerupStart));
+        _subscriberList.Add(new Event<PowerupFlashEvent>.Subscriber(OnPowerupFlash));
+
         _currentSpeed = RotationSpeed;
     }
 
@@ -71,6 +75,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _distance = new Vector3(transform.position.x, 0, transform.position.z).magnitude;
+        _powerupEffects = transform.FindChild("SpriteFX").GetComponent<Animator>();
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
@@ -110,7 +115,6 @@ public class Player : MonoBehaviour
     void UseMagnet()
     {
         var objects = Physics.OverlapSphere(transform.position, G.Sys.powerupManager.MagnetRadius);
-        Debug.Log(objects.Length);
         foreach(var o in objects)
         {
             if (o.tag != "Collectable")
@@ -127,12 +131,12 @@ public class Player : MonoBehaviour
             Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(JumpSound));
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
         }
-        else if(G.Sys.powerupManager.IsEnabled(PowerupType.DOUBLE_JUMP) && !haveDoubleJumped)
+        else if(G.Sys.powerupManager.IsEnabled(PowerupType.DOUBLE_JUMP) && !_haveDoubleJumped)
         {
             _verticalSpeed = Jump;
             Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(JumpSound));
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
-            haveDoubleJumped = true;
+            _haveDoubleJumped = true;
         }
         else _currentJumpBuffer = JumpBuffer;
 	}
@@ -183,7 +187,7 @@ public class Player : MonoBehaviour
        
 		    if(!oldGrounded && _isGrounded) {
 			    Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(LandingSound));
-                haveDoubleJumped = false;
+                _haveDoubleJumped = false;
             }
 		    else if (_isGrounded) {
 			    Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(BarrelSound));
@@ -275,5 +279,16 @@ public class Player : MonoBehaviour
             return false;
         var hits = Physics.SphereCastAll(new Ray(transform.position, new Vector3(0, -1, 0)), Radius, 0.2f, Ground);
         return hits.Length > 0;
+    }
+
+    void OnPowerupFlash(PowerupFlashEvent e)
+    {
+        _powerupEffects.SetBool("powerUpActive", false);
+    }
+
+    void OnPowerupStart(PowerupCollectedEvent e)
+    {
+        _powerupEffects.SetInteger("whichPowerUp", (int)e.type);
+        _powerupEffects.SetBool("powerUpActive", true);
     }
 }

@@ -6,16 +6,66 @@ using System.Runtime.Serialization;
 
 public class DataMaster {
 
-	public Save _save = new Save();
+    Save _save = new Save();
 
 	public int ScreenSleepTime;
 
     SubscriberList _subscriberList = new SubscriberList();
 
+    static int _version = 1;
+
     public DataMaster()
     {
         _subscriberList.Add(new Event<PlayerHaveJumped>.Subscriber(OnJump));
         _subscriberList.Subscribe();
+
+        Load();
+    }
+
+    void Load()
+    {
+        if (!File.Exists(Application.persistentDataPath + "/save.diogene"))
+        {
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
+
+            _save = new Save();
+
+            formatter.Serialize(saveFile, new Save());
+
+            saveFile.Close();
+        }
+        else
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream saveFile = File.Open(Application.persistentDataPath + "/save.diogene", FileMode.Open);
+
+            _save = (Save)formatter.Deserialize(saveFile);
+
+            saveFile.Close();
+
+            SetEverything();
+        }
+
+        if(_save.Version != _version || _save.PowerupLevel == null)
+        {
+            int Coins = _save.Coins;
+            float HighScore = _save.HighScore;
+            bool tutoPlayed = _save.PlayTuto;
+            _save = new Save();
+            _save.Version = _version;
+            _save.HighScore = HighScore;
+            _save.Coins = Coins;
+            _save.PlayTuto = tutoPlayed;
+            SaveData();
+        }
+    }
+
+    public void Reset()
+    {
+        _save = new Save();
+        SaveData();
     }
 
 	public string CoinsText = "0";
