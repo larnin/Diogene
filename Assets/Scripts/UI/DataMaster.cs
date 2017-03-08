@@ -132,6 +132,26 @@ public class DataMaster {
 		}
 	}
 
+	public int RunBigCoins
+	{
+		get { return _save.RunBigCoins; }
+		set
+		{
+			_save.RunBigCoins = value;
+			SaveData();
+		}
+	}
+
+	public int RunCoins
+	{
+		get { return _save.RunCoins; }
+		set
+		{
+			_save.RunCoins = value;
+			SaveData();
+		}
+	}
+
 	public float Distance
 	{
 		get { return _save.Distance; }
@@ -148,6 +168,16 @@ public class DataMaster {
 		set
 		{
 			_save.Death = value;
+			SaveData();
+		}
+	}
+
+	public int RunJump
+	{
+		get { return _save.RunJump; }
+		set
+		{
+			_save.RunJump = value;
 			SaveData();
 		}
 	}
