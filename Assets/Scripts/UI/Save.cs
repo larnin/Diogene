@@ -20,8 +20,10 @@ public class Save {
 	public float Distance = 0;
 	public int Death = 0;
 	public int RunCoins = 0;
+	public int GlobalCoin = 0;
 	public int RunBigCoins = 0;
 	public int RunJump = 0;
     public int[] PowerupLevel = new int[(int)PowerupType.POWERUP_MAX + 1];
-	public int[] CosmeticsLevel = new int[(int)CosmeticsType.COSMETICS_MAX + 1];
+	public bool[] CosmeticsLevel = new bool[(int)CosmeticsType.COSMETICS_MAX + 1];
+	public CosmeticsType EquippedCosmetic;
 }

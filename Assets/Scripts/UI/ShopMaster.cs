@@ -9,6 +9,7 @@ public class ShopMaster : MonoBehaviour {
 
 	int _currentPrice;
 	PowerupType _currentPowerUp;
+	CosmeticsType _currentCosmetics;
 
 	public int NbOfPowerPage;
 	public GameObject[] Masters;
@@ -72,12 +73,21 @@ public class ShopMaster : MonoBehaviour {
 		_isPowerUp = false;
 	}
 
+	public void CloseWindow () {
+		ShopWindow.SetActive (false);
+	}
+
 	public void Buy() {
 
 		G.Sys.dataMaster.Coins -= _currentPrice;
 
 		if (_isPowerUp) {
 			G.Sys.dataMaster.SetPowerupLevel (G.Sys.dataMaster.PowerupLevel (_currentPowerUp) + 1, _currentPowerUp);
+			ShopWindow.SetActive (false);
+			Event<ShopResetEvent>.Broadcast(new ShopResetEvent());
+		}
+		else {
+			G.Sys.dataMaster.SetCosmeticsLevel (true, _currentCosmetics);
 			ShopWindow.SetActive (false);
 			Event<ShopResetEvent>.Broadcast(new ShopResetEvent());
 		}

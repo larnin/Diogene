@@ -71,8 +71,9 @@ public class AchievementMaster : MonoBehaviour {
 
 	void CoinCollected (CoinCollectedEvent e) {
 		_runCoin += e.Value;
+		G.Sys.dataMaster.GlobalCoin += e.Value;
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.CoinCollected, _runCoin, false));
-		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.CoinCollected, G.Sys.dataMaster.Coins + _runCoin, false));
+		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.CoinCollected, G.Sys.dataMaster.GlobalCoin, false));
 		if (e.Value >= 10) {
 			_runBigCoin++;
 			Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.BigCoinCollected, _runBigCoin, false));
