@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
 	bool _pause = false;
     float _verticalSpeed = 0;
     float _gravityMultiplier = 1;
+    bool haveDoubleJumped = false;
 
 	void Awake()
 	{
@@ -101,6 +102,21 @@ public class Player : MonoBehaviour
             _verticalSpeed = Jump;
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
         }
+
+        if (G.Sys.powerupManager.IsEnabled(PowerupType.MAGNET))
+            UseMagnet();
+    }
+
+    void UseMagnet()
+    {
+        var objects = Physics.OverlapSphere(transform.position, G.Sys.powerupManager.MagnetRadius);
+        Debug.Log(objects.Length);
+        foreach(var o in objects)
+        {
+            if (o.tag != "Collectable")
+                continue;
+            o.transform.position += (transform.position - o.transform.position).normalized * Time.deltaTime * G.Sys.powerupManager.MagnetPower;
+        }
     }
 
 	void JumpMe (PlayerJumpEvent e)
@@ -110,6 +126,13 @@ public class Player : MonoBehaviour
             _verticalSpeed = Jump;
             Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(JumpSound));
             Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
+        }
+        else if(G.Sys.powerupManager.IsEnabled(PowerupType.DOUBLE_JUMP) && !haveDoubleJumped)
+        {
+            _verticalSpeed = Jump;
+            Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(JumpSound));
+            Event<PlayerHaveJumped>.Broadcast(new PlayerHaveJumped());
+            haveDoubleJumped = true;
         }
         else _currentJumpBuffer = JumpBuffer;
 	}
@@ -121,47 +144,61 @@ public class Player : MonoBehaviour
 
         _gravityMultiplier = _currentSpeed / RotationSpeed;
         _verticalSpeed -= Gravity * Time.deltaTime * _gravityMultiplier;
-        
         transform.position = Quaternion.Euler(0, _currentSpeed * Time.deltaTime * _direction, 0) * transform.position;
-        Vector3 newPos = transform.position + new Vector3(0, _verticalSpeed * Time.deltaTime, 0);
-        
-        var hits = Physics.SphereCastAll(new Ray(transform.position, newPos - transform.position), Radius, (newPos - transform.position).magnitude, Ground);
-        var hit = new RaycastHit();
-        float distance = 10000000.0f;
-		bool oldGrounded = _isGrounded;
-        foreach(var h in hits)
+
+        if (G.Sys.powerupManager.IsEnabled(PowerupType.FALL))
         {
-            hit = h;
-            distance = h.distance;
+            if (_verticalSpeed < -G.Sys.powerupManager.MaxFallSpeed)
+                _verticalSpeed = -G.Sys.powerupManager.MaxFallSpeed;
+
+            transform.position += new Vector3(0, _verticalSpeed * Time.deltaTime, 0);
         }
-        if (hits.Length == 0)
-        {
-            transform.position = newPos;
-            _isGrounded = CheckGrounded();
-            if(_isGrounded)
-                _verticalSpeed = -VerticalSpeedOnGround * _gravityMultiplier;
-		}
         else
         {
-            float d = hit.distance > 0.01f ? hit.distance - 0.01f : 0;
-            transform.position = transform.position + (newPos - transform.position).normalized * d;
-            _verticalSpeed = -VerticalSpeedOnGround * _gravityMultiplier;
-            _isGrounded = true;
-        }
+            Vector3 newPos = transform.position + new Vector3(0, _verticalSpeed * Time.deltaTime, 0);
 
-		if(!oldGrounded && _isGrounded) {
-			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(LandingSound));
-		}
-		else if (_isGrounded) {
-			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(BarrelSound));
-		}
+            var hits = Physics.SphereCastAll(new Ray(transform.position, newPos - transform.position), Radius, (newPos - transform.position).magnitude, Ground);
+            var hit = new RaycastHit();
+            float distance = 10000000.0f;
+            bool oldGrounded = _isGrounded;
+            foreach (var h in hits)
+            {
+                hit = h;
+                distance = h.distance;
+            }
+            if (hits.Length == 0)
+            {
+                transform.position = newPos;
+                _isGrounded = CheckGrounded();
+                if (_isGrounded)
+                    _verticalSpeed = -VerticalSpeedOnGround * _gravityMultiplier;
+            }
+            else
+            {
+                float d = hit.distance > 0.01f ? hit.distance - 0.01f : 0;
+                transform.position = transform.position + (newPos - transform.position).normalized * d;
+                _verticalSpeed = -VerticalSpeedOnGround * _gravityMultiplier;
+                _isGrounded = true;
+            }
+       
+		    if(!oldGrounded && _isGrounded) {
+			    Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(LandingSound));
+                haveDoubleJumped = false;
+            }
+		    else if (_isGrounded) {
+			    Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(BarrelSound));
+		    }
+        }
 
         transform.LookAt(new Vector3(0, transform.position.y, 0), Vector3.up);
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        if(collider.gameObject.tag == "KillGrid")
+        bool canDieOnTrap = !G.Sys.powerupManager.IsOnShieldTime() && !G.Sys.powerupManager.IsEnabled(PowerupType.SHIELD) && !G.Sys.powerupManager.IsEnabled(PowerupType.FALL);
+        bool canDieOnHole = !G.Sys.powerupManager.IsOnShieldTime() && !G.Sys.powerupManager.IsEnabled(PowerupType.FALL);
+
+        if (collider.gameObject.tag == "KillGrid" && canDieOnHole)
         {
             Event<PlayerKillEvent>.Broadcast(new PlayerKillEvent(_currentSpeed));
 			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(DeathSound));
@@ -174,7 +211,7 @@ public class Player : MonoBehaviour
             Destroy(gameObject, 2);
         }
 
-        if(collider.gameObject.tag == "Trap")
+        if(collider.gameObject.tag == "Trap" && canDieOnTrap)
         {
             Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
 			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(TrapSound));
@@ -186,7 +223,7 @@ public class Player : MonoBehaviour
         {
             var collectable = collider.GetComponent<Collectable>();
 			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(CoinSound));
-            Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent(collectable != null ? collectable.value : 1));
+            Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent(collectable != null ? collectable.value : 1, G.Sys.powerupManager.IsEnabled(PowerupType.MULTIPLIER) ? 2 : 1));
             collider.gameObject.tag = "Untagged";
             collider.gameObject.GetComponentInChildren<Animator>().SetTrigger("Collect");
             Destroy(collider.gameObject, 0.25f);
@@ -197,6 +234,14 @@ public class Player : MonoBehaviour
             var text = collider.GetComponent<TextTrigger>();
             if (text != null)
                 Event<TextTriggerEvent>.Broadcast(new TextTriggerEvent(text.text, text.fadeOutTime));
+        }
+
+        if(collider.gameObject.tag == "Powerup")
+        {
+            var p = collider.GetComponent<PowerUp>();
+            if (p != null)
+                Event<PowerupCollectedEvent>.Broadcast(new PowerupCollectedEvent(p.Type));
+            Destroy(collider.gameObject);
         }
     }
 
