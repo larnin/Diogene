@@ -52,7 +52,7 @@ public class HUD : MonoBehaviour {
 			Score = Mathf.Abs (_buffer);
 			ScoreText.text = (Mathf.Floor (Score * 10) / 10) + "m";
 		}
-		Event<ScoreEvent>.Broadcast(new ScoreEvent(_buffer));
+		Event<ScoreEvent>.Broadcast (new ScoreEvent (Mathf.Abs (_buffer)));
 	}
 
 	void UpdateCoin (CoinCollectedEvent e) {
