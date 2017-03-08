@@ -16,7 +16,7 @@ PlayerSettings:
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenStyle: 0
   m_ShowUnitySplashScreen: 0
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 33301ae3c5bcf9246a6bf17a8c9a4464,
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: a9a1aadbb1bd17c43b3cec6de5c9006d,
     type: 3}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
@@ -173,7 +173,7 @@ PlayerSettings:
   appleEnableAutomaticSigning: 0
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-  androidSplashScreen: {fileID: 2800000, guid: 33301ae3c5bcf9246a6bf17a8c9a4464, type: 3}
+  androidSplashScreen: {fileID: 2800000, guid: a9a1aadbb1bd17c43b3cec6de5c9006d, type: 3}
   AndroidKeystoreName: C:/Users/n.laurent/Desktop/Diogene/Diogene/Assets/Plugins/Android/app.keystore
   AndroidKeyaliasName: 
   AndroidTVCompatibility: 0

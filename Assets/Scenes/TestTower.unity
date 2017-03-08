@@ -118,11 +118,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab85848e59f9184ca84f10a11911d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startChunkPrefab: {fileID: 1000010264381534, guid: 5dcf71948d3dfd544b2e57cf33140dc2,
+  startChunkPrefab: {fileID: 1000013874700718, guid: aa4b179ca98ebb94c8e45f6962e99a93,
     type: 2}
-  startTutoPrefab: {fileID: 1000010264381534, guid: 5dcf71948d3dfd544b2e57cf33140dc2,
+  startTutoPrefab: {fileID: 1000010994430414, guid: 637259d622900974591bae00def554c6,
     type: 2}
   chunkPrefabs:
+  - {fileID: 1000013907928416, guid: f7666b470eb62de4d86b33e4591dd7e2, type: 2}
+  - {fileID: 1000013022550532, guid: 15dccb3b6c1491e4f91b08923bc452d2, type: 2}
+  - {fileID: 1000010954453318, guid: c66d6b6497c62e445bffdbc11e539678, type: 2}
+  - {fileID: 1000012424551068, guid: cc1a9912db591764e818c3432393151b, type: 2}
+  - {fileID: 1000011669040642, guid: 3e0dbb8daa736a145915b9c1efbb04a6, type: 2}
+  - {fileID: 1000014260284496, guid: f9f2b00a58c869045a39abe69d9d35a5, type: 2}
+  - {fileID: 1000013360167212, guid: d02476d7b615f0e4b9e23c857eb0bf0e, type: 2}
   - {fileID: 1000010910244440, guid: 8fdc99060ee63044ba186f5c018bc5f3, type: 2}
   - {fileID: 1000010264381534, guid: 5dcf71948d3dfd544b2e57cf33140dc2, type: 2}
   - {fileID: 1000012833756110, guid: b1957e0c83d57294c9475e8318134112, type: 2}
@@ -130,6 +137,8 @@ MonoBehaviour:
   distanceToDelChunk: 20
   distanceToLoadChunk: 20
   dontRepeatCount: 2
+  chunkSelectCount: 5
+  increaseDifficultySpeed: 5
 --- !u!4 &177806480
 Transform:
   m_ObjectHideFlags: 0
