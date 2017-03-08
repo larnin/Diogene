@@ -6,8 +6,7 @@ public class OptionsFunctionnality : MonoBehaviour {
 	public GameObject Credits;
 
 	public void ResetData () {
-		G.Sys.dataMaster._save = new Save ();
-		G.Sys.dataMaster.SetEverything ();
+        G.Sys.dataMaster.Reset();
 	}
 
 	public void GoToCredits () {

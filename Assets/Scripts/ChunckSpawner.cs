@@ -21,6 +21,10 @@ public class ChunckSpawner : MonoBehaviour
     public int chunkSelectCount;
     [Tooltip("Nombre de chunk passé apres lequel la difficultée augmente de 1")]
     public int increaseDifficultySpeed;
+    [Tooltip("MAGNET = 0\nFALL = 1\nSHIELD = 2\nMULTIPLIER = 3\nDOUBLE_JUMP = 4")]
+    public List<GameObject> Powerups;
+    [Tooltip("MAGNET = 0\nFALL = 1\nSHIELD = 2\nMULTIPLIER = 3\nDOUBLE_JUMP = 4")]
+    public List<float> PowerupProbabilities;
 
     private SubscriberList _subscriberList = new SubscriberList();
     private List<ChunkData> _chunkDatas = new List<ChunkData>();
@@ -131,6 +135,7 @@ public class ChunckSpawner : MonoBehaviour
         }
         _lastChunckSpawn.Add(index);
         var o = Instantiate(chunkPrefabs[index]);
+        AddPowerupOnChunk(o);
         var currentChunk = _chunks[_chunks.Count - 1];
         float rotation = 0;
         bool fliped = (currentChunk.fliped != currentChunk.datas.endFliped);
@@ -174,6 +179,35 @@ public class ChunckSpawner : MonoBehaviour
             if (_chunkDifficultyOffset + chunkSelectCount > chunkPrefabs.Count)
                 _chunkDifficultyOffset--;
             _currentChunkCount = 0;
+        }
+    }
+
+    void AddPowerupOnChunk(GameObject o)
+    {
+        var childs = o.GetComponentsInChildren<Transform>();
+        foreach(var child in childs)
+        {
+            if (child.tag != "Powerup")
+                continue;
+
+            int powerupindex = -1;
+            float sum = 0;
+            var value = (float)G.Sys.random.NextDouble();
+            for(int pi = 0; pi <= (int)PowerupType.POWERUP_MAX; pi++)
+            {
+                sum += PowerupProbabilities[pi];
+                if (sum > value)
+                {
+                    powerupindex = pi;
+                    break;
+                }
+            }
+            if (powerupindex == -1)
+                continue;
+
+            var p = Instantiate(Powerups[powerupindex]);
+            p.transform.parent = child;
+            p.transform.localPosition = new Vector3(0, 0, 0);
         }
     }
 

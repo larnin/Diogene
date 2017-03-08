@@ -9,6 +9,7 @@ public sealed class G
 	private DataMaster _dataMaster = new DataMaster();
     private AmplitudeManager _amplitudeManager = new AmplitudeManager();
     private ChunckSpawner _chunkSpawner;
+    private PowerupManager _powerupManager;
 
     public static G Sys
     {
@@ -44,6 +45,17 @@ public sealed class G
             if (_chunkSpawner != null)
                 Debug.Log("2 ChunckSpawner Instanciated!");
             _chunkSpawner = value;
+        }
+    }
+
+    public PowerupManager powerupManager
+    {
+        get { return _powerupManager; }
+        set
+        {
+            if (_powerupManager != null)
+                Debug.Log("2 powerupManager Instanciated!");
+            _powerupManager = value;
         }
     }
 

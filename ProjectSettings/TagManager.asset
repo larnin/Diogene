@@ -11,6 +11,7 @@ TagManager:
   - Pause
   - Ring
   - TextTrigger
+  - Powerup
   layers:
   - Default
   - TransparentFX
