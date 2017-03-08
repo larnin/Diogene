@@ -18,6 +18,9 @@ public class ChunckSpawner : MonoBehaviour
     public float distanceToDelChunk;
     public float distanceToLoadChunk;
     public int dontRepeatCount;
+    public int chunkSelectCount;
+    [Tooltip("Nombre de chunk passé apres lequel la difficultée augmente de 1")]
+    public int increaseDifficultySpeed;
 
     private SubscriberList _subscriberList = new SubscriberList();
     private List<ChunkData> _chunkDatas = new List<ChunkData>();
@@ -26,6 +29,8 @@ public class ChunckSpawner : MonoBehaviour
 	private bool _initialized = false;
     private float _currentHeight;
     private bool _haveLaunchedTuto;
+    private int _chunkDifficultyOffset = 0;
+    private int _currentChunkCount = 0;
 
     void Awake()
     {
@@ -76,7 +81,10 @@ public class ChunckSpawner : MonoBehaviour
 			Destroy(chunk.gameObject);
 		_chunks.Clear ();
 		_initialized = false;
-	}
+        _chunkDifficultyOffset = 0;
+        _currentChunkCount = 0;
+
+    }
 
     void CreateChunkData()
     {
@@ -110,7 +118,7 @@ public class ChunckSpawner : MonoBehaviour
         int index = 0;
         for(int i = 0; i < 10; i++)
         {
-            index = G.Sys.random.Next(chunkPrefabs.Count);
+            index = PickIndex();
             bool repeated = false;
             for(int j = Mathf.Max(0, _lastChunckSpawn.Count - dontRepeatCount); j < _lastChunckSpawn.Count; j++)
                 if(_lastChunckSpawn[j] == index)
@@ -158,6 +166,22 @@ public class ChunckSpawner : MonoBehaviour
         o.transform.position = new Vector3(0, currentChunk.gameObject.transform.position.y - currentChunk.datas.height, 0);
         o.transform.Rotate(0, rotation, 0);
         _chunks.Add(new Chunk(o, _chunkDatas[index], rotation, fliped));
+
+        _currentChunkCount++;
+        if(_currentChunkCount >= increaseDifficultySpeed)
+        {
+            _chunkDifficultyOffset++;
+            if (_chunkDifficultyOffset + chunkSelectCount > chunkPrefabs.Count)
+                _chunkDifficultyOffset--;
+            _currentChunkCount = 0;
+        }
+    }
+
+    int PickIndex()
+    {
+        int max = Mathf.Min(chunkPrefabs.Count, _chunkDifficultyOffset + chunkSelectCount);
+        int min = Mathf.Clamp(_chunkDifficultyOffset, 0, max);
+        return G.Sys.random.Next(min, max);
     }
 
     void delChunk()

@@ -27,6 +27,7 @@ public class HUD : MonoBehaviour {
 	public bool CanPause = true;
 
     Coroutine _ringCoroutine;
+    bool _disabled = true; 
 
 	void Start () {
 		_subscriberList.Add(new Event<PlayerMovedEvent>.Subscriber(UpdateScore));
@@ -52,7 +53,7 @@ public class HUD : MonoBehaviour {
 			Score = Mathf.Abs (_buffer);
 			ScoreText.text = (Mathf.Floor (Score * 10) / 10) + "m";
 		}
-		Event<ScoreEvent>.Broadcast(new ScoreEvent(_buffer));
+		Event<ScoreEvent>.Broadcast (new ScoreEvent (Mathf.Abs (_buffer)));
 	}
 
 	void UpdateCoin (CoinCollectedEvent e) {
@@ -72,6 +73,9 @@ public class HUD : MonoBehaviour {
 
     void OnRingClick(MoveRingEvent e)
     {
+        if (_disabled)
+            return;
+
         if(e.direction > 0)
         {
             LeftArrowImage.sprite = RingArrowClicked;
@@ -102,9 +106,21 @@ public class HUD : MonoBehaviour {
 		CoinText.text = "0";
 
 		CanPause = true;
-	}
+        _disabled = false;
 
-	public void PauseGame () {
+    }
+
+    void OnDisable()
+    {
+        if (_ringCoroutine != null)
+            StopCoroutine(_ringCoroutine);
+        LeftArrowImage.sprite = RingArrowHiden;
+        RightArrowImage.sprite = RingArrowHiden;
+
+        _disabled = true;
+    }
+
+    public void PauseGame () {
 		if (CanPause) {
 			Event<PauseRingEvent>.Broadcast(new PauseRingEvent(true));
 			Event<PausePlayerEvent>.Broadcast(new PausePlayerEvent(true));

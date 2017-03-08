@@ -132,6 +132,26 @@ public class DataMaster {
 		}
 	}
 
+	public int RunBigCoins
+	{
+		get { return _save.RunBigCoins; }
+		set
+		{
+			_save.RunBigCoins = value;
+			SaveData();
+		}
+	}
+
+	public int RunCoins
+	{
+		get { return _save.RunCoins; }
+		set
+		{
+			_save.RunCoins = value;
+			SaveData();
+		}
+	}
+
 	public float Distance
 	{
 		get { return _save.Distance; }
@@ -151,6 +171,27 @@ public class DataMaster {
 			SaveData();
 		}
 	}
+
+	public int RunJump
+	{
+		get { return _save.RunJump; }
+		set
+		{
+			_save.RunJump = value;
+			SaveData();
+		}
+	}
+
+    public int PowerupLevel(PowerupType type)
+    {
+        return _save.PowerupLevel[(int)type];
+    }
+
+    public void SetPowerupLevel(int value, PowerupType type)
+    {
+        _save.PowerupLevel[(int)type] = value;
+        SaveData();
+    }
 
     void SaveData () {
 		BinaryFormatter formatter = new BinaryFormatter();

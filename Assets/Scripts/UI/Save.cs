@@ -18,4 +18,8 @@ public class Save {
 	public int BigCoins = 0;
 	public float Distance = 0;
 	public int Death = 0;
+	public int RunCoins = 0;
+	public int RunBigCoins = 0;
+	public int RunJump = 0;
+    public int[] PowerupLevel = new int[(int)PowerupType.POWERUP_MAX+1];
 }
