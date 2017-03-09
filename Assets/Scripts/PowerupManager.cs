@@ -46,6 +46,14 @@ public class PowerupManager : MonoBehaviour
         return _times[(int)type] > 0;
     }
 
+    public bool HaveOnePowerupEnabled()
+    {
+        foreach (var t in _times)
+            if (t > 0)
+                return true;
+        return false;
+    }
+
     public bool IsOnShieldTime()
     {
         if (_times[(int)PowerupType.FALL] < 0 && _times[(int)PowerupType.FALL] > -ShieldTimeAfterPowerUp)
