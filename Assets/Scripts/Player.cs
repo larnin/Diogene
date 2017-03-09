@@ -227,7 +227,8 @@ public class Player : MonoBehaviour
         {
             var collectable = collider.GetComponent<Collectable>();
 			Event<PlaySoundEvent>.Broadcast(new PlaySoundEvent(CoinSound));
-            Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent(collectable != null ? collectable.value : 1, G.Sys.powerupManager.IsEnabled(PowerupType.MULTIPLIER) ? 2 : 1));
+            Event<CoinCollectedEvent>.Broadcast(new CoinCollectedEvent((collectable != null ? collectable.value : 1) * (G.Sys.powerupManager.IsEnabled(PowerupType.MULTIPLIER) ? 2 : 1) 
+                                                                     , G.Sys.powerupManager.IsEnabled(PowerupType.MULTIPLIER) ? 2 : 1));
             collider.gameObject.tag = "Untagged";
             collider.gameObject.GetComponentInChildren<Animator>().SetTrigger("Collect");
             Destroy(collider.gameObject, 0.25f);
