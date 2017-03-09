@@ -11,7 +11,7 @@ public class SingleAchievement : MonoBehaviour {
 	public int CoinValue;
 
 	float _currentValue;
-	bool _done;
+	public bool _done;
 
 	[Header("Don't Touch This")]
 	public Text TitleZone;
@@ -26,13 +26,11 @@ public class SingleAchievement : MonoBehaviour {
 	void Awake () {
 		_subscriberList.Add(new Event<UpdateAchievementUIEvent>.Subscriber(UpdateAchievementUI));
 		_subscriberList.Add(new Event<ProgressAchievementEvent>.Subscriber(UpdateAchievementProgress));
+		_subscriberList.Add(new Event<RefreshAchievementsEvent>.Subscriber(RefreshMe));
 		_subscriberList.Subscribe();
 	}
 
 	void UpdateAchievementProgress (ProgressAchievementEvent e) {
-		if (e.Start) {
-			_done = false;
-		}
 		if (!_done) {
 			if (e.MyType == MyType) {
 				if (e.MyAchievement == MyAchievement) {
@@ -40,7 +38,7 @@ public class SingleAchievement : MonoBehaviour {
 					if (_currentValue >= Value) {
 						_done = true;
 						if (!e.Start) {
-							Event<AchievementSucessEvent>.Broadcast(new AchievementSucessEvent(Title));
+							Event<AchievementSucessEvent>.Broadcast(new AchievementSucessEvent(Title, CoinValue));
 							G.Sys.dataMaster.Coins += CoinValue;
 						}
 					}
@@ -82,36 +80,51 @@ public class SingleAchievement : MonoBehaviour {
 				else if (MyAchievement == AchievementSpecificType.JumpCount) {
 					_textBuffer = "JUMP " + Value.ToString () + " TIMES IN ONE RUN !";
 				}
+				else if (MyAchievement == AchievementSpecificType.PowerUpCount) {
+					_textBuffer = "COLLECT " + Value.ToString () + " POWER-UPS IN ONE RUN !";
+				}
 			}
 			else {
 				if (MyAchievement == AchievementSpecificType.RollDistance) {
 					_textBuffer = "ROLL " + Value.ToString () + " METERS.";
 					if (!_done) {
-						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
+						_textBuffer += " (CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 				else if (MyAchievement == AchievementSpecificType.CoinCollected) {
 					_textBuffer = "COLLECT " + Value.ToString () + " COINS.";
 					if (!_done) {
-						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
+						_textBuffer += " (CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 				else if (MyAchievement == AchievementSpecificType.BigCoinCollected) {
 					_textBuffer = "COLLECT " + Value.ToString () + " BIG COINS.";
 					if (!_done) {
-						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
+						_textBuffer += " (CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 				else if (MyAchievement == AchievementSpecificType.JumpCount) {
 					_textBuffer = "JUMP " + Value.ToString () + " TIMES.";
 					if (!_done) {
-						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
+						_textBuffer += " (CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 				else if (MyAchievement == AchievementSpecificType.DeathCount) {
 					_textBuffer = "DIE " + Value.ToString () + " TIMES.";
 					if (!_done) {
-						_textBuffer += "(CURRENT: " + _currentValue.ToString () + ")";
+						_textBuffer += " (CURRENT: " + _currentValue.ToString () + ")";
+					}
+				}
+				else if (MyAchievement == AchievementSpecificType.AchievementsCount) {
+					_textBuffer = "COMPLETE " + Value.ToString () + " ACHIEVEMENTS.";
+					if (!_done) {
+						_textBuffer += " (CURRENT: " + _currentValue.ToString () + ")";
+					}
+				}
+				else if (MyAchievement == AchievementSpecificType.PowerUpCount) {
+					_textBuffer = "COLLECT " + Value.ToString () + " POWER-UPS.";
+					if (!_done) {
+						_textBuffer += " (CURRENT: " + _currentValue.ToString () + ")";
 					}
 				}
 			}
@@ -124,5 +137,9 @@ public class SingleAchievement : MonoBehaviour {
 			GlobalZone.SetActive (false);
 		}
 
+	}
+
+	void RefreshMe (RefreshAchievementsEvent e) {
+		_done = false;
 	}
 }

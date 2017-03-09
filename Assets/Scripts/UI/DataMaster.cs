@@ -74,6 +74,7 @@ public class DataMaster {
     {
         _save = new Save();
         SaveData();
+		SetEverything ();
     }
 
 	public string CoinsText = "0";
@@ -246,6 +247,36 @@ public class DataMaster {
 		set
 		{
 			_save.RunJump = value;
+			SaveData();
+		}
+	}
+
+	public int UnlockedAchievements
+	{
+		get { return _save.UnlockedAchievements; }
+		set
+		{
+			_save.UnlockedAchievements = value;
+			SaveData();
+		}
+	}
+
+	public int RunPowerUp
+	{
+		get { return _save.RunPowerUp; }
+		set
+		{
+			_save.RunPowerUp = value;
+			SaveData();
+		}
+	}
+
+	public int GlobalPowerUp
+	{
+		get { return _save.GlobalPowerUp; }
+		set
+		{
+			_save.GlobalPowerUp = value;
 			SaveData();
 		}
 	}

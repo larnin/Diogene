@@ -25,5 +25,8 @@ public class Save {
 	public int RunJump = 0;
     public int[] PowerupLevel = new int[(int)PowerupType.POWERUP_MAX + 1];
 	public bool[] CosmeticsLevel = new bool[(int)CosmeticsType.COSMETICS_MAX + 1];
-	public CosmeticsType EquippedCosmetic;
+	public CosmeticsType EquippedCosmetic = CosmeticsType.DEFAULT;
+	public int UnlockedAchievements = 0;
+	public int RunPowerUp = 0;
+	public int GlobalPowerUp = 0;
 }

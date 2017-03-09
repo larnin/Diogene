@@ -9,6 +9,7 @@ public class ShopUpgrade : MonoBehaviour {
 	public PowerupType MyPowerType;
 	public int[] CostTable = new int[5];
 	public GameObject[] Bar = new GameObject[5];
+	public GameObject FullBar;
 	public ShopMaster MyMaster;
 	public Text TitleZone;
 	public Text DescriptionZone;
@@ -18,7 +19,7 @@ public class ShopUpgrade : MonoBehaviour {
 	public GameObject Buyed;
 
 	Button _myButton;
-	int _currentLevel = 0;
+	public int _currentLevel = 0;
 
 	SubscriberList _subscriberList = new SubscriberList();
 
@@ -36,24 +37,32 @@ public class ShopUpgrade : MonoBehaviour {
 
 	public void Refresh (ShopResetEvent e) {
 		_currentLevel = G.Sys.dataMaster.PowerupLevel (MyPowerType);
-		CostZone.text = CostTable [_currentLevel].ToString ();
-		for (int i = 0; i < Bar.Length; i++) {
-			if (i + 1 <= _currentLevel) {
-				Bar [i].SetActive (true);
-			}
-			else {
-				Bar [i].SetActive (false);
-			}
-		}
 
 		if (_currentLevel == CostTable.Length) {
+			CostZone.text = "";
 			CannotBuy.SetActive (false);
 			CanBuy.SetActive (false);
 			Buyed.SetActive (true);
+			FullBar.SetActive (true);
 			_myButton.interactable = false;
+			for (int i = 0; i < Bar.Length; i++) {
+				Bar [i].SetActive (false);
+			}
 		}
 		else {
 			Buyed.SetActive (false);
+			FullBar.SetActive (false);
+			CostZone.text = CostTable [_currentLevel].ToString ();
+
+			for (int i = 0; i < Bar.Length; i++) {
+				if (i + 1 <= _currentLevel) {
+					Bar [i].SetActive (true);
+				}
+				else {
+					Bar [i].SetActive (false);
+				}
+			}
+
 			if (G.Sys.dataMaster.Coins >= CostTable [_currentLevel]) {
 				CannotBuy.SetActive (false);
 				CanBuy.SetActive (true);
