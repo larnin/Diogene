@@ -123,7 +123,7 @@ MonoBehaviour:
   startTutoPrefab: {fileID: 1000010994430414, guid: 637259d622900974591bae00def554c6,
     type: 2}
   chunkPrefabs:
-  - {fileID: 1000013286372224, guid: b8937da4058d1514ebb32cda1e4b5bb1, type: 2}
+  - {fileID: 1000013286372224, guid: dfb77943ed12378448e973df456affc1, type: 2}
   distanceToDelChunk: 20
   distanceToLoadChunk: 20
   dontRepeatCount: 2
