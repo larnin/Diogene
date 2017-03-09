@@ -120,16 +120,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startChunkPrefab: {fileID: 1000013874700718, guid: aa4b179ca98ebb94c8e45f6962e99a93,
     type: 2}
-  startTutoPrefab: {fileID: 1000010994430414, guid: 637259d622900974591bae00def554c6,
+  startTutoPrefab: {fileID: 1000013874700718, guid: aa4b179ca98ebb94c8e45f6962e99a93,
     type: 2}
   chunkPrefabs:
-  - {fileID: 1000013286372224, guid: dfb77943ed12378448e973df456affc1, type: 2}
+  - {fileID: 1000013907928416, guid: f7666b470eb62de4d86b33e4591dd7e2, type: 2}
+  - {fileID: 1000013022550532, guid: 15dccb3b6c1491e4f91b08923bc452d2, type: 2}
+  - {fileID: 1000010954453318, guid: c66d6b6497c62e445bffdbc11e539678, type: 2}
+  - {fileID: 1000012424551068, guid: cc1a9912db591764e818c3432393151b, type: 2}
+  - {fileID: 1000011669040642, guid: 3e0dbb8daa736a145915b9c1efbb04a6, type: 2}
+  - {fileID: 1000014260284496, guid: f9f2b00a58c869045a39abe69d9d35a5, type: 2}
+  - {fileID: 1000013360167212, guid: d02476d7b615f0e4b9e23c857eb0bf0e, type: 2}
+  - {fileID: 1000011643782348, guid: 7c038879a08cb73408a4c817919059f2, type: 2}
+  - {fileID: 1000013907928416, guid: f7666b470eb62de4d86b33e4591dd7e2, type: 2}
   - {fileID: 1000011480975192, guid: 3c3ecbf458b990a43b4025a8bef8a20d, type: 2}
+  - {fileID: 1000010558526794, guid: 2d11b211757434d4ba9b73937f3e6eff, type: 2}
+  - {fileID: 1000012098953060, guid: b757dacf9ea5b044f95b6d1f2736706a, type: 2}
+  - {fileID: 1000010097679382, guid: bf7bb6a24c7cebf41b4388b9b54d904e, type: 2}
+  - {fileID: 1000012881746468, guid: 1c40d8fb4f2540641ba66aac662c6aaa, type: 2}
+  - {fileID: 1000011325973778, guid: 0c84418949614304480b3a7da539221b, type: 2}
+  - {fileID: 1000013468647400, guid: b31244e014e69094fa2b21f1ed30942d, type: 2}
+  - {fileID: 1000013907928416, guid: f7666b470eb62de4d86b33e4591dd7e2, type: 2}
+  - {fileID: 1000012414735624, guid: 458041ccc3f0e0e4cb56cb98c5dbeb37, type: 2}
   distanceToDelChunk: 20
   distanceToLoadChunk: 20
-  dontRepeatCount: 2
-  chunkSelectCount: 6
-  increaseDifficultySpeed: 5
+  dontRepeatCount: 1
+  chunkSelectCount: 8
+  increaseDifficultySpeed: 7
   Powerups:
   - {fileID: 1000010443581208, guid: 1cc98d2f1556d8a40a700b4f62ca1058, type: 2}
   - {fileID: 1000011044439120, guid: e064f0f8d49d42c43b13a5a0efbb1826, type: 2}
@@ -137,11 +153,11 @@ MonoBehaviour:
   - {fileID: 1000013602627124, guid: a523a1b573716f244891578e85ae3d56, type: 2}
   - {fileID: 1000012031817216, guid: a9db241842df589489ac13fc92dde71c, type: 2}
   PowerupProbabilities:
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
+  - 0.09
+  - 0.0375
+  - 0.09
+  - 0.075
+  - 1
 --- !u!4 &177806480
 Transform:
   m_ObjectHideFlags: 0
@@ -512,7 +528,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 709972562}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1c57ccf8f3590a439a4d7dcfa595957, type: 3}
   m_Name: 
@@ -887,7 +903,7 @@ Prefab:
     - target: {fileID: 224000012805854852, guid: f90881f4ee5422a47afe79c0ea80f021,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 17300
       objectReference: {fileID: 0}
     - target: {fileID: 224000013294391016, guid: f90881f4ee5422a47afe79c0ea80f021,
         type: 2}
@@ -2089,6 +2105,10 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 330
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012591995654, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
   m_IsPrefabParent: 0
@@ -2518,38 +2538,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetTimes:
   - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 7
+  - 10
+  - 12
+  - 15
   fallTimes:
-  - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 2
+  - 4
+  - 6
+  - 8
+  - 10
   shieldTimes:
   - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 7
+  - 10
+  - 12
+  - 15
   multiplierTimes:
   - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 8
+  - 12
+  - 16
+  - 20
   doubleJumpTimes:
-  - 5
-  - 5
-  - 5
-  - 5
-  - 5
-  FlashTime: 1
+  - 10
+  - 13
+  - 17
+  - 21
+  - 25
+  FlashTime: 2
   ShieldTimeAfterPowerUp: 2
   MagnetRadius: 3
-  MagnetPower: 5
+  MagnetPower: 15
   MaxFallSpeed: 50
 --- !u!4 &1893473409
 Transform:

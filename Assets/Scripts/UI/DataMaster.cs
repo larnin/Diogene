@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System;
 
 public class DataMaster {
 
@@ -24,37 +25,46 @@ public class DataMaster {
 
     void Load()
     {
-        
-		/*
+
+        /*
 		_save = new Save ();
 		SaveData ();
 		*/
-
-		if (!File.Exists(Application.persistentDataPath + "/save.diogene"))
+        bool failled = false;
+        try
         {
+            if (!File.Exists(Application.persistentDataPath + "/save.diogene"))
+            {
 
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
 
+                _save = new Save();
+
+                formatter.Serialize(saveFile, new Save());
+
+                saveFile.Close();
+            }
+            else
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream saveFile = File.Open(Application.persistentDataPath + "/save.diogene", FileMode.Open);
+
+                _save = (Save)formatter.Deserialize(saveFile);
+
+                saveFile.Close();
+
+                SetEverything();
+            }
+        }
+        catch(Exception e)
+        {
+            Debug.LogWarning("Can't load the file !");
             _save = new Save();
-
-            formatter.Serialize(saveFile, new Save());
-
-            saveFile.Close();
-        }
-        else
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream saveFile = File.Open(Application.persistentDataPath + "/save.diogene", FileMode.Open);
-
-            _save = (Save)formatter.Deserialize(saveFile);
-
-            saveFile.Close();
-
-            SetEverything();
+            failled = true;
         }
 
-        if(_save.Version != _version || _save.PowerupLevel == null)
+        if(_save.Version != _version || _save.PowerupLevel == null || failled)
         {
             int Coins = _save.Coins;
             float HighScore = _save.HighScore;
@@ -314,12 +324,20 @@ public class DataMaster {
 	}
 
     void SaveData () {
+        try
+        {
+
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream saveFile = File.Create(Application.persistentDataPath + "/save.diogene");
 
 		formatter.Serialize(saveFile, _save);
 
 		saveFile.Close();
+        }
+        catch(Exception e)
+        {
+            Debug.LogWarning("Can't save the file !");
+        }
 	}
 
 	public void SetEverything () {
