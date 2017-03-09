@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using DarkTonic.MasterAudio;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +24,8 @@ public class Player : MonoBehaviour
     public float Radius = 0.5f;
     public float Gravity = 1;
     public float VerticalSpeedOnGround = 2;
+
+    public List<GameObject> Skins;
 
     int _direction = 1;
     [HideInInspector]
@@ -79,6 +80,11 @@ public class Player : MonoBehaviour
 
         Event<PlayerMovedEvent>.Broadcast(new PlayerMovedEvent(transform.position, 0));
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
+
+        var tonneau = transform.Find("tonneau");
+        var skin = Instantiate(Skins[0]);
+        skin.transform.parent = tonneau;
+        skin.transform.localPosition = new Vector3(0, 0, 0);
     }
 
 	void Pause (PausePlayerEvent e) {
