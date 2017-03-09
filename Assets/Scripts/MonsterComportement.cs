@@ -38,9 +38,11 @@ public class MonsterComportement : MonoBehaviour
         _time += Time.deltaTime;
         if (_time > _totalTime)
             _ended = true;
-
+        var oldPos = transform.position;
         var result = Vector3.Slerp(new Vector3(_startPosition.x, 0, _startPosition.z), new Vector3(EndPosition.x, 0, EndPosition.z), _time / _totalTime);
         result.y = Mathf.Lerp(_startPosition.y, EndPosition.y, _time / _totalTime);
         transform.localPosition = result;
+        if(_started && !_ended)
+            transform.LookAt(2 * transform.position - oldPos);
 	}
 }
