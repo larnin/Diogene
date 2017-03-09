@@ -22,6 +22,8 @@ public class ShopMaster : MonoBehaviour {
 	bool _isPowerUp = true;
 
 	void OnEnable () {
+		ShopWindow.SetActive (false);
+
 		_currentPage = 1;
 		Masters [0].SetActive (true);
 		for (int i = 1; i < Masters.Length; i++) {

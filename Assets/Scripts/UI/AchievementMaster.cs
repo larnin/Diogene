@@ -34,10 +34,15 @@ public class AchievementMaster : MonoBehaviour {
 		_subscriberList.Add (new Event<PlayerKillEvent>.Subscriber (Death));
 		_subscriberList.Add (new Event<PlayerHaveJumped>.Subscriber (Jumped));
 		_subscriberList.Add (new Event<AchievementSucessEvent>.Subscriber (AchievementSucess));
+		_subscriberList.Add (new Event<RefreshEvent>.Subscriber (Refresh));
 		_subscriberList.Subscribe();
 	}
 
 	void Start () {
+		Refresh (new RefreshEvent());
+	}
+
+	void Refresh (RefreshEvent e) {
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.CoinCollected, G.Sys.dataMaster.RunCoins, true));
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.CoinCollected, G.Sys.dataMaster.Coins, true));
 

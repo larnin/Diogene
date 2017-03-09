@@ -24,7 +24,13 @@ public class DataMaster {
 
     void Load()
     {
-        if (!File.Exists(Application.persistentDataPath + "/save.diogene"))
+        
+		/*
+		_save = new Save ();
+		SaveData ();
+		*/
+
+		if (!File.Exists(Application.persistentDataPath + "/save.diogene"))
         {
 
             BinaryFormatter formatter = new BinaryFormatter();
