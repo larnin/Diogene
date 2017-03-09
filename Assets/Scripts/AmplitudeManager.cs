@@ -31,6 +31,7 @@ public class AmplitudeManager
         _subscriberList.Add(new Event<QuitEvent>.Subscriber(OnQuit));
         _subscriberList.Add(new Event<ChangeMenuEvent>.Subscriber(OnMenuChange));
         _subscriberList.Add(new Event<FrameEvent>.Subscriber(OnFrame));
+        _subscriberList.Add(new Event<AchievementSucessEvent>.Subscriber(OnAchievement));
         _subscriberList.Subscribe();
 
         _amplitude = Amplitude.Instance;
