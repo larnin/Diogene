@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startChunkPrefab: {fileID: 1000013874700718, guid: aa4b179ca98ebb94c8e45f6962e99a93,
     type: 2}
-  startTutoPrefab: {fileID: 1000010994430414, guid: 637259d622900974591bae00def554c6,
+  startTutoPrefab: {fileID: 1000013874700718, guid: aa4b179ca98ebb94c8e45f6962e99a93,
     type: 2}
   chunkPrefabs:
   - {fileID: 1000013907928416, guid: f7666b470eb62de4d86b33e4591dd7e2, type: 2}
@@ -156,8 +156,8 @@ MonoBehaviour:
   - 0.09
   - 0.0375
   - 0.09
-  - 0.09
   - 0.075
+  - 1
 --- !u!4 &177806480
 Transform:
   m_ObjectHideFlags: 0
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 709972562}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1c57ccf8f3590a439a4d7dcfa595957, type: 3}
   m_Name: 
@@ -2055,6 +2055,10 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 330
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012591995654, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90881f4ee5422a47afe79c0ea80f021, type: 2}
   m_IsPrefabParent: 0
@@ -2534,38 +2538,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetTimes:
   - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 7
+  - 10
+  - 12
+  - 15
   fallTimes:
-  - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 2
+  - 4
+  - 6
+  - 8
+  - 10
   shieldTimes:
   - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 7
+  - 10
+  - 12
+  - 15
   multiplierTimes:
   - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 8
+  - 12
+  - 16
+  - 20
   doubleJumpTimes:
-  - 5
-  - 5
-  - 5
-  - 5
-  - 5
+  - 10
+  - 13
+  - 17
+  - 21
+  - 25
   FlashTime: 2
   ShieldTimeAfterPowerUp: 2
   MagnetRadius: 3
-  MagnetPower: 5
+  MagnetPower: 15
   MaxFallSpeed: 50
 --- !u!4 &1893473409
 Transform:
