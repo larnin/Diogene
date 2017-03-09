@@ -157,7 +157,7 @@ MonoBehaviour:
   - 0.0375
   - 0.09
   - 0.075
-  - 1
+  - 0.09
 --- !u!4 &177806480
 Transform:
   m_ObjectHideFlags: 0
@@ -903,7 +903,7 @@ Prefab:
     - target: {fileID: 224000012805854852, guid: f90881f4ee5422a47afe79c0ea80f021,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 17300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224000013294391016, guid: f90881f4ee5422a47afe79c0ea80f021,
         type: 2}

@@ -376,14 +376,13 @@ MonoBehaviour:
   TrapSound: Trap
   LandingSound: Landing
   BarrelSound: BarrelRoll
-  Acceleration: 35
+  Acceleration: 0.5
   MaxSpeed: 70
   RotationSpeed: 55
   Jump: 12
   Ground:
     serializedVersion: 2
     m_Bits: 256
-  _animator: {fileID: 95000013322141142}
   JumpBuffer: 6
   TrapKillVelocity: 5
   TrapWaitBeforeAnimation: 0

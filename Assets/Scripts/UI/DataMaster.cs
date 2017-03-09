@@ -76,8 +76,6 @@ public class DataMaster {
             _save.PlayTuto = tutoPlayed;
             SaveData();
         }
-
-        _save.PowerupLevel = new int[(int)PowerupType.POWERUP_MAX + 1] { 1, 1, 1, 1, 1 };
     }
 
     public void Reset()
