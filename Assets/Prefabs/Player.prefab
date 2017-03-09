@@ -347,8 +347,8 @@ MonoBehaviour:
   TrapSound: Trap
   LandingSound: Landing
   BarrelSound: BarrelRoll
-  Acceleration: 0.33
-  MaxSpeed: 80
+  Acceleration: 0.5
+  MaxSpeed: 70
   RotationSpeed: 50
   Jump: 12
   Ground:
