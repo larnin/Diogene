@@ -10,6 +10,7 @@ public class ShopMaster : MonoBehaviour {
 	public GameObject ShopWindow;
 	public Text WindowText;
 	public Text WindowPrice;
+	public Text WindowButtonText;
 
 	int _currentPrice;
 	PowerupType _currentPowerUp;
@@ -95,6 +96,12 @@ public class ShopMaster : MonoBehaviour {
 		_currentPrice = price;
 		_currentPowerUp = powerUp;
 		_isPowerUp = true;
+		if (G.Sys.dataMaster.PowerupLevel (_currentPowerUp) == 0) {
+			WindowButtonText.text = "BUY";
+		}
+		else {
+			WindowButtonText.text = "UPGRADE";
+		}
 	}
 
 	public void OpenWindowCosmetics (string title, int price, CosmeticsType cosmetics) {
@@ -104,6 +111,7 @@ public class ShopMaster : MonoBehaviour {
 		_currentCosmetics = cosmetics;
 		_currentPrice = price;
 		_isPowerUp = false;
+		WindowButtonText.text = "BUY";
 	}
 
 	public void CloseWindow () {

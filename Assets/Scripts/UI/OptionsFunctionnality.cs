@@ -5,16 +5,15 @@ public class OptionsFunctionnality : MonoBehaviour {
 
 	public MenuState WhereGoing;
 	public GameObject MainMenu;
-	public GameObject Title;
 	public GameObject Credits;
 	public GameObject Window;
 
 	public void ResetData () {
         G.Sys.dataMaster.Reset();
 		Event<RefreshEvent>.Broadcast(new RefreshEvent());
-		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.TITLE));
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(WhereGoing));
 		Window.SetActive (false);
-		Title.SetActive (true);
+		MainMenu.SetActive (true);
 		gameObject.SetActive (false);
 	}
 
