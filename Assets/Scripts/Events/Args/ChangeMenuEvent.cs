@@ -14,7 +14,8 @@ public enum MenuState
 	PAUSE,
 	OPTIONS,
 	CREDITS,
-	ACHIEVEMENTS
+	ACHIEVEMENTS,
+	SHOP
 }
 
 public class ChangeMenuEvent : EventArgs

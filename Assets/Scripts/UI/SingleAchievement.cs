@@ -30,6 +30,9 @@ public class SingleAchievement : MonoBehaviour {
 	}
 
 	void UpdateAchievementProgress (ProgressAchievementEvent e) {
+		if (e.Start) {
+			_done = false;
+		}
 		if (!_done) {
 			if (e.MyType == MyType) {
 				if (e.MyAchievement == MyAchievement) {

@@ -11,6 +11,7 @@ public class MainMenuFonctionnality : MonoBehaviour {
 	public GameObject Credits;
 	public GameObject Options;
 	public GameObject MyHUD;
+	public GameObject Shop;
 
 	public void GoToCredits () {
 		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.CREDITS));
@@ -21,6 +22,12 @@ public class MainMenuFonctionnality : MonoBehaviour {
 	public void GoToOptions () {
 		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.OPTIONS));
 		Options.SetActive (true);
+		gameObject.SetActive (false);
+	}
+
+	public void GoToShop () {
+		Event<ChangeMenuEvent>.Broadcast(new ChangeMenuEvent(MenuState.SHOP));
+		Shop.SetActive (true);
 		gameObject.SetActive (false);
 	}
 
