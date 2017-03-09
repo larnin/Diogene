@@ -184,6 +184,8 @@ public class ChunckSpawner : MonoBehaviour
 
     void AddPowerupOnChunk(GameObject o)
     {
+        if (G.Sys.powerupManager.HaveOnePowerupEnabled())
+            return;
         var childs = o.GetComponentsInChildren<Transform>();
         foreach(var child in childs)
         {
@@ -203,6 +205,8 @@ public class ChunckSpawner : MonoBehaviour
                 }
             }
             if (powerupindex == -1)
+                continue;
+            if(G.Sys.dataMaster.PowerupLevel((PowerupType)powerupindex) <= 0)
                 continue;
 
             var p = Instantiate(Powerups[powerupindex]);

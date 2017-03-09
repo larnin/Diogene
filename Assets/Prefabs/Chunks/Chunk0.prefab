@@ -429,6 +429,7 @@ GameObject:
   - 4: {fileID: 4000012147790518}
   - 95: {fileID: 95000011796318896}
   - 64: {fileID: 64000014038025732}
+  - 114: {fileID: 114000011665300688}
   m_Layer: 8
   m_Name: SM_collision_escaliers_grand
   m_TagString: Untagged
@@ -478,6 +479,7 @@ GameObject:
   - 4: {fileID: 4000012437438422}
   - 95: {fileID: 95000011299445368}
   - 64: {fileID: 64000010407293502}
+  - 114: {fileID: 114000011551860830}
   m_Layer: 8
   m_Name: SM_collision_escaliers_grand
   m_TagString: Untagged
@@ -854,6 +856,7 @@ GameObject:
   - 4: {fileID: 4000010258158336}
   - 95: {fileID: 95000010706321752}
   - 64: {fileID: 64000010357269738}
+  - 114: {fileID: 114000012168065134}
   m_Layer: 8
   m_Name: SM_collision_escaliers_grand
   m_TagString: Untagged
@@ -1092,6 +1095,7 @@ GameObject:
   - 4: {fileID: 4000013678354608}
   - 95: {fileID: 95000011409468348}
   - 64: {fileID: 64000013375470514}
+  - 114: {fileID: 114000014222006614}
   m_Layer: 8
   m_Name: SM_collision_escaliers_grand
   m_TagString: Untagged
@@ -8423,6 +8427,30 @@ MonoBehaviour:
   ringCount: 0
   trapCount: 0
   armCount: 0
+--- !u!114 &114000011551860830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011047667826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d1be167bc9aad4e9e0d230700483d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
+--- !u!114 &114000011665300688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010921381410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d1be167bc9aad4e9e0d230700483d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
 --- !u!114 &114000012082805088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8435,6 +8463,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 1
+--- !u!114 &114000012168065134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011641959394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d1be167bc9aad4e9e0d230700483d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
 --- !u!114 &114000012206506952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8483,6 +8523,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 1
+--- !u!114 &114000014222006614
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012059455706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d1be167bc9aad4e9e0d230700483d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
 --- !u!212 &212000012090981146
 SpriteRenderer:
   m_ObjectHideFlags: 1

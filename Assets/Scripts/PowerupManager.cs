@@ -46,6 +46,14 @@ public class PowerupManager : MonoBehaviour
         return _times[(int)type] > 0;
     }
 
+    public bool HaveOnePowerupEnabled()
+    {
+        foreach (var t in _times)
+            if (t > 0)
+                return true;
+        return false;
+    }
+
     public bool IsOnShieldTime()
     {
         if (_times[(int)PowerupType.FALL] < 0 && _times[(int)PowerupType.FALL] > -ShieldTimeAfterPowerUp)
@@ -59,20 +67,20 @@ public class PowerupManager : MonoBehaviour
         switch(e.type)
         {
             case PowerupType.MAGNET:
-                _times[(int)e.type] = magnetTimes[level];
+                _times[(int)e.type] = magnetTimes[level-1];
                 break;
             case PowerupType.FALL:
-                _times[(int)e.type] = fallTimes[level];
+                _times[(int)e.type] = fallTimes[level-1];
                 break;
             case PowerupType.SHIELD:
-                _times[(int)e.type] = shieldTimes[level];
+                _times[(int)e.type] = shieldTimes[level-1];
                 break;
             case PowerupType.MULTIPLIER:
-                _times[(int)e.type] = multiplierTimes[level];
+                _times[(int)e.type] = multiplierTimes[level-1];
                 break;
             case PowerupType.DOUBLE_JUMP:
             default:
-                _times[(int)e.type] = doubleJumpTimes[level];
+                _times[(int)e.type] = doubleJumpTimes[level-1];
                 break;
         }
     }
