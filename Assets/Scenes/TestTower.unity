@@ -124,6 +124,7 @@ MonoBehaviour:
     type: 2}
   chunkPrefabs:
   - {fileID: 1000013286372224, guid: dfb77943ed12378448e973df456affc1, type: 2}
+  - {fileID: 1000011480975192, guid: 3c3ecbf458b990a43b4025a8bef8a20d, type: 2}
   distanceToDelChunk: 20
   distanceToLoadChunk: 20
   dontRepeatCount: 2
