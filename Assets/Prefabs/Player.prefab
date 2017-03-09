@@ -392,6 +392,16 @@ MonoBehaviour:
   VerticalSpeedOnGround: 5
   Skins:
   - {fileID: 1000012484100708, guid: 6e7f5739772d5c54eb931b50591e53c1, type: 2}
+  - {fileID: 1000014158572616, guid: e31a2038855f5724597f77cc0c6befb0, type: 2}
+  - {fileID: 1000013753978546, guid: ec7f996c1bc82364fbebf7ecac175b16, type: 2}
+  - {fileID: 1000012692792344, guid: 4cf6a6382735b634ea2b3704566f01f8, type: 2}
+  - {fileID: 1000013817662134, guid: 3ce792f3821f90d47b939d7fe06d70c0, type: 2}
+  - {fileID: 1000012729966006, guid: 0c04135742aefad44aed8e860eeef4f4, type: 2}
+  - {fileID: 1000013467352830, guid: 07561f04dbf8f0f46b79d7ed44a770fb, type: 2}
+  - {fileID: 1000014282442810, guid: 496bf2ebd605a5c4b989c48e3590bedc, type: 2}
+  - {fileID: 1000013702148296, guid: a2d556339b466e94b9934c3170ead1c0, type: 2}
+  - {fileID: 1000011298451842, guid: c82248c7a19eccc48951b63091bac66e, type: 2}
+  - {fileID: 1000011493523868, guid: f62c3f173a4e72541ad863928728f19e, type: 2}
   _isGrounded: 0
 --- !u!114 &114000013733629830
 MonoBehaviour:

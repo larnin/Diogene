@@ -82,7 +82,10 @@ public class Player : MonoBehaviour
         Event<InstantMoveCameraEvent>.Broadcast(new InstantMoveCameraEvent());
 
         var tonneau = transform.Find("tonneau");
-        var skin = Instantiate(Skins[0]);
+        var currentSkinID = (int)G.Sys.dataMaster.EquippedCosmetic;
+        if (currentSkinID >= Skins.Count)
+            currentSkinID = 0;
+        var skin = Instantiate(Skins[currentSkinID]);
         skin.transform.parent = tonneau;
         skin.transform.localPosition = new Vector3(0, 0, 0);
     }
