@@ -9,7 +9,9 @@ public enum AchievementSpecificType {
 	CoinCollected,
 	BigCoinCollected,
 	JumpCount,
-	DeathCount
+	DeathCount,
+	AchievementsCount,
+	PowerUpCount
 }
 
 public class ProgressAchievementEvent : EventArgs {

@@ -5,7 +5,17 @@ using UnityEngine.UI;
 public enum CosmeticsType
 {
 	DEFAULT = 0,
-	COSMETICS_MAX = DEFAULT
+	BLACK = 1,
+	BLUE = 2,
+	CYAN = 3,
+	GREEN = 4,
+	GRAY = 5,
+	ORANGE = 6,
+	PINK = 7,
+	WHITE = 8,
+	YELLOW = 9,
+	RAINBOW = 10,
+	COSMETICS_MAX = RAINBOW
 }
 
 
@@ -25,7 +35,7 @@ public class ShopCosmetics : MonoBehaviour {
 	public GameObject Equipped;
 
 	Button _myButton;
-	bool _state = false;
+	public bool _state = false;
 
 	SubscriberList _subscriberList = new SubscriberList();
 
@@ -44,7 +54,12 @@ public class ShopCosmetics : MonoBehaviour {
 
 	public void Refresh (ShopResetEvent e) {
 
-		_state = G.Sys.dataMaster.CosmeticsLevel (MyCosmetics);
+		if (MyCosmetics == CosmeticsType.DEFAULT) {
+			_state = true;
+		}
+		else {
+			_state = G.Sys.dataMaster.CosmeticsLevel (MyCosmetics);
+		}
 
 		if (!_state) {
 			Buyed.SetActive (false);
@@ -62,6 +77,7 @@ public class ShopCosmetics : MonoBehaviour {
 			}
 		}
 		else {
+			CostZone.text = string.Empty;
 			CannotBuy.SetActive (false);
 			CanBuy.SetActive (false);
 			Buyed.SetActive (true);
@@ -79,10 +95,11 @@ public class ShopCosmetics : MonoBehaviour {
 	public void IWannaBuy () {
 
 		if (!_state) {
-			MyMaster.OpenWindowCosmetics (Title, Cost);
+			MyMaster.OpenWindowCosmetics (Title, Cost, MyCosmetics);
 		}
 		else if (G.Sys.dataMaster.EquippedCosmetic != MyCosmetics) {
 			G.Sys.dataMaster.EquippedCosmetic = MyCosmetics;
+			Debug.Log (MyCosmetics.ToString () + " equipped " + G.Sys.dataMaster.EquippedCosmetic.ToString ());
 			Event<ShopResetEvent>.Broadcast(new ShopResetEvent());
 		}
 

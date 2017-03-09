@@ -10,6 +10,7 @@ public class AchievementMaster : MonoBehaviour {
 	int _runBigCoin = 0;
 	float _runScore = 0;
 	int _runJump = 0;
+	int _runPowerUp = 0;
 
 	public MenuState WhereGoing;
 	public GameObject WhereUI;
@@ -17,6 +18,7 @@ public class AchievementMaster : MonoBehaviour {
 	public float WindowDuration;
 	public GameObject Window;
 	public Text TitleZone;
+	public Text RewardZone;
 	public GameObject AchievementZone;
 	public GameObject AchievementTitle;
 	public ScrollRect MyScrollRect;
@@ -34,15 +36,17 @@ public class AchievementMaster : MonoBehaviour {
 		_subscriberList.Add (new Event<PlayerKillEvent>.Subscriber (Death));
 		_subscriberList.Add (new Event<PlayerHaveJumped>.Subscriber (Jumped));
 		_subscriberList.Add (new Event<AchievementSucessEvent>.Subscriber (AchievementSucess));
-		_subscriberList.Add (new Event<RefreshEvent>.Subscriber (Refresh));
+		_subscriberList.Add (new Event<RefreshEvent>.Subscriber (ResetData));
+		_subscriberList.Add (new Event<PowerupCollectedEvent>.Subscriber (GotPowerUp));
 		_subscriberList.Subscribe();
 	}
 
 	void Start () {
-		Refresh (new RefreshEvent());
+		Refresh ();
 	}
 
-	void Refresh (RefreshEvent e) {
+	void Refresh () {
+		Debug.Log (G.Sys.dataMaster.RunJump.ToString ());
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.CoinCollected, G.Sys.dataMaster.RunCoins, true));
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.CoinCollected, G.Sys.dataMaster.Coins, true));
 
@@ -56,6 +60,11 @@ public class AchievementMaster : MonoBehaviour {
 
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.JumpCount, G.Sys.dataMaster.RunJump, true));
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.JumpCount, G.Sys.dataMaster.JumpCount, true));
+
+		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.AchievementsCount, G.Sys.dataMaster.UnlockedAchievements, true));
+
+		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.PowerUpCount, G.Sys.dataMaster.RunPowerUp, true));
+		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.PowerUpCount, G.Sys.dataMaster.GlobalPowerUp, true));
 	}
 
 	void Update () {
@@ -79,7 +88,7 @@ public class AchievementMaster : MonoBehaviour {
 		G.Sys.dataMaster.GlobalCoin += e.Value;
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.CoinCollected, _runCoin, false));
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.CoinCollected, G.Sys.dataMaster.GlobalCoin, false));
-		if (e.Value >= 10) {
+		if ((e.Value / e.Multiplier) >= 10) {
 			_runBigCoin++;
 			Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.BigCoinCollected, _runBigCoin, false));
 			Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.BigCoinCollected, G.Sys.dataMaster.BigCoins + _runBigCoin, false));
@@ -103,6 +112,13 @@ public class AchievementMaster : MonoBehaviour {
 		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.JumpCount, G.Sys.dataMaster.JumpCount, false));
 	}
 
+	void GotPowerUp (PowerupCollectedEvent e) {
+		_runPowerUp++;
+		G.Sys.dataMaster.GlobalPowerUp++;
+		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.PowerUpCount, _runPowerUp, false));
+		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.Global, AchievementSpecificType.PowerUpCount, G.Sys.dataMaster.GlobalPowerUp, false));
+	}
+
 	void GameOver (GameOverEvent e) {
 		G.Sys.dataMaster.BigCoins += _runBigCoin;
 		G.Sys.dataMaster.Distance += _runScore;
@@ -123,12 +139,20 @@ public class AchievementMaster : MonoBehaviour {
 			G.Sys.dataMaster.RunBigCoins = _runBigCoin;
 		}
 		_runBigCoin = 0;
+
+		if (_runPowerUp > G.Sys.dataMaster.RunPowerUp) {
+			G.Sys.dataMaster.RunPowerUp = _runPowerUp;
+		}
+		_runPowerUp = 0;
 	}
 
 	void AchievementSucess (AchievementSucessEvent e) {
+		G.Sys.dataMaster.UnlockedAchievements++;
 		Window.SetActive (true);
 		TitleZone.text = e.Title;
+		RewardZone.text = e.Reward.ToString ();
 		_windowTimer = WindowDuration;
+		Event<ProgressAchievementEvent>.Broadcast(new ProgressAchievementEvent(AchievementBigType.OneRun, AchievementSpecificType.AchievementsCount, G.Sys.dataMaster.UnlockedAchievements, false));
 	}
 
 	public void ShowAchievement (bool state) {
@@ -149,5 +173,10 @@ public class AchievementMaster : MonoBehaviour {
 		MyScrollRect.enabled = state;
 		MyImage.enabled = state;
 		MyMask.enabled = state;
+	}
+
+	void ResetData (RefreshEvent e) {
+		Event<RefreshAchievementsEvent>.Broadcast(new RefreshAchievementsEvent());
+		Refresh ();
 	}
 }
