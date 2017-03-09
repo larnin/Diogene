@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public float RotationSpeed = 50;
     public float Jump = 20;
     public LayerMask Ground;
-	public Animator _animator;
+	
     public float JumpBuffer = 6;
     public float TrapKillVelocity = 5;
     public float TrapWaitBeforeAnimation = 0.5f;
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     float _gravityMultiplier = 1;
     bool _haveDoubleJumped = false;
     Animator _powerupEffects;
+    Animator _animator;
 
 	void Awake()
 	{
@@ -88,6 +89,7 @@ public class Player : MonoBehaviour
         var skin = Instantiate(Skins[currentSkinID]);
         skin.transform.parent = tonneau;
         skin.transform.localPosition = new Vector3(0, 0, 0);
+        _animator = skin.transform.FindChild("roule_boule").GetComponent<Animator>();
     }
 
 	void Pause (PausePlayerEvent e) {

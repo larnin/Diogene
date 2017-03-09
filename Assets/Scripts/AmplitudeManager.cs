@@ -111,6 +111,14 @@ public class AmplitudeManager
 
         _lastMenu = e.state;
     }
+
+    void OnAchievement(AchievementSucessEvent e)
+    {
+        Dictionary<string, object> UserProperties = new Dictionary<string, object>();
+        UserProperties.Add("EAchievement", e.Title);
+        UserProperties.Add("ERun", G.Sys.dataMaster.Death);
+        _amplitude.logEvent("Achievement", UserProperties);
+    }
     
     void OnJump(PlayerHaveJumped e)
     {
