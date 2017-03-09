@@ -24,7 +24,13 @@ public class DataMaster {
 
     void Load()
     {
-        if (!File.Exists(Application.persistentDataPath + "/save.diogene"))
+        
+		/*
+		_save = new Save ();
+		SaveData ();
+		*/
+
+		if (!File.Exists(Application.persistentDataPath + "/save.diogene"))
         {
 
             BinaryFormatter formatter = new BinaryFormatter();
@@ -204,6 +210,16 @@ public class DataMaster {
 		}
 	}
 
+	public int GlobalCoin
+	{
+		get { return _save.GlobalCoin; }
+		set
+		{
+			_save.GlobalCoin = value;
+			SaveData();
+		}
+	}
+
 	public float Distance
 	{
 		get { return _save.Distance; }
@@ -245,15 +261,25 @@ public class DataMaster {
         SaveData();
     }
 
-	public int CosmeticsLevel(CosmeticsType type)
+	public bool CosmeticsLevel(CosmeticsType type)
 	{
 		return _save.CosmeticsLevel[(int)type];
 	}
 
-	public void SetCosmeticsLevel(int value, CosmeticsType type)
+	public void SetCosmeticsLevel(bool value, CosmeticsType type)
 	{
 		_save.CosmeticsLevel[(int)type] = value;
 		SaveData();
+	}
+
+	public CosmeticsType EquippedCosmetic
+	{
+		get { return _save.EquippedCosmetic; }
+		set
+		{
+			_save.EquippedCosmetic = value;
+			SaveData();
+		}
 	}
 
     void SaveData () {
