@@ -6,4 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/trycine.unity
+  - enabled: 1
     path: Assets/Scenes/TestTower.unity
